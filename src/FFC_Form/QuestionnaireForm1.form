@@ -1,0 +1,333 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-82,0,0,1,83"/>
+  </AuxValues>
+
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+    <Property name="useNullLayout" type="boolean" value="true"/>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe04;&#xe33;&#xe19;&#xe33;&#xe2b;&#xe19;&#xe49;&#xe32;&#xe0a;&#xe37;&#xe48;&#xe2d;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="60" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe0a;&#xe37;&#xe48;&#xe2d;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="90" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe19;&#xe32;&#xe21;&#xe2a;&#xe01;&#xe38;&#xe25;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="120" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe40;&#xe1a;&#xe2d;&#xe23;&#xe4c;&#xe42;&#xe17;&#xe23;&#xe28;&#xe31;&#xe1e;&#xe17;&#xe4c;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="160" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe2b;&#xe19;&#xe48;&#xe27;&#xe22;&#xe07;&#xe32;&#xe19;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="190" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe23;&#xe2b;&#xe31;&#xe2a; PCU Code"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="220" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe15;&#xe33;&#xe1a;&#xe25;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="250" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe2d;&#xe33;&#xe40;&#xe20;&#xe2d;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="280" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe31;&#xe08;&#xe31;&#xe07;&#xe2b;&#xe27;&#xe31;&#xe14;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="310" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel10">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe2d;&#xe35;&#xe40;&#xe21;&#xe25;&#xe4c;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="340" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel11">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xe22;&#xe37;&#xe19;&#xe22;&#xe31;&#xe19;&#xe2d;&#xe35;&#xe40;&#xe21;&#xe25;&#xe4c;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="40" y="370" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel26">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="30" y="733" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField11">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="90" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField12">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="120" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField13">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="150" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField14">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="180" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField15">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="210" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField16">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="250" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField17">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="280" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField18">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="370" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField19">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="340" width="114" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="78">
+            <StringItem index="0" value="== &#xe40;&#xe25;&#xe37;&#xe2d;&#xe01;&#xe08;&#xe31;&#xe07;&#xe2b;&#xe27;&#xe31;&#xe14; =="/>
+            <StringItem index="1" value="&#xe01;&#xe23;&#xe38;&#xe07;&#xe40;&#xe17;&#xe1e;&#xe21;&#xe2b;&#xe32;&#xe19;&#xe04;&#xe23; "/>
+            <StringItem index="2" value="&#xe01;&#xe23;&#xe30;&#xe1a;&#xe35;&#xe48; "/>
+            <StringItem index="3" value="&#xe01;&#xe32;&#xe0d;&#xe08;&#xe19;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="4" value="&#xe01;&#xe32;&#xe2c;&#xe2a;&#xe34;&#xe19;&#xe18;&#xe38;&#xe4c; "/>
+            <StringItem index="5" value="&#xe01;&#xe33;&#xe41;&#xe1e;&#xe07;&#xe40;&#xe1e;&#xe0a;&#xe23; "/>
+            <StringItem index="6" value="&#xe02;&#xe2d;&#xe19;&#xe41;&#xe01;&#xe48;&#xe19; "/>
+            <StringItem index="7" value="&#xe08;&#xe31;&#xe19;&#xe17;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="8" value="&#xe09;&#xe30;&#xe40;&#xe0a;&#xe34;&#xe07;&#xe40;&#xe17;&#xe23;&#xe32; "/>
+            <StringItem index="9" value="&#xe0a;&#xe25;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="10" value="&#xe0a;&#xe31;&#xe22;&#xe19;&#xe32;&#xe17; "/>
+            <StringItem index="11" value="&#xe0a;&#xe31;&#xe22;&#xe20;&#xe39;&#xe21;&#xe34; "/>
+            <StringItem index="12" value="&#xe0a;&#xe38;&#xe21;&#xe1e;&#xe23; "/>
+            <StringItem index="13" value="&#xe40;&#xe0a;&#xe35;&#xe22;&#xe07;&#xe23;&#xe32;&#xe22; "/>
+            <StringItem index="14" value="&#xe40;&#xe0a;&#xe35;&#xe22;&#xe07;&#xe43;&#xe2b;&#xe21;&#xe48; "/>
+            <StringItem index="15" value="&#xe15;&#xe23;&#xe31;&#xe07; "/>
+            <StringItem index="16" value="&#xe15;&#xe23;&#xe32;&#xe14; "/>
+            <StringItem index="17" value="&#xe15;&#xe32;&#xe01; "/>
+            <StringItem index="18" value="&#xe19;&#xe04;&#xe23;&#xe19;&#xe32;&#xe22;&#xe01; "/>
+            <StringItem index="19" value="&#xe19;&#xe04;&#xe23;&#xe1b;&#xe10;&#xe21; "/>
+            <StringItem index="20" value="&#xe19;&#xe04;&#xe23;&#xe1e;&#xe19;&#xe21; "/>
+            <StringItem index="21" value="&#xe19;&#xe04;&#xe23;&#xe23;&#xe32;&#xe0a;&#xe2a;&#xe35;&#xe21;&#xe32; "/>
+            <StringItem index="22" value="&#xe19;&#xe04;&#xe23;&#xe28;&#xe23;&#xe35;&#xe18;&#xe23;&#xe23;&#xe21;&#xe23;&#xe32;&#xe0a; "/>
+            <StringItem index="23" value="&#xe19;&#xe04;&#xe23;&#xe2a;&#xe27;&#xe23;&#xe23;&#xe04;&#xe4c; "/>
+            <StringItem index="24" value="&#xe19;&#xe19;&#xe17;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="25" value="&#xe19;&#xe23;&#xe32;&#xe18;&#xe34;&#xe27;&#xe32;&#xe2a; "/>
+            <StringItem index="26" value="&#xe19;&#xe48;&#xe32;&#xe19; "/>
+            <StringItem index="27" value="&#xe1a;&#xe36;&#xe07;&#xe01;&#xe32;&#xe2c; "/>
+            <StringItem index="28" value="&#xe1a;&#xe38;&#xe23;&#xe35;&#xe23;&#xe31;&#xe21;&#xe22;&#xe4c; "/>
+            <StringItem index="29" value="&#xe1b;&#xe17;&#xe38;&#xe21;&#xe18;&#xe32;&#xe19;&#xe35; "/>
+            <StringItem index="30" value="&#xe1b;&#xe23;&#xe30;&#xe08;&#xe27;&#xe1a;&#xe04;&#xe35;&#xe23;&#xe35;&#xe02;&#xe31;&#xe19;&#xe18;&#xe4c; "/>
+            <StringItem index="31" value="&#xe1b;&#xe23;&#xe32;&#xe08;&#xe35;&#xe19;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="32" value="&#xe1b;&#xe31;&#xe15;&#xe15;&#xe32;&#xe19;&#xe35; "/>
+            <StringItem index="33" value="&#xe1e;&#xe23;&#xe30;&#xe19;&#xe04;&#xe23;&#xe28;&#xe23;&#xe35;&#xe2d;&#xe22;&#xe38;&#xe18;&#xe22;&#xe32; "/>
+            <StringItem index="34" value="&#xe1e;&#xe31;&#xe07;&#xe07;&#xe32; "/>
+            <StringItem index="35" value="&#xe1e;&#xe31;&#xe17;&#xe25;&#xe38;&#xe07; "/>
+            <StringItem index="36" value="&#xe1e;&#xe34;&#xe08;&#xe34;&#xe15;&#xe23; "/>
+            <StringItem index="37" value="&#xe1e;&#xe34;&#xe29;&#xe13;&#xe38;&#xe42;&#xe25;&#xe01; "/>
+            <StringItem index="38" value="&#xe40;&#xe1e;&#xe0a;&#xe23;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="39" value="&#xe40;&#xe1e;&#xe0a;&#xe23;&#xe1a;&#xe39;&#xe23;&#xe13;&#xe4c; "/>
+            <StringItem index="40" value="&#xe41;&#xe1e;&#xe23;&#xe48; "/>
+            <StringItem index="41" value="&#xe1e;&#xe30;&#xe40;&#xe22;&#xe32; "/>
+            <StringItem index="42" value="&#xe20;&#xe39;&#xe40;&#xe01;&#xe47;&#xe15; "/>
+            <StringItem index="43" value="&#xe21;&#xe2b;&#xe32;&#xe2a;&#xe32;&#xe23;&#xe04;&#xe32;&#xe21; "/>
+            <StringItem index="44" value="&#xe21;&#xe38;&#xe01;&#xe14;&#xe32;&#xe2b;&#xe32;&#xe23; "/>
+            <StringItem index="45" value="&#xe41;&#xe21;&#xe48;&#xe2e;&#xe48;&#xe2d;&#xe07;&#xe2a;&#xe2d;&#xe19; "/>
+            <StringItem index="46" value="&#xe22;&#xe30;&#xe25;&#xe32; "/>
+            <StringItem index="47" value="&#xe22;&#xe42;&#xe2a;&#xe18;&#xe23; "/>
+            <StringItem index="48" value="&#xe23;&#xe49;&#xe2d;&#xe22;&#xe40;&#xe2d;&#xe47;&#xe14; "/>
+            <StringItem index="49" value="&#xe23;&#xe30;&#xe19;&#xe2d;&#xe07; "/>
+            <StringItem index="50" value="&#xe23;&#xe30;&#xe22;&#xe2d;&#xe07; "/>
+            <StringItem index="51" value="&#xe23;&#xe32;&#xe0a;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="52" value="&#xe25;&#xe1e;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="53" value="&#xe25;&#xe33;&#xe1b;&#xe32;&#xe07; "/>
+            <StringItem index="54" value="&#xe25;&#xe33;&#xe1e;&#xe39;&#xe19; "/>
+            <StringItem index="55" value="&#xe40;&#xe25;&#xe22; "/>
+            <StringItem index="56" value="&#xe28;&#xe23;&#xe35;&#xe2a;&#xe30;&#xe40;&#xe01;&#xe29; "/>
+            <StringItem index="57" value="&#xe2a;&#xe01;&#xe25;&#xe19;&#xe04;&#xe23; "/>
+            <StringItem index="58" value="&#xe2a;&#xe07;&#xe02;&#xe25;&#xe32; "/>
+            <StringItem index="59" value="&#xe2a;&#xe15;&#xe39;&#xe25; "/>
+            <StringItem index="60" value="&#xe2a;&#xe21;&#xe38;&#xe17;&#xe23;&#xe1b;&#xe23;&#xe32;&#xe01;&#xe32;&#xe23; "/>
+            <StringItem index="61" value="&#xe2a;&#xe21;&#xe38;&#xe17;&#xe23;&#xe2a;&#xe07;&#xe04;&#xe23;&#xe32;&#xe21; "/>
+            <StringItem index="62" value="&#xe2a;&#xe21;&#xe38;&#xe17;&#xe23;&#xe2a;&#xe32;&#xe04;&#xe23; "/>
+            <StringItem index="63" value="&#xe2a;&#xe23;&#xe30;&#xe41;&#xe01;&#xe49;&#xe27; "/>
+            <StringItem index="64" value="&#xe2a;&#xe23;&#xe30;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="65" value="&#xe2a;&#xe34;&#xe07;&#xe2b;&#xe4c;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="66" value="&#xe2a;&#xe38;&#xe42;&#xe02;&#xe17;&#xe31;&#xe22; "/>
+            <StringItem index="67" value="&#xe2a;&#xe38;&#xe1e;&#xe23;&#xe23;&#xe13;&#xe1a;&#xe38;&#xe23;&#xe35; "/>
+            <StringItem index="68" value="&#xe2a;&#xe38;&#xe23;&#xe32;&#xe29;&#xe0e;&#xe23;&#xe4c;&#xe18;&#xe32;&#xe19;&#xe35; "/>
+            <StringItem index="69" value="&#xe2a;&#xe38;&#xe23;&#xe34;&#xe19;&#xe17;&#xe23;&#xe4c; "/>
+            <StringItem index="70" value="&#xe2b;&#xe19;&#xe2d;&#xe07;&#xe04;&#xe32;&#xe22; "/>
+            <StringItem index="71" value="&#xe2b;&#xe19;&#xe2d;&#xe07;&#xe1a;&#xe31;&#xe27;&#xe25;&#xe33;&#xe20;&#xe39; "/>
+            <StringItem index="72" value="&#xe2d;&#xe48;&#xe32;&#xe07;&#xe17;&#xe2d;&#xe07; "/>
+            <StringItem index="73" value="&#xe2d;&#xe38;&#xe14;&#xe23;&#xe18;&#xe32;&#xe19;&#xe35; "/>
+            <StringItem index="74" value="&#xe2d;&#xe38;&#xe17;&#xe31;&#xe22;&#xe18;&#xe32;&#xe19;&#xe35; "/>
+            <StringItem index="75" value="&#xe2d;&#xe38;&#xe15;&#xe23;&#xe14;&#xe34;&#xe15;&#xe16;&#xe4c; "/>
+            <StringItem index="76" value="&#xe2d;&#xe38;&#xe1a;&#xe25;&#xe23;&#xe32;&#xe0a;&#xe18;&#xe32;&#xe19;&#xe35; "/>
+            <StringItem index="77" value="&#xe2d;&#xe33;&#xe19;&#xe32;&#xe08;&#xe40;&#xe08;&#xe23;&#xe34;&#xe0d;"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="310" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBox2">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="== &#xe40;&#xe25;&#xe37;&#xe2d;&#xe01;&#xe04;&#xe33;&#xe19;&#xe33;&#xe2b;&#xe19;&#xe49;&#xe32;&#xe0a;&#xe37;&#xe48;&#xe2d; =="/>
+            <StringItem index="1" value="&#xe19;&#xe32;&#xe22;"/>
+            <StringItem index="2" value="&#xe19;&#xe32;&#xe07;&#xe2a;&#xe32;&#xe27;"/>
+            <StringItem index="3" value="&#xe19;&#xe32;&#xe07;"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="60" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel35">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="&#xe41;&#xe1a;&#xe1a;&#xe2a;&#xe2d;&#xe1a;&#xe16;&#xe32;&#xe21;"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="140" y="20" width="83" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+  </SubComponents>
+</Form>
