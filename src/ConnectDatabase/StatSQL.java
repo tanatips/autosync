@@ -94,13 +94,13 @@ public class StatSQL {
         }
 
         public int getAmountVisitAndroid(int month,String yearInUS) throws SQLException{
-            String query = "SELECT SUM(amount) AS sumamount FROM ffc_androidvisit WHERE MONTH(datesurvey) = '"+month+"' AND YEAR(datesurvey) = '"+yearInUS+"'";
-            System.out.println(query);
-            ResultSet rs = Connection.getResultSet(query);
+//            String query = "SELECT SUM(amount) AS sumamount FROM ffc_androidvisit WHERE MONTH(datesurvey) = '"+month+"' AND YEAR(datesurvey) = '"+yearInUS+"'";
+//            System.out.println(query);
+//            ResultSet rs = Connection.getResultSet(query);
             int visitamount = 0;
-            while(rs.next()){
-                visitamount = rs.getInt("sumamount");
-            }
+//            while(rs.next()){
+//                visitamount = rs.getInt("sumamount");
+//            }
             return visitamount;
         }
 

@@ -52,6 +52,26 @@ public class AdbFileManager extends BatFileManager{
 
         super.writeData(Command);
     }
+    
+    public void writeAdbBatFileCopyPull(String deviceSerial,String DestinationPath ,String... sourcePath ){
+        String Command = "@echo off"
+                + "\n"
+                + "cd ./FFC/adb"
+                + "\n";
+        for(int i = 0;i < sourcePath.length ; i++){
+            Command  += "adb -s "
+                + deviceSerial
+                + " pull "
+                + sourcePath[i]
+                + " "
+                + DestinationPath
+                + "\n";   
+        }
+        Command +=  "echo success";
+        
+        super.writeData(Command);
+                
+    }
 
     public void writeBatFileRemove(String deviceSerial,String target){
         String Command = "@echo off"

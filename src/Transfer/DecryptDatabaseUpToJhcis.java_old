@@ -67,13 +67,9 @@ public class DecryptDatabaseUpToJhcis implements Runnable{
             fileManager1.deleteDir(dbFile);
             AdbFileManager adbManager = new AdbFileManager();
             adbManager.setPathFileBat("./FFC/adb/adbPull.bat");
-            // General Android 2.x - 3.x
-            adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, 
-                    "/sdcard/Android/data/th.in.ffc/databases/mJHCIS.sdb", "../Db_tmp/mJHCIS.sdb");
-            // Nexus 7 Only Android 4.x
-            //adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, 
-            //    "/storage/sdcard0/Android/data/th.in.ffc/databases/mJHCIS.sdb", "../Db_tmp/mJHCIS.sdb");
-            
+            //adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/sdcard/Android/data/th.in.ffc/databases/mJHCIS.sdb", "../Db_tmp/mJHCIS.sdb");
+            // Nexus 7 Only
+            adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/storage/sdcard0/Android/data/th.in.ffc/databases/mJHCIS.sdb", "../Db_tmp/mJHCIS.sdb");
             RunAdb runAdb = new RunAdb("./FFC/adb/adbPull.bat");
             runAdb.setOnAdbErrorListener(this.adblistener);
             if (!runAdb.runAdb()) {
@@ -86,7 +82,7 @@ public class DecryptDatabaseUpToJhcis implements Runnable{
             if (sdbFile.exists()) {
                 securityManager.decryptDatabaseFile();
             } else {
-                JOptionPane.showMessageDialog(MainForm.connForm, "ไม่สามารถถอดรหัสไฟล์ฐานข้อมูล mJHCIS.sdb");
+                JOptionPane.showMessageDialog(MainForm.connForm, "ไม่พบฐานข้อมูล mJHCIS.sdb");
                 MainForm.transForm.setEnabled(true);
                 MainForm.transForm.setVisibleDecryptDialog(false);
                 return;

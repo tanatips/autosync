@@ -31,7 +31,6 @@ public class ConvertSQLiteToSQL {
     int visitDiagUpdateCount = 0;
     int visitDrugUpdateCount = 0;
     int houseUpdateCount = 0;
-    int ncdUpdateCount = 0;
     ConnectDatabase.ConnectSQLite SQLiteConnection;
 
     FFCInformationManager ffcInformationManager;
@@ -251,8 +250,6 @@ public class ConvertSQLiteToSQL {
     public int updateCheckDateupdate(String tablename) throws SQLException{
         int count = 0;
         String lastUpdate = this.getLastUpdate();
-        //System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-        //System.out.println(lastUpdate);
         String sqliteQuery = "SELECT * FROM "+tablename+" WHERE dateupdate > '"+lastUpdate+"'";
         ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
         while(rs.next()){
@@ -271,163 +268,6 @@ public class ConvertSQLiteToSQL {
         }
         return count;
     }
-
-
-    public int updateCheckDateupdateNDC(String tablename) throws SQLException{
-        int count = 0;
-        String lastUpdate = this.getLastUpdate();
-        String sqliteQuery ;
-        //if(tablename.equals("ncd_person_ncd_screen")){
-            sqliteQuery = "SELECT * FROM "+tablename+" WHERE dateupdate > '"+lastUpdate+"'";
-        //}
-        // else{
-         //   sqliteQuery = "SELECT * FROM "+tablename+" WHERE d_update > '"+lastUpdate+"'";
-        //}
-
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        System.out.println(lastUpdate);
-        System.out.println(sqliteQuery);
-        ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
-        while(rs.next()){
-            ArrayList<ResultSet> arrayRs = new ArrayList<>();
-            arrayRs.add(rs);
-            String Query = "SELECT * FROM "+tablename+this.getQueryWhereCondition(tablename, rs);
-           // String pid = rs.getString("pid");
-            System.out.println(Query);
-            ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
-            if(rss.next()){
-                System.out.println("Update data");
-                this.updateDataOneRow(tablename, arrayRs);
-
-                String pidThisRow = rs.getString("pid");
-                System.out.println("0000000000000000000000000000 PID :::::::::::::  "+pidThisRow);
-                if(tablename.equals("ncd_person_ncd_screen")){
-                    updateOtherNCD("ncd_person",lastUpdate,pidThisRow);
-                    updateOtherNCD("ncd_person_ncd",lastUpdate,pidThisRow);
-                    updateOtherNCD("ncd_person_ncd_hist",lastUpdate,pidThisRow);
-                    updateOtherNCD("ncd_person_ncd_hist_detail",lastUpdate,pidThisRow);
-                    ncdUpdateCount++;
-                }
-
-            }else{
-                System.out.println("Insert data");
-                //this.InsertData(tablename, arrayRs);
-                this.InsertNCD("ncd_person",rs);
-                this.InsertNCD("ncd_person_ncd",rs);
-                this.InsertNCD("ncd_person_ncd_hist",rs);
-                this.InsertNCD("ncd_person_ncd_hist_detail",rs);
-                System.out.println("finish detail");
-                this.InsertNCD("ncd_person_ncd_screen",rs);
-
-            }
-            count++;
-        }
-        return count;
-    }
-
-    ////////////////////////
-    public void updateOtherNCD(String tablename,String lastUpdate,String pid) throws SQLException{
-        int count = 0;
-        //String lastUpdate = this.getLastUpdate();
-        String sqliteQuery ;
-        sqliteQuery = "SELECT * FROM "+tablename+" WHERE pid = '"+pid+"'";
-        //System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        //System.out.println(lastUpdate);
-        //System.out.println(sqliteQuery);
-        ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
-        if(tablename.equals("ncd_person_ncd_hist_detail")){
-            String sqliteQuery2 = "SELECT * FROM ncd_person_ncd_screen  WHERE pid = '"+pid+"'";
-            ResultSet rs2 = this.SQLiteConnection.getResultSet(sqliteQuery2);
-
-            Statement stm1 = Service.Service.connectionSQL.connection.createStatement();
-            String deleteQuery = "DELETE FROM "+tablename+this.getQueryWhereCondition(tablename, rs2);
-            System.out.println(deleteQuery);
-            stm1.executeUpdate(deleteQuery);
-        }
-        while(rs.next()){
-            ArrayList<ResultSet> arrayRs = new ArrayList<>();
-            arrayRs.add(rs);
-            if(tablename.equals("ncd_person_ncd_hist_detail")){               
-                this.InsertData(tablename, arrayRs);
-            }
-            else{
-                String Query = "SELECT * FROM "+tablename+this.getQueryWhereCondition(tablename, rs);
-                // String pid = rs.getString("pid");
-                System.out.println(Query);
-                ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
-                if(rss.next()){
-                    System.out.println("Update data");
-                    this.updateDataOneRow(tablename, arrayRs);
-
-                }else{
-                    System.out.println("Insert data");
-                    this.InsertData(tablename, arrayRs);
-                }
-                count++;
-            }
-
-        }
-        return ;
-    }
-
-     private void InsertNCD(String tableName,ResultSet rs) throws SQLException{
-         String sqliteQuery ;
-         sqliteQuery = "SELECT * FROM "+tableName+this.getQueryWhereCondition(tableName, rs);
-         ResultSet rss = this.SQLiteConnection.getResultSet(sqliteQuery);
-         ArrayList<ResultSet> arrayRs = new ArrayList<>();
-
-         int x = 1 ;
-         Statement stm = Service.Service.connectionSQL.connection.createStatement();
-         while(rss.next()){
-            System.out.println("|||||||||||||||||||||||||||||||||||||||======== "+x);
-            //arrayRs.add(rss);
-
-
-
-
-                String insertQuery1 = "INSERT INTO " + tableName + " (";
-                String insertQuery2 = " VALUES (";
-                ResultSetMetaData rsmd = rss.getMetaData();
-                int ColumnCount = rsmd.getColumnCount();
-                //System.out.print("ColumnCount = "+ColumnCount);
-                for (int i = 1; i <= ColumnCount; i++) {
-                        insertQuery1 += rsmd.getColumnLabel(i);
-
-                    if (rss.getString(i) != null) {
-                        insertQuery2 += "'" + rss.getString(i) + "'";
-                    } else {
-                        insertQuery2 += rss.getString(i);
-                    }
-                    if (i < ColumnCount) {
-                        insertQuery1 += ",";
-                        insertQuery2 += ",";
-                    } else {
-                        insertQuery1 += ")";
-                        insertQuery2 += ")";
-                    break;
-                    }
-                    //System.out.print(" "+i);
-                }
-                //System.out.println(insertQuery1);
-                //System.out.println(insertQuery2);
-                System.out.println("ccccccccccccccccccccccccxxx  "+tableName);
-                System.out.println(insertQuery1+insertQuery2);
-                stm.executeUpdate(insertQuery1 + insertQuery2);
-                x++;
-                }
-
-
-
-
-
-
-           // this.InsertData(tableName, arrayRs);
-            
-            System.out.println("Endddddd");
-         }
-    
-
-    //////////////////////
 
     public void updatePerson() throws SQLException{
         int pidmax = Integer.parseInt(this.ffcInformationManager.getMaxpid(Service.Service.serialDeviceConnect));
@@ -684,10 +524,7 @@ public class ConvertSQLiteToSQL {
     {
         return String.valueOf(this.visitUpdateCount);
     }
-    public String getNcdUpdateCount()
-    {
-        return String.valueOf(this.ncdUpdateCount);
-    }
+    
     public String getVisitdiagUpdateCount()
     {
         return String.valueOf(this.visitDiagUpdateCount);
@@ -713,10 +550,6 @@ public class ConvertSQLiteToSQL {
             listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdiag")));
             listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdrug")));
             listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "persondeath")));
-            String countNCD = String.valueOf(this.checkUpdateNCD(Service.Service.SQLiteConnection, "ncd_person_ncd_screen"));
-            
-            listUpdate.add(countNCD);
-
             if (Service.Service.SQLiteConnection.closeConnection()) {
                 System.out.println("Connection Close");
             } else {
@@ -775,33 +608,6 @@ public class ConvertSQLiteToSQL {
          }
          return updateCount;
     }
-
-    //check update NCD
-    public int checkUpdateNCD(ConnectDatabase.ConnectSQLite connection,String tableName) throws SQLException{
-        int updateCount = 0;
-        String lastUpdate = this.getLastUpdate();
-        String sqliteQuery = "SELECT * FROM "+tableName+" WHERE dateupdate > '"+lastUpdate+"'";
-        System.out.println(sqliteQuery);
-        ResultSet rs = connection.getResultSet(sqliteQuery);
-        while(rs.next()){
-             updateCount++;
-        }
-         return updateCount;
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
 
     public void InsertWithNewPid(String tableName, ArrayList<ResultSet> personInsert) {
         String[] table = {"personbehavior"};
@@ -867,7 +673,6 @@ public class ConvertSQLiteToSQL {
             }
             //System.out.println(insertQuery1);
             //System.out.println(insertQuery2);
-            System.out.println("ccccccccccccccccccccccccxxx  "+tableName);
             System.out.println(insertQuery1+insertQuery2);
             stm.executeUpdate(insertQuery1 + insertQuery2);
             }
@@ -952,33 +757,24 @@ public class ConvertSQLiteToSQL {
             ResultSetMetaData rsmd = dataUpdate.getMetaData();
             int ColumnCount = rsmd.getColumnCount();
             int rowCount = 0;
-
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            System.out.println("ColumnCount ======= "+ColumnCount);
             String updateQuery = "UPDATE " + tableName + " SET ";
             for (int i = 1; i <= ColumnCount; i++) {
                 updateQuery += rsmd.getColumnLabel(i)+" = ";
 
                 if (dataUpdate.getString(i) != null) {
-                    //System.out.println("11111111111111111111111111111111111111111111111111111111111111");
                     updateQuery += "'" + dataUpdate.getString(i) + "'";
                 } else {
-                    //System.out.println("222222222222222222222222222222222222222222222222222222222222222");
                     updateQuery += dataUpdate.getString(i);
                 }
                 if (i < ColumnCount) {
-                    System.out.println("3333333333333333333333333333333333333333333333333333");
                     updateQuery += ",";
 
                 } else {
-                    System.out.println("4444444444444444444444444444444444444444444444444444444");
                         updateQuery += this.getQueryWhereCondition(tableName, dataUpdate);
                         break;
                 }
             }
             rowCount++;
-
-            System.out.println("Updateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             System.out.println(updateQuery);
             stm.addBatch(updateQuery);
 
@@ -986,8 +782,6 @@ public class ConvertSQLiteToSQL {
         }
 
         stm.executeBatch();
-        
-        //String row_pid = data.getString("pid");
         //String updateQuery2 = "";
     }
 
@@ -1131,11 +925,6 @@ public class ConvertSQLiteToSQL {
         this.insertOtherVisit("visitdiagappoint", visitMaxnew, visitInsert);
     }
 
-   //paeng
-    public void updateVisiNcdPersonNcdScreen(String visitInsert, int visitMaxnew) throws SQLException{
-        this.insertOtherVisit("ncd_person_ncd_screen ", visitMaxnew, visitInsert);
-    }
-
     public void updatePersonbehavior() throws SQLException{
         Service.Service.updateCount.personbehaviorCount = this.updateCheckDateupdate("personbehavior");
     }
@@ -1152,29 +941,7 @@ public class ConvertSQLiteToSQL {
         this.updatepersonunable("personunable4help");
        }
 
-    //by paeng ncd
-//    public void updatePersonNcd() throws SQLException{
-//        Service.Service.updateCount.ncd_person = this.updateCheckDateupdateNDC("ncd_person");
-//    }
-//
-//    public void updatePersonNcpNcd() throws SQLException{
-//        Service.Service.updateCount.ncp_person_ncd = this.updateCheckDateupdateNDC("ncd_person_ncd");
-//    }
-//
-//    public void updatePersonNcpNcdHist() throws SQLException{
-//        Service.Service.updateCount.ncd_person_ncd_hist = this.updateCheckDateupdateNDC("ncd_person_ncd_hist");
-//    }
-//
-//    public void updatePersonNcpNcdHistDetail() throws SQLException{
-//        Service.Service.updateCount.ncd_person_ncd_hist_detail = this.updateCheckDateupdateNDC("ncd_person_ncd_hist_detail");
-//    }
-
-    public void updatePersonNcpNcdScreen() throws SQLException{
-        Service.Service.updateCount.ncd_person_ncd_screen = this.updateCheckDateupdateNDC("ncd_person_ncd_screen");
-        //System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+Service.Service.updateCount.ncd_person_ncd_screen);
-    }
-
-
+    
     public class UpdateCountSet{
         public int personCount = 0;
         public int personbehaviorCount = 0;
@@ -1206,10 +973,6 @@ public class ConvertSQLiteToSQL {
         public int epiCount = 0;
         public int persongrow = 0;
         public int mouthCount = 0; 
-
-        //by paeng for NCD
-        public int ncd_person_ncd_screen = 0;
-
 
         public void UpdateCountSet(){
 
@@ -1243,10 +1006,6 @@ public class ConvertSQLiteToSQL {
             this.nutritionCount = 0;
             this.persongrow = 0;
             this.mouthCount = 0;
-
-            //by paeng for NCD
-           
-            this.ncd_person_ncd_screen = 0;
         }
     }
 
@@ -1348,7 +1107,6 @@ public class ConvertSQLiteToSQL {
            //ArrayList<ResultSet> newUpdate = new ArrayList<ResultSet>();
            int countUpdate = 0;
            String lastUpdate = this.getLastUpdate();
-
            Statement stmt = Service.Service.connectionSQL.connection.createStatement();
            String queryNewUpdate = "SELECT * FROM "+tableName+" WHERE "+fieldCheck+" > '"+lastUpdate+"'";
            System.out.println(queryNewUpdate);
@@ -1376,7 +1134,6 @@ public class ConvertSQLiteToSQL {
        }
 
        private String getQueryWhereCondition(String tableName, ResultSet rs) throws SQLException{
-           System.out.println("table name :::::::::::::::: "+tableName);
            String value = "";
         switch (tableName) {
             case "housevesselwater":
@@ -1433,24 +1190,6 @@ public class ConvertSQLiteToSQL {
             case "persondeath":
                  value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid")+"'";
                 break;
-            case "ncd_person":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
-                break;
-            case "ncd_person_ncd":
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
-                break;
-            case "ncd_person_ncd_hist":
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
-                break;
-            case "ncd_person_ncd_hist_detail":
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
-                break;
-            case "ncd_person_ncd_screen":
-            {
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"' AND no = '"+rs.getString("no")+"'";
-                System.out.println("insite where");
-                break;
-            }
         }
            return value;
        }
@@ -1471,7 +1210,6 @@ public class ConvertSQLiteToSQL {
            this.updateDentalcheck(visitInsert, visitMaxNew);
            this.updateNutrition(visitInsert, visitMaxNew);
            this.updateVisitdiagAppoi(visitInsert, visitMaxNew);
-           //this.updateVisiNcdPersonNcdScreen(visitInsert, visitMaxNew);
        }
 
        public void updateOtherGroup() throws SQLException, Exception{

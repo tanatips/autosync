@@ -6,8 +6,8 @@ package Security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import sun.misc.BASE64Encoder;
-
+//import sun.misc.BASE64Encoder;
+import java.util.Base64;
 /**
  *
  * @author watcharakon
@@ -29,8 +29,8 @@ public class MdManager {
     public static String getSha256String(String input) {
         byte[] bSha256 = getSha256byte(input);
         if (bSha256 != null) {
-            BASE64Encoder base64 = new BASE64Encoder();
-            String sSha256 = base64.encode(bSha256);
+          
+            String sSha256 = Base64.getEncoder().encodeToString(bSha256);
             return sSha256.trim();
         } else {
             return null;

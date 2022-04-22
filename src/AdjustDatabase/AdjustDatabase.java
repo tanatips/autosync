@@ -167,6 +167,21 @@ public class AdjustDatabase implements Runnable{
                         return;
                     }
                 }
+                
+                if (Service.Service.connectionSQL.checkExistTable("ffc_506radius")) {
+                    System.out.println("ffc_506radius is Existed");
+                    //adjustmanager.updateResultAdjust("add_ffc_visitspecialperson", "1");
+                } else {
+                    if (adjust.create_ffc_506radius()) {
+                        //adjustmanager.updateResultAdjust("add_ffc_visitspecialperson", "1");
+                    } else {
+                        JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
+                        Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
+                        Service.Service.mainform.setVisible(false);
+                        return;
+                    }
+                }
+                
         //    }
            adjustmanager.updateResultAdjust("db_version", "1");
             for (int i = 0; i < 3; i++) {

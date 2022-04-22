@@ -47,6 +47,14 @@ public class AdjustDatabaseSql {
             + "`disabtype` varchar(30) default NULL,`disabcause` varchar(2) default NULL,`diagcode` char(7) default NULL,`datedetect` date default NULL,`dateexpire` date default NULL,"
             + "`dateupdate` datetime default NULL,PRIMARY KEY  (`pcucode`,`pid`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
     
+     private String create_ffc_506radius = "CREATE TABLE `ffc_506radius` "+
+            "(`id` int(11) NOT NULL AUTO_INCREMENT,\n" +
+            "  `visitno` int(11) NOT NULL,\n" +
+            "  `radius` double(4, 0) NULL DEFAULT NULL,\n" +
+            "  `colorcode` varchar(7) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,\n" +
+            "  `level` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,\n" +
+            "  PRIMARY KEY  BTREE (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+    
     public void setConnection(Connection connection){
         this.sqlConnection = connection;
     }
@@ -185,5 +193,16 @@ public class AdjustDatabaseSql {
         }
     }
 
+    public boolean create_ffc_506radius(){
+        try {
+            Statement stm = sqlConnection.createStatement();
+            stm.execute(this.create_ffc_506radius);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AdjustDatabaseSql.class.getName()).log(Level.SEVERE, null, ex);
+            this.errorMessage = ex.getMessage();
+            return false;
+        }
+    }
 
 }

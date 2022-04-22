@@ -34,7 +34,7 @@ public class ConnectSQL {
                 String userNameDb = Service.Service.driverDatabase.getUserName();
                 String passwordDb = Service.Service.driverDatabase.getPassword();
                 Class.forName(driverDatabase); //"com.mysql.jdbc.Driver"
-                String url = "jdbc:mysql://"+serverName+":"+portNumber+"/"+databaseName;
+                String url = "jdbc:mysql://"+serverName+":"+portNumber+"/"+databaseName+"?characterEncoding=utf8";
                 //String url = "jdbc:mysql://localhost:3333/jhcisdb";
                 connect = DriverManager.getConnection(url,userNameDb,passwordDb);
                 System.out.println("Connect Status : "+connect);

@@ -134,13 +134,8 @@ public class JhcisToAndroid implements Runnable{
             //เขียนคำสั่งลงใน adb.bat
             AdbManager.AdbFileManager adbManager = new AdbManager.AdbFileManager();
             adbManager.setPathFileBat("./FFC/adb/adbPush.bat");
-            // Android 2.x - 3.x
-            adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-                    "../Db_tmp/mJHCIS.sdb", "/sdcard/Android/data/th.in.ffc/databases/mJHCIS.sdb");
-            // Android 4.x (Nexus 7)
-            //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-            //      "../Db_tmp/mJHCIS.sdb", "/storage/sdcard0/Android/data/th.in.ffc/databases/mJHCIS.sdb");
-            
+            //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, "../Db_tmp/mJHCIS.sdb", "/sdcard/Android/data/th.in.ffc/databases/mJHCIS.sdb");
+            adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, "../Db_tmp/mJHCIS.sdb", "/storage/sdcard0/Android/data/th.in.ffc/databases/mJHCIS.sdb");
             RunAdb runAdb = new RunAdb("./FFC/adb/adbPush.bat");
             runAdb.setOnAdbErrorListener(this.adblistener);
             if (!runAdb.runAdb()) {
@@ -149,12 +144,8 @@ public class JhcisToAndroid implements Runnable{
                 progressCount = 0;
                 return;
             }
-            // Android 2.x -3.x
-            adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-            "../Db_tmp/uJHCIS.db", "/sdcard/Android/data/th.in.ffc/databases/uJHCIS.db");
-            // Android 4.x
-            //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-            //        "../Db_tmp/uJHCIS.db", "/storage/sdcard0/Android/data/th.in.ffc/databases/uJHCIS.db");
+            //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, "../Db_tmp/uJHCIS.db", "/sdcard/Android/data/th.in.ffc/databases/uJHCIS.db");
+            adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, "../Db_tmp/uJHCIS.db", "/storage/sdcard0/Android/data/th.in.ffc/databases/uJHCIS.db");
             RunAdb pushUJHCIS = new RunAdb("./FFC/adb/adbPush.bat");
             pushUJHCIS.setOnAdbErrorListener(this.adblistener);
             if (!pushUJHCIS.runAdb()) {
@@ -228,12 +219,8 @@ public class JhcisToAndroid implements Runnable{
             XML.XMLManager xmlManager = new XML.XMLManager();
             xmlManager.ffcStatWrite();
             adbManager.setPathFileBat("./FFC/adb/adbPush.bat");
-            // Android 2.x - 3.x
-            adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-                    "../FFC-Xml/FFC-Stat-population.xml", "/sdcard/Android/data/th.in.ffc/files/FFC-Stat-population.xml");
-            // Android 4.x
-            //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-            //      "../FFC-Xml/FFC-Stat-population.xml", "/storage/sdcard0/Android/data/th.in.ffc/files/FFC-Stat-population.xml");
+            //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, "../FFC-Xml/FFC-Stat-population.xml", "/sdcard/Android/data/th.in.ffc/files/FFC-Stat-population.xml");
+            adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, "../FFC-Xml/FFC-Stat-population.xml", "/storage/sdcard0/Android/data/th.in.ffc/files/FFC-Stat-population.xml");
             RunAdb runAdb1 = new RunAdb("./FFC/adb/adbPush.bat");
             runAdb1.setOnAdbErrorListener(this.adblistener);
             if (!runAdb1.runAdb()) {

@@ -206,6 +206,7 @@ public class ConvertDatabase {
                             ||table[i].equals("cschoolclass")      ||table[i].equals("cschooldepend")
                             ||table[i].equals("cpersonincomplete")  ||table[i].equals("cpersonproblem")
                             ||table[i].equals("ffc_poi")            ||table[i].equals("ffc_hospital")
+                            ||table[i].equals("ffc_506radius")
                             ||table[i].equals("cbusiness")          ||table[i].equals("user_tab")
                          // ** Add 2012-05-24
                             ||table[i].equals("creligion")
@@ -404,6 +405,7 @@ public class ConvertDatabase {
                             ||table[i].equals("cschoolclass")      ||table[i].equals("cschooldepend")
                             ||table[i].equals("cpersonincomplete")  ||table[i].equals("cpersonproblem")
                             ||table[i].equals("ffc_poi")            ||table[i].equals("ffc_hospital")
+                            ||table[i].equals("ffc_506radius")
                             ||table[i].equals("cbusiness")          ||table[i].equals("user_tab")
                          // ** Add 2012-05-24
                             ||table[i].equals("creligion")

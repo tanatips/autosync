@@ -195,7 +195,7 @@ public class MainForm extends javax.swing.JFrame {
         jLayeredPane2.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         nameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        nameLabel.setBounds(120, 10, 185, 38);
+        nameLabel.setBounds(120, 10, 230, 38);
         jLayeredPane2.add(nameLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         positionLabel.setBackground(new java.awt.Color(255, 255, 255));

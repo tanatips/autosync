@@ -41,7 +41,7 @@ public class Main {
         
         ffcRegisterForm = new FFCRegisterUser();
         //connectionSQLite = new ConnectSQLite();
-        FFCAgreement fFCAgreement = new FFCAgreement();
+       FFCAgreement fFCAgreement = new FFCAgreement();
         fFCAgreement.checkDateOut();
         
     }
