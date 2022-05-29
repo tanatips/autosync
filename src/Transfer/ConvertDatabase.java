@@ -173,6 +173,7 @@ public class ConvertDatabase {
                             ||table[i].equals("ceducation")       ||table[i].equals("cdiseasechronic")
                             ||table[i].equals("sysdoctorexplain") ||table[i].equals("sysdrugdose")
                             ||table[i].equals("syshealthsuggest") ||table[i].equals("syssymtom")
+                            ||table[i].equals("syssymtomco") ||table[i].equals("sysdiagnote")
                             ||table[i].equals("sysdiseasehit")    ||table[i].equals("sysvitalsign")
 
                       // *** Add NEW table to android 2012-01-06 for FFC+ Only
@@ -372,6 +373,7 @@ public class ConvertDatabase {
                             ||table[i].equals("ceducation")       ||table[i].equals("cdiseasechronic")
                             ||table[i].equals("sysdoctorexplain") ||table[i].equals("sysdrugdose")
                             ||table[i].equals("syshealthsuggest") ||table[i].equals("syssymtom")
+                            ||table[i].equals("syssymtomco") ||table[i].equals("sysdiagnote")
                             ||table[i].equals("sysdiseasehit")    ||table[i].equals("sysvitalsign")
 
                       // *** Add NEW table to android 2012-01-06 for FFC+ Only
