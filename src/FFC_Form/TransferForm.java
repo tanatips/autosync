@@ -1900,6 +1900,7 @@ public class TransferForm extends javax.swing.JFrame{
         //this.upToJhcisButton.setEnabled(true);
         this.upToJhcisReportDialog.setVisible(show);
         this.setVisibleProgressComponent(show);
+        this.uploadAllVillageEvt();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -2031,6 +2032,7 @@ public class TransferForm extends javax.swing.JFrame{
             "กรุณารอให้การทำงานเสร็จสิ้นก่อน",
             "Warning !!!",
             JOptionPane.WARNING_MESSAGE);*/
+      
     }//GEN-LAST:event_upToJhcisButtonActionPerformed
 
     private void houseSelectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_houseSelectListValueChanged
