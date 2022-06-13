@@ -516,7 +516,7 @@ public class ConvertSQLiteToSQL {
         int visitMaxServer = 0;
         
         
-        ArrayList<ResultSet> visitNoInsertRs = new ArrayList<>();
+//        ArrayList<ResultSet> visitNoInsertRs = new ArrayList<>();
         
         String queryVisitMax = "SELECT MAX(visitno) AS visitMaxServer FROM visit";
         ResultSet rs1 = Service.Service.connectionSQL.getResultSet(queryVisitMax);

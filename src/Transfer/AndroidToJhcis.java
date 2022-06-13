@@ -60,16 +60,18 @@ public class AndroidToJhcis implements Runnable{
 //            Service.Service.connectionSQL.closeConnection();
 //            Service.Service.connectionSQL.createConnection();
 //            Service.Service.connectionSQL.connection.setAutoCommit(false);
-            try{
+            try
+            {
             convert = new ConvertSQLiteToSQL();
             ffcInformationManager.openConnection(Service.Service.ffcInformationPath);
             Service.Service.updateCount.clearValue();
             Service.Service.SQLiteConnection.connectSQLite(Service.Service.mJHCISPath);
-           
-            convert.setConnection(Service.Service.SQLiteConnection);
-            Thread timerThread = new Thread(countTime);
-            timerThread.start();
             
+            convert.setConnection(Service.Service.SQLiteConnection);
+            
+           Thread timerThread = new Thread(countTime);
+           timerThread.start();
+           
             MainForm.transForm.setTextLogLabel("อัพเดทข้อมูล");
 
             convert.updatePerson();
@@ -166,7 +168,7 @@ public class AndroidToJhcis implements Runnable{
             //MainForm.transForm.setTextHouseUpdateLabel(convert.gethouseUpdateCount());
             MainForm.transForm.setTextPicNumLabel(String.valueOf(fileManager.getFileCount()));
             fileManager.resetFileCount();
-//            convert.closeConnection();
+            convert.closeConnection();
 //            Service.Service.SQLiteConnection.closeConnection();
         try {
             //fileManager.deleteFile("C:/Users/PeeT/Documents/NetBeansProjects/AutoSyncV2_2/Auto_Sync_V2/FFC/Db_tmp/mJHCIS.sdb");
