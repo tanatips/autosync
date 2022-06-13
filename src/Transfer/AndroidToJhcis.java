@@ -55,16 +55,17 @@ public class AndroidToJhcis implements Runnable{
     @Override
     public void run()
     {
-        //try {
-
-            //Service.Service.connectionSQL.closeConnection();
-            //Service.Service.connectionSQL.createConnection();
-            //Service.Service.connectionSQL.connection.setAutoCommit(false);
+//            try {
+//
+//            Service.Service.connectionSQL.closeConnection();
+//            Service.Service.connectionSQL.createConnection();
+//            Service.Service.connectionSQL.connection.setAutoCommit(false);
             try{
             convert = new ConvertSQLiteToSQL();
             ffcInformationManager.openConnection(Service.Service.ffcInformationPath);
             Service.Service.updateCount.clearValue();
             Service.Service.SQLiteConnection.connectSQLite(Service.Service.mJHCISPath);
+           
             convert.setConnection(Service.Service.SQLiteConnection);
             Thread timerThread = new Thread(countTime);
             timerThread.start();
@@ -78,7 +79,7 @@ public class AndroidToJhcis implements Runnable{
             convert.updateGisGroup();
 
             MainForm.transForm.setValueTransferProgressBar(20);
-
+//
             convert.updatePersonbehavior();
             convert.updatePersondeath();
 
@@ -101,8 +102,8 @@ public class AndroidToJhcis implements Runnable{
             MainForm.transForm.setValueTransferProgressBar(65);
             
             convert.printUpdateCount();
-
             convert.insertVisitCount();
+//            
             }catch(Exception ex){
                 this.catchEvent(ex);
             }
@@ -165,7 +166,8 @@ public class AndroidToJhcis implements Runnable{
             //MainForm.transForm.setTextHouseUpdateLabel(convert.gethouseUpdateCount());
             MainForm.transForm.setTextPicNumLabel(String.valueOf(fileManager.getFileCount()));
             fileManager.resetFileCount();
-            convert.closeConnection();
+//            convert.closeConnection();
+//            Service.Service.SQLiteConnection.closeConnection();
         try {
             //fileManager.deleteFile("C:/Users/PeeT/Documents/NetBeansProjects/AutoSyncV2_2/Auto_Sync_V2/FFC/Db_tmp/mJHCIS.sdb");
             if (Service.Service.SQLiteConnection.closeConnection()) {
@@ -194,20 +196,20 @@ public class AndroidToJhcis implements Runnable{
             MainForm.transForm.setUpdateLabel();
             MainForm.transForm.setVisibleUpTOJhcisReportDialog(true);
             //MainForm.transForm.setVisibleUpdateToJhcisDialog(true);
-        /*} catch (Exception ex) {
-            
-                Logger.getLogger(AndroidToJhcis.class.getName()).log(Level.SEVERE, null, ex);
-                Logger.getLogger(AndroidToJhcis.class.getName()).log(Level.SEVERE, null, ex);
-                File logfile = new File("./FFC/log.txt");
-                FileBehavior fileBehavior = new FileBehavior();
-                fileBehavior.setPathData(logfile.getPath());
-                fileBehavior.writeData(ex.toString() + "\n" + ex.getStackTrace().toString());
-                JOptionPane.showMessageDialog(MainForm.transForm, "การอัพเดทข้อมูลล้มเหลว : " + ex.getMessage(), "ERROR !!!", JOptionPane.ERROR_MESSAGE);
-                MainForm.transForm.setEnableUpToJhcisButton(true);
-                MainForm.transForm.setVisibleProgressComponent(false);
-                return;
-        
-            }*/
+//        } catch (Exception ex) {
+//            
+//                Logger.getLogger(AndroidToJhcis.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(AndroidToJhcis.class.getName()).log(Level.SEVERE, null, ex);
+//                File logfile = new File("./FFC/log.txt");
+//                FileBehavior fileBehavior = new FileBehavior();
+//                fileBehavior.setPathData(logfile.getPath());
+//                fileBehavior.writeData(ex.toString() + "\n" + ex.getStackTrace().toString());
+//                JOptionPane.showMessageDialog(MainForm.transForm, "การอัพเดทข้อมูลล้มเหลว : " + ex.getMessage(), "ERROR !!!", JOptionPane.ERROR_MESSAGE);
+//                MainForm.transForm.setEnableUpToJhcisButton(true);
+//                MainForm.transForm.setVisibleProgressComponent(false);
+//                return;
+//        
+//            }
         
         
     }

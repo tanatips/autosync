@@ -525,22 +525,22 @@ public class ConvertSQLiteToSQL {
             visitMaxServer = Integer.parseInt(rs1.getString("visitMaxServer"));
             System.out.println(visitMaxServer);
         }
-        
+        rs1.close();
         int visitMaxNew = visitMaxServer;
         String query = "Select * From "+ tableName +" WHERE visitno > " + visitMax;
         
         ResultSet rs = this.SQLiteConnection.getResultSet(query);
         Statement stmt = Service.Service.connectionSQL.connection.createStatement();
         int visitNoColumnIndex = 2;
-        
+      
         while(rs.next())
         {   
             String insertData1 = "INSERT INTO "+tableName+" (";
             String insertData2 = " VALUES (";
             ResultSetMetaData rsmd = rs.getMetaData();
           
-                String queryInsert = "SELECT * FROM "+tableName+" WHERE visitno = "+rs.getString("visitno");
-                visitNoInsertRs.add(this.SQLiteConnection.getResultSet(queryInsert));
+//                String queryInsert = "SELECT * FROM "+tableName+" WHERE visitno = "+rs.getString("visitno");
+//                visitNoInsertRs.add(this.SQLiteConnection.getResultSet(queryInsert));
                 for(int i=1; i<=rsmd.getColumnCount(); i++)
                 {
                     if(i != rsmd.getColumnCount())
@@ -574,18 +574,20 @@ public class ConvertSQLiteToSQL {
                         
                     }
                 }
-                 
-                stmt.executeUpdate(insertData1 + insertData2);
                 
+                stmt.executeUpdate(insertData1 + insertData2);
+               
                 visitUpdateCount++;
                
                 insertOtherVisit("visitdiag",visitMaxNew,rs.getString("visitno"));
                 insertOtherVisit("visitdrug",visitMaxNew,rs.getString("visitno"));
 
                 this.insertVisitGroup(rs.getString("visitno"),visitMaxNew);
-          
+//         
                 System.out.println("======================================================================");
         }
+        rs.close();
+        stmt.close();
         MainForm.transForm.setValueTransferProgressBar(100);
         
     }
@@ -597,7 +599,7 @@ public class ConvertSQLiteToSQL {
         String query = "Select * From "+ tableName+" WHERE visitno = "+ visitInsert; 
         ResultSet rs = this.SQLiteConnection.getResultSet(query);
         Statement stmt = Service.Service.connectionSQL.connection.createStatement();
-        
+        boolean result = false;
         if(rs.next())
         {
            ResultSet rss = this.SQLiteConnection.getResultSet(query);
@@ -651,13 +653,16 @@ public class ConvertSQLiteToSQL {
                 stmt.executeUpdate(insertData1 + insertData2);
                 
             }
-           return true;
+            rss.close();
+            rs.close();
+           result = true;
         }
         else
         {
             System.out.println(tableName + " : No "+tableName+" Insert");
-            return false;
+            result = false;
         }
+        return result;
     }
     
     public void printUpdateCount()

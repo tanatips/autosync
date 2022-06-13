@@ -35,13 +35,13 @@ public class Service {
     public static boolean checkworking = false;
     public static Point frameLocation;
     public static String deviceMode;
-    public static final String defaultJhcisPath = "C:/Program Files/jhcis";
+    public static final String defaultJhcisPath = "C:/AMED/FFC Autoaync Plus 2022/app/FFC";
     public static String jhcisPath = defaultJhcisPath;
     public static String mJHCISPath = "./FFC/Db_tmp/mJHCIS.db";
     public static String mJHCISsdbPath = "./FFC/Db_tmp/mJHCIS.sdb";
     public static String uJHCISPath = "./FFC/Db_tmp/uJHCIS.db";
     public static String ffcInformationPath = "./FFC/FFC_Information.db";
-    public static String autosyncVersion = "2.1.2013.07.07";
+    public static String autosyncVersion = "3.0.2022.06.13";
     public static ConvertSQLiteToSQL convert;
     public static ConvertSQLiteToSQL.UpdateCountSet updateCount;
     public static FileBehavior fileBehavior = new FileBehavior();

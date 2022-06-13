@@ -111,7 +111,6 @@ public class FFCAgreement extends javax.swing.JFrame {
         jLabelHeadDialogWellcome.setForeground(new java.awt.Color(255, 0, 0));
         jLabelHeadDialogWellcome.setText("ขออภัยอย่างสูง หมดอายุการทดสอบใช้งาน");
 
-        jButtonOKWellcomeDialog.setOpaque(false);
         jButtonOKWellcomeDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOKWellcomeDialogActionPerformed(evt);
@@ -176,8 +175,8 @@ public class FFCAgreement extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLayeredPaneDialogWellcome.add(jPanelDilogWellcome);
         jPanelDilogWellcome.setBounds(0, 0, 380, 180);
-        jLayeredPaneDialogWellcome.add(jPanelDilogWellcome, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDialogLicenseLayout = new javax.swing.GroupLayout(jDialogLicense.getContentPane());
         jDialogLicense.getContentPane().setLayout(jDialogLicenseLayout);
@@ -199,40 +198,38 @@ public class FFCAgreement extends javax.swing.JFrame {
         jLayeredPane1.setBorder(new javax.swing.border.MatteBorder(new javax.swing.ImageIcon(getClass().getResource("/Image/Agreement_bg.png")))); // NOI18N
 
         jButton1.setText("OK");
-        jButton1.setOpaque(false);
         jButton1.setPreferredSize(new java.awt.Dimension(65, 23));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton1);
         jButton1.setBounds(40, 470, 79, 23);
-        jLayeredPane1.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton2.setText("Cancel");
-        jButton2.setOpaque(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jButton2.setBounds(340, 470, 78, 23);
-        jLayeredPane1.add(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(jButton2);
+        jButton2.setBounds(340, 470, 78, 22);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Software License Agreement");
+        jLayeredPane1.add(jLabel1);
         jLabel1.setBounds(130, 10, 198, 17);
-        jLayeredPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextPane1.setForeground(new java.awt.Color(0, 0, 153));
-        jTextPane1.setText("      ข้อกำหนดและเงื่อนไขการใช้งานโปรแกรม FFC Autosync Plus\n                           Version 2.1.2013.07.07\n\n     ต่อไปนี้คำว่า \"โปรแกรม FFC Autosync+\" หมายถึง โปรแกรมสำหรับ\nใช้งานในการเชื่อมต่อระหว่างฐานข้อมูลในโปรแกรม FFC Android กับ\nฐานข้อมูลคอมพิวเตอร์ของโปรแกรมระบบงานสถานีอนามัยและศูนย์\nสุขภาพ JHCIS : Java Health Center Information System ของกระทรวง\nสาธารณสุข โดยเจ้าของลิขสิทธิโปรแกรม FFC Android และโปรแกรม\nFFC Autosync+ คือ ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์\nแห่งชาติ หรือ เนคเทค โดยมีวัตถุประสงค์  เพือความสะดวกให้เจ้าหน้าที่ใน\nการนำข้อมูลจากคอมพิวเตอร์ไปใช้งานบนอุปกรณ์แอนดรอย์แท็บเล็ต\nแทนระบบแฟ้มอนามัยครอบครัว (Family Folder) แบบกระดาษเพื่อช่วย\nลดเวลาการกรอกข้อมูลซ้ำซ้อน และเพิ่มประสิทธิภาพในการบริการเชิงรุก\nคำว่า \"ผู้ใช้\" หมายถึงบุคคลผู้ได้รับอนุญาตให้ใช้สิทธิตามสัญญา\n      เนื่องจากโปรแกรมนี้เป็นรุ่นทดลองใช้งาน (Demo version) ร่วมกับโปร\nแกรม JHCIS รุ่นล่าสุด ดังนันผู้ใช้ต้องทำการปรับปรุงรุ่นของโปรแกรม JHCIS \nให้ตรงกับรุ่นที่กำหนด มิฉะนั้นโปรแกรมอาจทำงานผิดพลาดได้ โดยโปรแกรมนี้ \nอนุญาตให้ผู้ใช้ใช้งานได้โดยไม่คิดมูลค่า เหตุนี้จึงไม่มีการรับประกันใดๆ ต่อโปรแกรม\n     ดังนั้นผู้ใช้จะต้องเป็นผู้รับความเสี่ยงต่อการใช้งาน ตลอดจนการบำรุงรักษา\nซ่อมแซม หรือแก้ไขเท่าที่จำเป็นทั้งหมด ถ้าผู้ใช้สงสัยหรืออยากเสนอแนะ\nติชม สามารถติดต่อมาที่ 0-2564-6900 ต่อ 2513, 2529 หรือทาง email\nwatcharakon.noothong@nectec.or.th ทีมผู้พัฒนาโปรแกรมหวังว่า\nจะช่วยให้เจ้าหน้าที่ด้านสาธารณสุขทำงานได้อย่างสะดวกมากยิ่งขึ้น\n\n                                        ทีมผู้พัฒนาโปรแกรม FFC Autosync Plus\n                                                                  07 กรกฎาคม 2556\n"); // NOI18N
+        jTextPane1.setText("      ข้อกำหนดและเงื่อนไขการใช้งานโปรแกรม FFC Autosync Plus\n                           Version 2.3.2022.06.06\n\n     ต่อไปนี้คำว่า \"โปรแกรม FFC Autosync+\" หมายถึง โปรแกรมสำหรับ\nใช้งานในการเชื่อมต่อระหว่างฐานข้อมูลในโปรแกรม FFC Android กับ\nฐานข้อมูลคอมพิวเตอร์ของโปรแกรมระบบงานสถานีอนามัยและศูนย์\nสุขภาพ JHCIS : Java Health Center Information System ของกระทรวง\nสาธารณสุข โดยเจ้าของลิขสิทธิโปรแกรม FFC Android และโปรแกรม\nFFC Autosync+ คือ ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์\nแห่งชาติ หรือ เนคเทค โดยมีวัตถุประสงค์  เพือความสะดวกให้เจ้าหน้าที่ใน\nการนำข้อมูลจากคอมพิวเตอร์ไปใช้งานบนอุปกรณ์แอนดรอย์แท็บเล็ต\nแทนระบบแฟ้มอนามัยครอบครัว (Family Folder) แบบกระดาษเพื่อช่วย\nลดเวลาการกรอกข้อมูลซ้ำซ้อน และเพิ่มประสิทธิภาพในการบริการเชิงรุก\nคำว่า \"ผู้ใช้\" หมายถึงบุคคลผู้ได้รับอนุญาตให้ใช้สิทธิตามสัญญา\n      เนื่องจากโปรแกรมนี้เป็นรุ่นทดลองใช้งาน (Demo version) ร่วมกับโปร\nแกรม JHCIS รุ่นล่าสุด ดังนันผู้ใช้ต้องทำการปรับปรุงรุ่นของโปรแกรม JHCIS \nให้ตรงกับรุ่นที่กำหนด มิฉะนั้นโปรแกรมอาจทำงานผิดพลาดได้ โดยโปรแกรมนี้ \nอนุญาตให้ผู้ใช้ใช้งานได้โดยไม่คิดมูลค่า เหตุนี้จึงไม่มีการรับประกันใดๆ ต่อโปรแกรม\n     ดังนั้นผู้ใช้จะต้องเป็นผู้รับความเสี่ยงต่อการใช้งาน ตลอดจนการบำรุงรักษา\nซ่อมแซม หรือแก้ไขเท่าที่จำเป็นทั้งหมด ถ้าผู้ใช้สงสัยหรืออยากเสนอแนะ\nติชม สามารถติดต่อมาที่ 0-2564-6900 ต่อ 2513, 2529 หรือทาง email\nwatcharakon.noothong@nectec.or.th ทีมผู้พัฒนาโปรแกรมหวังว่า\nจะช่วยให้เจ้าหน้าที่ด้านสาธารณสุขทำงานได้อย่างสะดวกมากยิ่งขึ้น\n\n                                        ทีมผู้พัฒนาโปรแกรม FFC Autosync Plus\n                                                                  06 มิถุนายน 2565"); // NOI18N
         jScrollPane1.setViewportView(jTextPane1);
 
+        jLayeredPane1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 40, 396, 410);
-        jLayeredPane1.add(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

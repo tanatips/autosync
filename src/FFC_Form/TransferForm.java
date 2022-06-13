@@ -2056,6 +2056,7 @@ public class TransferForm extends javax.swing.JFrame{
                     while(rs.next()) {
                         this.houseListModel.addElement(rs.getString("hno"));
                     }
+                    // rs.close();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(this, "ERROR : "+ex.getMessage());
                     Logger.getLogger(TransferForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -2940,6 +2941,7 @@ public class TransferForm extends javax.swing.JFrame{
         while(rs.next()){
             villageModelUpToJhcis.addElement(rs.getString("villcode") + " : " + rs.getString("villname"));
         }
+        rs.close();
         Service.Service.SQLiteConnection.closeConnection();
         villageOnAndroidList.setModel(villageModelUpToJhcis);
     }
@@ -3632,6 +3634,7 @@ public class TransferForm extends javax.swing.JFrame{
             }
          this.villageUpToJhcisLabel.setText(villageOnAndroid);
          this.villageUpToJhcisLabel.setToolTipText(villageTooltip);
+         rs.close();
          Service.Service.SQLiteConnection.closeConnection();
 
     }

@@ -66,8 +66,8 @@ public class ConfigServerForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Config Connection DataBase");
-        setResizable(false);
         setUndecorated(true);
+        setResizable(false);
 
         jLayeredPaneBGDBSetting.setBorder(new javax.swing.border.MatteBorder(new javax.swing.ImageIcon(getClass().getResource("/Image/ConfigServer_bg.png")))); // NOI18N
 
@@ -80,8 +80,8 @@ public class ConfigServerForm extends javax.swing.JFrame {
                 jButtonSettingDBCloseActionPerformed(evt);
             }
         });
+        jLayeredPaneBGDBSetting.add(jButtonSettingDBClose);
         jButtonSettingDBClose.setBounds(370, 10, 21, 21);
-        jLayeredPaneBGDBSetting.add(jButtonSettingDBClose, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jPanelDBSetting.setBackground(new java.awt.Color(255, 255, 255));
         jPanelDBSetting.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Config Connection DataBase", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 12), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -96,22 +96,22 @@ public class ConfigServerForm extends javax.swing.JFrame {
         jPasswordFieldPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPasswordFieldPassword.setText("**********");
 
-        jLabeltextName.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabeltextName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabeltextName.setText("Server Name");
 
-        jLabelTextServerName.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelTextServerName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelTextServerName.setText("Database Name");
 
-        jLabelTextDriverName.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelTextDriverName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelTextDriverName.setText("Driver Name");
 
-        jLabelTextPort.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelTextPort.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelTextPort.setText("Port");
 
-        jLabelTextUserName.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelTextUserName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelTextUserName.setText("Username");
 
-        jLabelTextPassword.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabelTextPassword.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelTextPassword.setText("Password");
 
         jButtonOKSettingDB.setText("OK");
@@ -121,101 +121,102 @@ public class ConfigServerForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("JHCIS Install Path ");
 
-        jhcisPathTextField.setText("C:\\Program Files\\jhcis");
+        jhcisPathTextField.setText("C:\\AMED\\FFC Autoaync Plus 2022\\app\\FFC\\");
+            jhcisPathTextField.setToolTipText("");
 
-        jButton1.setText("...");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+            jButton1.setText("...");
+            jButton1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton1ActionPerformed(evt);
+                }
+            });
 
-        javax.swing.GroupLayout jPanelDBSettingLayout = new javax.swing.GroupLayout(jPanelDBSetting);
-        jPanelDBSetting.setLayout(jPanelDBSettingLayout);
-        jPanelDBSettingLayout.setHorizontalGroup(
-            jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDBSettingLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabeltextName)
-                    .addComponent(jLabelTextServerName)
-                    .addComponent(jLabelTextPort)
-                    .addComponent(jLabelTextDriverName)
-                    .addComponent(jLabelTextUserName)
-                    .addComponent(jLabelTextPassword)
-                    .addComponent(jLabel1))
-                .addGap(21, 21, 21)
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonOKSettingDB, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                    .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                    .addComponent(jComboBoxDriverName, javax.swing.GroupLayout.Alignment.TRAILING, 0, 223, Short.MAX_VALUE)
-                    .addComponent(jTextFieldPort, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDBSettingLayout.createSequentialGroup()
-                        .addComponent(jhcisPathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldServerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                    .addComponent(jTextFieldServer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanelDBSettingLayout.setVerticalGroup(
-            jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDBSettingLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabeltextName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTextServerName)
-                    .addComponent(jTextFieldServerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTextDriverName)
-                    .addComponent(jComboBoxDriverName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTextPort))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTextUserName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTextPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jhcisPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonOKSettingDB)
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
+            javax.swing.GroupLayout jPanelDBSettingLayout = new javax.swing.GroupLayout(jPanelDBSetting);
+            jPanelDBSetting.setLayout(jPanelDBSettingLayout);
+            jPanelDBSettingLayout.setHorizontalGroup(
+                jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelDBSettingLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabeltextName)
+                        .addComponent(jLabelTextServerName)
+                        .addComponent(jLabelTextPort)
+                        .addComponent(jLabelTextDriverName)
+                        .addComponent(jLabelTextUserName)
+                        .addComponent(jLabelTextPassword)
+                        .addComponent(jLabel1))
+                    .addGap(21, 21, 21)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonOKSettingDB, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                        .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                        .addComponent(jComboBoxDriverName, javax.swing.GroupLayout.Alignment.TRAILING, 0, 223, Short.MAX_VALUE)
+                        .addComponent(jTextFieldPort, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDBSettingLayout.createSequentialGroup()
+                            .addComponent(jhcisPathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldServerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                        .addComponent(jTextFieldServer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                    .addContainerGap())
+            );
+            jPanelDBSettingLayout.setVerticalGroup(
+                jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelDBSettingLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabeltextName))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelTextServerName)
+                        .addComponent(jTextFieldServerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelTextDriverName)
+                        .addComponent(jComboBoxDriverName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelTextPort))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelTextUserName))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelTextPassword))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jhcisPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)
+                        .addComponent(jLabel1))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jButtonOKSettingDB)
+                    .addContainerGap(78, Short.MAX_VALUE))
+            );
 
-        jPanelDBSetting.setBounds(10, 30, 380, 360);
-        jLayeredPaneBGDBSetting.add(jPanelDBSetting, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPanelDBSetting.getAccessibleContext().setAccessibleName("Please config connection JHCIS database ");
+            jLayeredPaneBGDBSetting.add(jPanelDBSetting);
+            jPanelDBSetting.setBounds(10, 30, 380, 360);
+            jPanelDBSetting.getAccessibleContext().setAccessibleName("Please config connection JHCIS database ");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPaneBGDBSetting, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPaneBGDBSetting, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLayeredPaneBGDBSetting, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLayeredPaneBGDBSetting, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonOKSettingDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKSettingDBActionPerformed
         

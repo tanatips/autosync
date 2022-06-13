@@ -175,6 +175,7 @@ public class ConvertSelectData extends ConvertDatabase{
               
           }
       }
+      mslc.closeConntion();
       System.out.println("Enddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
       return maxVisitDevice;
   }
