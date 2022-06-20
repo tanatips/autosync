@@ -3613,7 +3613,7 @@ public class TransferForm extends javax.swing.JFrame{
     }
 
     public void setvillageAndroidLabel() throws SQLException, ClassNotFoundException{
-         Service.Service.SQLiteConnection.connectSQLite(Service.Service.mJHCISPath);
+//         Service.Service.SQLiteConnection.connectSQLite(Service.Service.mJHCISPath);
          int count = 0;
          String villageOnAndroid = "";
          String villageTooltip = "<html>";
@@ -3635,7 +3635,7 @@ public class TransferForm extends javax.swing.JFrame{
          this.villageUpToJhcisLabel.setText(villageOnAndroid);
          this.villageUpToJhcisLabel.setToolTipText(villageTooltip);
          rs.close();
-         Service.Service.SQLiteConnection.closeConnection();
+//         Service.Service.SQLiteConnection.closeConnection();
 
     }
 
