@@ -35,7 +35,7 @@ public class Service {
     public static boolean checkworking = false;
     public static Point frameLocation;
     public static String deviceMode;
-    public static final String defaultJhcisPath = "C:/AMED/FFC Autoaync Plus 2022/app/FFC";
+    public static final String defaultJhcisPath = "C:/Program Files/JHCIS";
     public static String jhcisPath = defaultJhcisPath;
     public static String mJHCISPath = "./FFC/Db_tmp/mJHCIS.db";
     public static String mJHCISsdbPath = "./FFC/Db_tmp/mJHCIS.sdb";

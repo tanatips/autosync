@@ -124,7 +124,7 @@ public class ConfigServerForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("JHCIS Install Path ");
 
-        jhcisPathTextField.setText("C:\\AMED\\FFC Autoaync Plus 2022\\app\\FFC\\");
+        jhcisPathTextField.setText("C:\\Program Files\\JHCIS\\");
             jhcisPathTextField.setToolTipText("");
 
             jButton1.setText("...");

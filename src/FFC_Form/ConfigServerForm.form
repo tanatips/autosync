@@ -281,7 +281,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jhcisPathTextField">
               <Properties>
-                <Property name="text" type="java.lang.String" value="C:\u005cAMED\u005cFFC Autoaync Plus 2022\u005capp\u005cFFC\u005c" containsInvalidXMLChars="true"/>
+                <Property name="text" type="java.lang.String" value="C:\u005cProgram Files\u005cJHCIS\u005c" containsInvalidXMLChars="true"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>
