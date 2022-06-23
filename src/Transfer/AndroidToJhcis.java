@@ -122,8 +122,16 @@ public class AndroidToJhcis implements Runnable{
             adbManager = new AdbFileManager();
             adbManager.setPathFileBat("./FFC/adb/adbPull.bat");
             adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/sdcard/Android/data/th.in.ffc/pictures/person", "../Photoes_tmp");
+          
             RunAdb run2 = new RunAdb("./FFC/adb/adbPull.bat");
             if (!run2.runAdb()) {
+                return;
+            }
+            AdbFileManager adbManagerHouse = new AdbFileManager();
+            adbManagerHouse.setPathFileBat("./FFC/adb/adbPull.bat");
+            adbManagerHouse.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/sdcard/Android/data/th.in.ffc/pictures/HOUSE", "../Photoes_tmp"); 
+            RunAdb run3 = new RunAdb("./FFC/adb/adbPull.bat");
+            if (!run3.runAdb()) {
                 return;
             }
             if (!fileManager.isDirectory(Service.Service.defaultJhcisPath + "/Photoes/")) {
