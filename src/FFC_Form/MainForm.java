@@ -106,29 +106,29 @@ public class MainForm extends javax.swing.JFrame {
         jLayeredPane17.setBorder(new javax.swing.border.MatteBorder(new javax.swing.ImageIcon(getClass().getResource("/Image/FFC_Background/decryptdialog_bg.png")))); // NOI18N
 
         jLabel40.setText("Time :");
-        jLabel40.setBounds(20, 110, 50, 14);
-        jLayeredPane17.add(jLabel40, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane17.add(jLabel40);
+        jLabel40.setBounds(20, 110, 50, 16);
 
         adjustTimeLabel.setText("0");
-        adjustTimeLabel.setBounds(80, 110, 30, 14);
-        jLayeredPane17.add(adjustTimeLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane17.add(adjustTimeLabel);
+        adjustTimeLabel.setBounds(80, 110, 30, 16);
 
         jLabel41.setText("Sec.");
-        jLabel41.setBounds(110, 110, 50, 14);
-        jLayeredPane17.add(jLabel41, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane17.add(jLabel41);
+        jLabel41.setBounds(110, 110, 50, 16);
 
         decryptProgressBar.setIndeterminate(true);
+        jLayeredPane17.add(decryptProgressBar);
         decryptProgressBar.setBounds(20, 80, 276, 22);
-        jLayeredPane17.add(decryptProgressBar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel42.setText("กรุณารอสักครู่...");
+        jLayeredPane17.add(jLabel42);
         jLabel42.setBounds(20, 40, 140, 27);
-        jLayeredPane17.add(jLabel42, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel43.setText("กำลังปรับปรุงฐานข้อมูล");
+        jLayeredPane17.add(jLabel43);
         jLabel43.setBounds(100, 10, 158, 25);
-        jLayeredPane17.add(jLabel43, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout adjustDatabaseDialogLayout = new javax.swing.GroupLayout(adjustDatabaseDialog.getContentPane());
         adjustDatabaseDialog.getContentPane().setLayout(adjustDatabaseDialogLayout);
@@ -165,8 +165,8 @@ public class MainForm extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton6);
         jButton6.setBounds(830, 10, 20, 20);
-        jLayeredPane1.add(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/close-green20x20.png"))); // NOI18N
         jButton5.setPreferredSize(new java.awt.Dimension(32, 32));
@@ -176,32 +176,32 @@ public class MainForm extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
+        jLayeredPane1.add(jButton5);
         jButton5.setBounds(850, 10, 20, 20);
-        jLayeredPane1.add(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLayeredPane4.add(jLayeredPane1);
         jLayeredPane1.setBounds(10, 10, 880, 100);
-        jLayeredPane4.add(jLayeredPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPane2.setBorder(new javax.swing.border.MatteBorder(new javax.swing.ImageIcon(getClass().getResource("/Image/bg_bg880x60.png")))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("ตำแหน่ง :");
+        jLayeredPane2.add(jLabel2);
         jLabel2.setBounds(380, 10, 63, 38);
-        jLayeredPane2.add(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("ชื่อผู้ใช้ :");
+        jLayeredPane2.add(jLabel1);
         jLabel1.setBounds(50, 10, 55, 38);
-        jLayeredPane2.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         nameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLayeredPane2.add(nameLabel);
         nameLabel.setBounds(120, 10, 185, 38);
-        jLayeredPane2.add(nameLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         positionLabel.setBackground(new java.awt.Color(255, 255, 255));
         positionLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLayeredPane2.add(positionLabel);
         positionLabel.setBounds(460, 10, 207, 38);
-        jLayeredPane2.add(positionLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         logoutButton.setText("ออกจากระบบ");
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -209,11 +209,11 @@ public class MainForm extends javax.swing.JFrame {
                 logoutButtonActionPerformed(evt);
             }
         });
+        jLayeredPane2.add(logoutButton);
         logoutButton.setBounds(710, 10, 120, 38);
-        jLayeredPane2.add(logoutButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLayeredPane4.add(jLayeredPane2);
         jLayeredPane2.setBounds(20, 150, 860, 60);
-        jLayeredPane4.add(jLayeredPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/button_peet/button_connect_nomousemove.jpg"))); // NOI18N
@@ -228,8 +228,8 @@ public class MainForm extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jLayeredPane3.add(jButton1);
         jButton1.setBounds(160, 60, 200, 150);
-        jLayeredPane3.add(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/button_peet/button_transfer_nomousemove.jpg"))); // NOI18N
@@ -241,54 +241,51 @@ public class MainForm extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        jLayeredPane3.add(jButton2);
         jButton2.setBounds(520, 60, 200, 150);
-        jLayeredPane3.add(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLayeredPane4.add(jLayeredPane3);
         jLayeredPane3.setBounds(10, 220, 880, 260);
-        jLayeredPane4.add(jLayeredPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPane5.setBorder(new javax.swing.border.MatteBorder(new javax.swing.ImageIcon(getClass().getResource("/Image/footer_logo.jpg")))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์แห่งชาติ พัฒนาร่วมกับ สำนักงานสาธารณสุขจังหวัดอุบลราชธานี");
+        jLayeredPane5.add(jLabel6);
         jLabel6.setBounds(170, 40, 610, 15);
-        jLayeredPane5.add(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("112 อุทยานวิทยาศาสตร์ประเทศไทย ถนนพหลโยธิน ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120");
+        jLayeredPane5.add(jLabel7);
         jLabel7.setBounds(160, 60, 580, 15);
-        jLayeredPane5.add(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("สงวนลิขสิทธิ์ ตาม พรบ.ลิขสิทธิ์ พ.ศ. 2537");
+        jLayeredPane5.add(jLabel3);
         jLabel3.setBounds(330, 20, 220, 15);
-        jLayeredPane5.add(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("E-mail: watcharakon.noothong@nectec.or.th");
+        jLabel10.setText("E-mail: watcharakon.noo@nectec.or.th");
+        jLayeredPane5.add(jLabel10);
         jLabel10.setBounds(310, 100, 270, 15);
-        jLayeredPane5.add(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("โทรศัพท์ 02-564-6900 ต่อ 2513 โทรสาร 02-564-6871 ");
+        jLayeredPane5.add(jLabel9);
         jLabel9.setBounds(290, 80, 320, 15);
-        jLayeredPane5.add(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLayeredPane4.add(jLayeredPane5);
         jLayeredPane5.setBounds(10, 500, 880, 140);
-        jLayeredPane4.add(jLayeredPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.add(jLayeredPane6);
         jLayeredPane6.setBounds(20, 120, 0, 0);
-        jLayeredPane4.add(jLayeredPane6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jLayeredPane7.setBackground(new java.awt.Color(0, 153, 51));
+        jLayeredPane4.add(jLayeredPane7);
         jLayeredPane7.setBounds(20, 130, 880, 20);
-        jLayeredPane4.add(jLayeredPane7, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jPanel1.setBackground(new java.awt.Color(102, 204, 0));
+        jPanel1.setBackground(new java.awt.Color(50, 150, 0));
+
+        versionLabel.setForeground(new java.awt.Color(153, 255, 153));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -305,8 +302,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLayeredPane4.add(jPanel1);
         jPanel1.setBounds(10, 110, 880, 20);
-        jLayeredPane4.add(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -478,10 +475,10 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void setAllbg(){
-        this.setbackground(this.jLayeredPane1,".\\src\\Image\\head_main_new.jpg");
+        this.setbackground(this.jLayeredPane1,".\\src\\Image\\head_main_new_2.png");
         this.setbackground(this.jLayeredPane4,".\\src\\Image\\bg3.jpg");
         this.setbackground(this.jLayeredPane2,".\\src\\Image\\bg_bg880x60.png");
-        this.setbackground(this.jLayeredPane5,".\\src\\Image\\footer_logo.jpg");
+        this.setbackground(this.jLayeredPane5,".\\src\\Image\\footer_logo.png");
         this.setbackground(this.jLayeredPane17,".\\src\\Image\\decryptdialog_bg.png");
         
         

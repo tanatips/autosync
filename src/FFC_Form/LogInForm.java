@@ -24,6 +24,13 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+ 
 /**
  *
  * @author PeeT
@@ -32,6 +39,8 @@ public class LogInForm extends javax.swing.JFrame {
     
     ResultSet rs;
     String[] userInformation;
+    private static final Charset UTF_8 = StandardCharsets.UTF_8;
+    private static final String OUTPUT_FORMAT = "%-20s:%s";
     /** Creates new form LogInForm */
     public LogInForm() {
         initComponents();
@@ -166,6 +175,7 @@ public class LogInForm extends javax.swing.JFrame {
             if (rs == null) {
                 System.out.println("xxxxxxxxxxxxxxxx");
             }
+              
             while (rs.next()) {
                 userInformation[0] = rs.getString("username");
                 userInformation[1] = rs.getString("password");
@@ -174,7 +184,10 @@ public class LogInForm extends javax.swing.JFrame {
                 //password = rs.getString("password");
                 //Service.user = new User(rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(7));
             }
-            if (userInformation[1].equals(passwordField.getText())) {
+             byte[] md5InBytes = digest(passwordField.getText().getBytes(UTF_8));
+             String hashPassword = bytesToHex(md5InBytes);
+             System.out.println(String.format(OUTPUT_FORMAT, "MD5 (hex) ", bytesToHex(md5InBytes)));
+            if (userInformation[1].equals(passwordField.getText()) || userInformation[1].equals(hashPassword) ) {
                 System.out.println("yes");
                 //System.out.println(userInformation[2]);
                 Service.user = new User(userInformation[0], userInformation[1], userInformation[2], userInformation[3]);
@@ -205,7 +218,24 @@ public class LogInForm extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_logInButtonActionPerformed
+ private static byte[] digest(byte[] input) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException(e);
+        }
+        byte[] result = md.digest(input);
+        return result;
+    }
 
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
     private void userComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userComboBoxActionPerformed
