@@ -2793,7 +2793,7 @@ public class TransferForm extends javax.swing.JFrame{
     }
 
     private void setAllbg(){
-        this.setbackground(this.transferHeaderLayeredPane,".\\src\\Image\\transfer_2.jpg");
+        this.setbackground(this.transferHeaderLayeredPane,".\\src\\Image\\transfer_2.png");
         this.setbackground(this.jLayeredPane1,".\\src\\Image\\bg3.jpg");
         this.setbackground(this.upToAndroidLayeredPane,".\\src\\Image\\background_newer.jpg");
         this.setbackground(this.jLayeredPane8,".\\src\\Image\\background_newer.jpg");

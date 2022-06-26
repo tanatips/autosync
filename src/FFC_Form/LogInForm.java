@@ -303,7 +303,7 @@ public class LogInForm extends javax.swing.JFrame {
     }
 
     private void setAllbg(){
-        this.setbackground(this.jLayeredPane1,".\\src\\Image\\head_main_mini_new.jpg");
+        this.setbackground(this.jLayeredPane1,".\\src\\Image\\head_main_mini_new.png");
         this.setbackground(this.jLayeredPane2,".\\src\\Image\\bg_login_1.jpg");
     }
 

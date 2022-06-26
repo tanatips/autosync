@@ -250,26 +250,31 @@ public class MainForm extends javax.swing.JFrame {
         jLayeredPane5.setBorder(new javax.swing.border.MatteBorder(new javax.swing.ImageIcon(getClass().getResource("/Image/footer_logo.jpg")))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์แห่งชาติ พัฒนาร่วมกับ สำนักงานสาธารณสุขจังหวัดอุบลราชธานี");
         jLayeredPane5.add(jLabel6);
         jLabel6.setBounds(170, 40, 610, 15);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("112 อุทยานวิทยาศาสตร์ประเทศไทย ถนนพหลโยธิน ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120");
         jLayeredPane5.add(jLabel7);
         jLabel7.setBounds(160, 60, 580, 15);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("สงวนลิขสิทธิ์ ตาม พรบ.ลิขสิทธิ์ พ.ศ. 2537");
         jLayeredPane5.add(jLabel3);
         jLabel3.setBounds(330, 20, 220, 15);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("E-mail: watcharakon.noo@nectec.or.th");
         jLayeredPane5.add(jLabel10);
         jLabel10.setBounds(310, 100, 270, 15);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("โทรศัพท์ 02-564-6900 ต่อ 2513 โทรสาร 02-564-6871 ");
         jLayeredPane5.add(jLabel9);
         jLabel9.setBounds(290, 80, 320, 15);

@@ -422,6 +422,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#xe28;&#xe39;&#xe19;&#xe22;&#xe4c;&#xe40;&#xe17;&#xe04;&#xe42;&#xe19;&#xe42;&#xe25;&#xe22;&#xe35;&#xe2d;&#xe34;&#xe40;&#xe25;&#xe47;&#xe01;&#xe17;&#xe23;&#xe2d;&#xe19;&#xe34;&#xe01;&#xe2a;&#xe4c;&#xe41;&#xe25;&#xe30;&#xe04;&#xe2d;&#xe21;&#xe1e;&#xe34;&#xe27;&#xe40;&#xe15;&#xe2d;&#xe23;&#xe4c;&#xe41;&#xe2b;&#xe48;&#xe07;&#xe0a;&#xe32;&#xe15;&#xe34; &#xe1e;&#xe31;&#xe12;&#xe19;&#xe32;&#xe23;&#xe48;&#xe27;&#xe21;&#xe01;&#xe31;&#xe1a; &#xe2a;&#xe33;&#xe19;&#xe31;&#xe01;&#xe07;&#xe32;&#xe19;&#xe2a;&#xe32;&#xe18;&#xe32;&#xe23;&#xe13;&#xe2a;&#xe38;&#xe02;&#xe08;&#xe31;&#xe07;&#xe2b;&#xe27;&#xe31;&#xe14;&#xe2d;&#xe38;&#xe1a;&#xe25;&#xe23;&#xe32;&#xe0a;&#xe18;&#xe32;&#xe19;&#xe35;"/>
               </Properties>
               <Constraints>
@@ -434,6 +437,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="112 &#xe2d;&#xe38;&#xe17;&#xe22;&#xe32;&#xe19;&#xe27;&#xe34;&#xe17;&#xe22;&#xe32;&#xe28;&#xe32;&#xe2a;&#xe15;&#xe23;&#xe4c;&#xe1b;&#xe23;&#xe30;&#xe40;&#xe17;&#xe28;&#xe44;&#xe17;&#xe22; &#xe16;&#xe19;&#xe19;&#xe1e;&#xe2b;&#xe25;&#xe42;&#xe22;&#xe18;&#xe34;&#xe19; &#xe15;&#xe33;&#xe1a;&#xe25;&#xe04;&#xe25;&#xe2d;&#xe07;&#xe2b;&#xe19;&#xe36;&#xe48;&#xe07; &#xe2d;&#xe33;&#xe40;&#xe20;&#xe2d;&#xe04;&#xe25;&#xe2d;&#xe07;&#xe2b;&#xe25;&#xe27;&#xe07; &#xe08;&#xe31;&#xe07;&#xe2b;&#xe27;&#xe31;&#xe14;&#xe1b;&#xe17;&#xe38;&#xe21;&#xe18;&#xe32;&#xe19;&#xe35; 12120"/>
               </Properties>
@@ -448,6 +454,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#xe2a;&#xe07;&#xe27;&#xe19;&#xe25;&#xe34;&#xe02;&#xe2a;&#xe34;&#xe17;&#xe18;&#xe34;&#xe4c; &#xe15;&#xe32;&#xe21; &#xe1e;&#xe23;&#xe1a;.&#xe25;&#xe34;&#xe02;&#xe2a;&#xe34;&#xe17;&#xe18;&#xe34;&#xe4c; &#xe1e;.&#xe28;. 2537"/>
               </Properties>
               <Constraints>
@@ -461,6 +470,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="E-mail: watcharakon.noo@nectec.or.th"/>
               </Properties>
               <Constraints>
@@ -473,6 +485,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#xe42;&#xe17;&#xe23;&#xe28;&#xe31;&#xe1e;&#xe17;&#xe4c; 02-564-6900 &#xe15;&#xe48;&#xe2d; 2513 &#xe42;&#xe17;&#xe23;&#xe2a;&#xe32;&#xe23; 02-564-6871 "/>
               </Properties>
