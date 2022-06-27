@@ -107,15 +107,15 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel40.setText("Time :");
         jLayeredPane17.add(jLabel40);
-        jLabel40.setBounds(20, 110, 50, 16);
+        jLabel40.setBounds(20, 110, 50, 14);
 
         adjustTimeLabel.setText("0");
         jLayeredPane17.add(adjustTimeLabel);
-        adjustTimeLabel.setBounds(80, 110, 30, 16);
+        adjustTimeLabel.setBounds(80, 110, 30, 14);
 
         jLabel41.setText("Sec.");
         jLayeredPane17.add(jLabel41);
-        jLabel41.setBounds(110, 110, 50, 16);
+        jLabel41.setBounds(110, 110, 50, 14);
 
         decryptProgressBar.setIndeterminate(true);
         jLayeredPane17.add(decryptProgressBar);
@@ -251,7 +251,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์แห่งชาติ พัฒนาร่วมกับ สำนักงานสาธารณสุขจังหวัดอุบลราชธานี");
+        jLabel6.setText("ศูนย์วิจัยเทคโนโลยีสิ่งอำนวยความสะดวกและเครื่องมือแพทย์ (A-MED) สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ");
         jLayeredPane5.add(jLabel6);
         jLabel6.setBounds(170, 40, 610, 15);
 
@@ -269,7 +269,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("E-mail: watcharakon.noo@nectec.or.th");
+        jLabel10.setText("E-mail: watcharakon.noo@nstda.or.th");
         jLayeredPane5.add(jLabel10);
         jLabel10.setBounds(310, 100, 270, 15);
 

@@ -425,7 +425,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#xe28;&#xe39;&#xe19;&#xe22;&#xe4c;&#xe40;&#xe17;&#xe04;&#xe42;&#xe19;&#xe42;&#xe25;&#xe22;&#xe35;&#xe2d;&#xe34;&#xe40;&#xe25;&#xe47;&#xe01;&#xe17;&#xe23;&#xe2d;&#xe19;&#xe34;&#xe01;&#xe2a;&#xe4c;&#xe41;&#xe25;&#xe30;&#xe04;&#xe2d;&#xe21;&#xe1e;&#xe34;&#xe27;&#xe40;&#xe15;&#xe2d;&#xe23;&#xe4c;&#xe41;&#xe2b;&#xe48;&#xe07;&#xe0a;&#xe32;&#xe15;&#xe34; &#xe1e;&#xe31;&#xe12;&#xe19;&#xe32;&#xe23;&#xe48;&#xe27;&#xe21;&#xe01;&#xe31;&#xe1a; &#xe2a;&#xe33;&#xe19;&#xe31;&#xe01;&#xe07;&#xe32;&#xe19;&#xe2a;&#xe32;&#xe18;&#xe32;&#xe23;&#xe13;&#xe2a;&#xe38;&#xe02;&#xe08;&#xe31;&#xe07;&#xe2b;&#xe27;&#xe31;&#xe14;&#xe2d;&#xe38;&#xe1a;&#xe25;&#xe23;&#xe32;&#xe0a;&#xe18;&#xe32;&#xe19;&#xe35;"/>
+                <Property name="text" type="java.lang.String" value="&#xe28;&#xe39;&#xe19;&#xe22;&#xe4c;&#xe27;&#xe34;&#xe08;&#xe31;&#xe22;&#xe40;&#xe17;&#xe04;&#xe42;&#xe19;&#xe42;&#xe25;&#xe22;&#xe35;&#xe2a;&#xe34;&#xe48;&#xe07;&#xe2d;&#xe33;&#xe19;&#xe27;&#xe22;&#xe04;&#xe27;&#xe32;&#xe21;&#xe2a;&#xe30;&#xe14;&#xe27;&#xe01;&#xe41;&#xe25;&#xe30;&#xe40;&#xe04;&#xe23;&#xe37;&#xe48;&#xe2d;&#xe07;&#xe21;&#xe37;&#xe2d;&#xe41;&#xe1e;&#xe17;&#xe22;&#xe4c; (A-MED) &#xe2a;&#xe33;&#xe19;&#xe31;&#xe01;&#xe07;&#xe32;&#xe19;&#xe1e;&#xe31;&#xe12;&#xe19;&#xe32;&#xe27;&#xe34;&#xe17;&#xe22;&#xe32;&#xe28;&#xe32;&#xe2a;&#xe15;&#xe23;&#xe4c;&#xe41;&#xe25;&#xe30;&#xe40;&#xe17;&#xe04;&#xe42;&#xe19;&#xe42;&#xe25;&#xe22;&#xe35;&#xe41;&#xe2b;&#xe48;&#xe07;&#xe0a;&#xe32;&#xe15;&#xe34;"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -473,7 +473,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="E-mail: watcharakon.noo@nectec.or.th"/>
+                <Property name="text" type="java.lang.String" value="E-mail: watcharakon.noo@nstda.or.th"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
