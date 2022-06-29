@@ -73,12 +73,15 @@ public class AndroidToJhcis implements Runnable{
            timerThread.start();
            
             MainForm.transForm.setTextLogLabel("อัพเดทข้อมูล");
-
+            
+//            convert.updateGisGroup();
+            convert.houseUpdateAndInsert();
             convert.updatePerson();
 
             MainForm.transForm.setValueTransferProgressBar(10);
-
+ 
             convert.updateGisGroup();
+
 
             MainForm.transForm.setValueTransferProgressBar(20);
 //

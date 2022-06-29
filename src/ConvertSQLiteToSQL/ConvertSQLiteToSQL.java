@@ -1639,13 +1639,16 @@ public class ConvertSQLiteToSQL {
        
 
        public void updateGisGroup() throws SQLException, Exception{
-           Service.Service.updateCount.houseCount = this.updateAndInsertHouse();
+           
            Service.Service.updateCount.villbusinessCount = this.updateVillageOtherTable("villagebusiness", "dateupdate");
            Service.Service.updateCount.villschoolCount = this.updateVillageOtherTable("villageschool", "dateupdate");
            Service.Service.updateCount.villtempleCount = this.updateVillageOtherTable("villagetemple", "dateupdate");
            Service.Service.updateCount.villwaterCount = this.updateVillageOtherTable("villagewater", "dateupdate");
            Service.Service.updateCount.hospitalCount = this.updateVillageOtherTable("ffc_hospital", "dateupdate");
            Service.Service.updateCount.poiCount = this.updateVillageOtherTable("ffc_poi", "dateupdate");
+       }
+        public void  houseUpdateAndInsert() throws SQLException, Exception{
+           Service.Service.updateCount.houseCount = this.updateAndInsertHouse();
        }
        
     }
