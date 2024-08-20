@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Hospital>
+  <Stat VillageName="หมู่บ้านเพนกวิน" population="1">
+    <VisitStat>
+      <android>
+        <Year format="th" year="2555">
+          <total>0</total>
+          <month name="January">0</month>
+          <month name="February">0</month>
+          <month name="March">0</month>
+          <month name="April">0</month>
+          <month name="May">0</month>
+          <month name="June">0</month>
+          <month name="July">0</month>
+          <month name="August">0</month>
+          <month name="September">0</month>
+          <month name="October">0</month>
+          <month name="November">0</month>
+          <month name="December">0</month>
+        </Year>
+      </android>
+      <JHCIS>
+        <Year format="th" year="2555">
+          <total>0</total>
+          <month name="January">0</month>
+          <month name="February">0</month>
+          <month name="March">0</month>
+          <month name="April">0</month>
+          <month name="May">0</month>
+          <month name="June">0</month>
+          <month name="July">0</month>
+          <month name="August">0</month>
+          <month name="September">0</month>
+          <month name="October">0</month>
+          <month name="November">0</month>
+          <month name="December">0</month>
+        </Year>
+      </JHCIS>
+    </VisitStat>
+    <PersonStat sex="male">
+      <total>3503</total>
+      <age range="0-4">65</age>
+      <age range="5-9">213</age>
+      <age range="10-14">246</age>
+      <age range="15-19">282</age>
+      <age range="20-24">261</age>
+      <age range="25-29">266</age>
+      <age range="30-34">238</age>
+      <age range="35-39">234</age>
+      <age range="40-44">266</age>
+      <age range="45-49">246</age>
+      <age range="50-54">234</age>
+      <age range="55-59">240</age>
+      <age range="60-64">214</age>
+      <age range="65-69">171</age>
+      <age range="70-74">106</age>
+      <age range="75">221</age>
+    </PersonStat>
+    <PersonStat sex="female">
+      <total>3256</total>
+      <age range="0-4">60</age>
+      <age range="5-9">194</age>
+      <age range="10-14">226</age>
+      <age range="15-19">279</age>
+      <age range="20-24">218</age>
+      <age range="25-29">232</age>
+      <age range="30-34">273</age>
+      <age range="35-39">274</age>
+      <age range="40-44">244</age>
+      <age range="45-49">246</age>
+      <age range="50-54">208</age>
+      <age range="55-59">218</age>
+      <age range="60-64">171</age>
+      <age range="65-69">137</age>
+      <age range="70-74">86</age>
+      <age range="75">190</age>
+    </PersonStat>
+    <PersonChronicStat>
+      <total>647</total>
+      <Chronic name="ความดันสูง">419</Chronic>
+      <Chronic name="โรคหอบหืด">34</Chronic>
+      <Chronic name="หัวใจขาดเลือด">22</Chronic>
+      <Chronic name="มะเร็ง">0</Chronic>
+      <Chronic name="โลหิตจาง">0</Chronic>
+      <Chronic name="โรคซึมเศร้า">0</Chronic>
+      <Chronic name="หลอดเลือดสมอง">7</Chronic>
+      <Chronic name="อัมพฤกษ์ อัมพาต">0</Chronic>
+      <Chronic name="ไตวาย">34</Chronic>
+      <Chronic name="เบาหวาน">124</Chronic>
+      <Chronic name="หลอดลมอักเสบเรื้อรัง">0</Chronic>
+      <Chronic name="ถุงลมโป่งพอง">4</Chronic>
+      <Chronic name="โรคหัวใจ">0</Chronic>
+      <Chronic name="พิษสุราเรื้อรัง">0</Chronic>
+      <Chronic name="ทางเดินหายใจอุดตันเรื้อรัง">3</Chronic>
+      <Chronic name="วัณโรค">0</Chronic>
+    </PersonChronicStat>
+  </Stat>
+</Hospital>

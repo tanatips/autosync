@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<Hospital 
+		Type="PCU"
+		ID="04651" 
+		Name="รพ.สต. บางบัวทอง" 
+		ProvinceCode="76" 
+		ProviceName="นนทบุรี" 
+		Xgis="121.555512" 
+		Ygis="23.154871"
+		Registered="false">
+
+		<Stat VillageName="หมู่บ้านทดสอบ"
+			  population="1250">
+			  
+			  <!-- Bar Graph -->
+			<VisitStat>
+				<android>
+					<Year year="2555" format="th">
+						<month name="January">123</month>
+						<month name="February">123</month>
+						<month name="March">123</month>
+					</Year>
+				</android>
+				<JHCIS>
+					<Year year="2555" format="th">
+						<month name="January">1230</month>
+						<month name="February">1273</month>
+						<month name="March">1253</month>
+					</Year>
+				</JHCIS>
+			</VisitStat>
+			
+			<!-- Population Graph -->
+			<PersonStat sex="male">
+				<age range ="0-4">5</age>
+				<age range ="5-9">45</age>
+				<age range ="10-14">85</age>
+				<age range ="15-19">75</age>
+				...
+				<age range ="70-74">55</age>
+				<age range ="75">15</age>
+			</PersonStat> 
+			
+			<!-- Pie Chart -->
+			<PersonChronicStat>
+				<Chronic name = "01">100</Chronic>
+				<Chronic name = "02">189</Chronic>
+				<Chronic name = "03">107</Chronic>
+				<Chronic name = "04">160</Chronic>
+				<Chronic name = "05">180</Chronic>
+				...
+				<Chronic name = "16">180</Chronic>
+			</PersonChronicStat>
+			
+		</Stat>
+	</Hospital>
