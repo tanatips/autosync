@@ -16,6 +16,8 @@ public class DriverDataBase {
     private String port;
     private String userName;
     private String password;
+    private String tokenAuth;
+    private String tokenClaim;
 
     public DriverDataBase() {
         this.server = null;
@@ -24,17 +26,26 @@ public class DriverDataBase {
         this.port = null;
         this.userName = null;
         this.password = null;
+        this.tokenAuth = null;
+        this.tokenClaim = null;
     }
 
-    public DriverDataBase(String server, String serverName, String driverName, String port, String userName, String password) {
+    public DriverDataBase(String server, String serverName, String driverName, String port, String userName, String password,String tokenAuth,String tokenClaim) {
         this.server = server;
         this.serverName = serverName;
         this.driverName = driverName;
         this.port = port;
         this.userName = userName;
         this.password = password;
+        this.tokenAuth = tokenAuth;
+        this.tokenClaim = tokenClaim;
     }
-
+    public void setTokenAuth(String tokenAuth){
+        this.tokenAuth = tokenAuth;
+    }
+    public void setTokenClaim(String tokenClaim){
+        this.tokenClaim = tokenClaim;
+    }
     public void setDriverName(String driverName) {
         this.driverName = driverName;
     }
@@ -59,6 +70,12 @@ public class DriverDataBase {
         this.userName = userName;
     }
 
+    public String getTokenAuth(){
+        return this.tokenAuth;
+    }
+    public String getTokenClaim(){
+        return this.tokenClaim;
+    }
     public String getDriverName() {
         return driverName;
     }

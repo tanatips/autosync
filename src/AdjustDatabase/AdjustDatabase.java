@@ -181,6 +181,20 @@ public class AdjustDatabase implements Runnable{
                         return;
                     }
                 }
+                if (Service.Service.connectionSQL.checkExistTable("ffc_sf_token")) {
+                    System.out.println("ffc_sf_token is Existed");
+                    //adjustmanager.updateResultAdjust("add_ffc_visitspecialperson", "1");
+                } else {
+                    if (adjust.create_ffc_sf_token()) {
+                        adjust.insert_token();
+                        //adjustmanager.updateResultAdjust("add_ffc_visitspecialperson", "1");
+                    } else {
+                        JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
+                        Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
+                        Service.Service.mainform.setVisible(false);
+                        return;
+                    }
+                }
                 
         //    }
            adjustmanager.updateResultAdjust("db_version", "1");

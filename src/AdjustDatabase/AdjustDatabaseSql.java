@@ -6,6 +6,7 @@
 package AdjustDatabase;
 
 import ConnectDatabase.*;
+import FileManager.FileSettingDataBaseFFCManager;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -54,6 +55,13 @@ public class AdjustDatabaseSql {
             "  `colorcode` varchar(7) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,\n" +
             "  `level` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,\n" +
             "  PRIMARY KEY  BTREE (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+     private String create_ffc_sf_token = " CREATE TABLE ffc_sf_token (\n" +
+        "    id INT PRIMARY KEY AUTO_INCREMENT,\n" +
+        "    token_auth VARCHAR(255) NOT NULL,\n" +
+        "    token_claim VARCHAR(255) NOT NULL,\n" +
+        "    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n" +
+        "    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n" +
+        ");";
     
     public void setConnection(Connection connection){
         this.sqlConnection = connection;
@@ -203,6 +211,35 @@ public class AdjustDatabaseSql {
             this.errorMessage = ex.getMessage();
             return false;
         }
+    }
+    
+    public boolean create_ffc_sf_token(){
+        try {
+            Statement stm = sqlConnection.createStatement();
+            stm.execute(this.create_ffc_sf_token);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AdjustDatabaseSql.class.getName()).log(Level.SEVERE, null, ex);
+            this.errorMessage = ex.getMessage();
+            return false;
+        }
+    }
+    
+    public boolean insert_token() throws SQLException{
+        
+        FileSettingDataBaseFFCManager fileSettingDataBaseFFCManager = new FileSettingDataBaseFFCManager();
+        //Set PathFile
+        fileSettingDataBaseFFCManager.setPathFile("./FFC/config_mysql_local.ffc");
+        DriverDataBase driver =  fileSettingDataBaseFFCManager.readDriverDataBase();
+        Statement stm = this.sqlConnection.createStatement();
+        String token_auth = driver.getTokenAuth();
+        String token_claim = driver.getTokenClaim();
+        String insert = "INSERT INTO ffc_sf_token(token_auth,token_claim,created_date,updated_date) VALUES ('" + token_auth + "','" +token_claim+ "',sysdate(),sysdate())";
+        System.out.println(insert);
+        stm.addBatch(insert);
+        stm.executeBatch();
+        return true;
+
     }
 
 }

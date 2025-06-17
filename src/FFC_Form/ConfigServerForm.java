@@ -63,6 +63,10 @@ public class ConfigServerForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jhcisPathTextField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtTokenClaim = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtTokenGetAuthen = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Config Connection DataBase");
@@ -73,7 +77,6 @@ public class ConfigServerForm extends javax.swing.JFrame {
 
         jButtonSettingDBClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/close-green2.png"))); // NOI18N
         jButtonSettingDBClose.setToolTipText("close program");
-        jButtonSettingDBClose.setOpaque(false);
         jButtonSettingDBClose.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/close-green20x20.png"))); // NOI18N
         jButtonSettingDBClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +137,16 @@ public class ConfigServerForm extends javax.swing.JFrame {
                 }
             });
 
+            jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+            jLabel2.setText("Token Get Authen");
+
+            txtTokenClaim.setName("txtTokenClaim"); // NOI18N
+
+            jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+            jLabel3.setText("Token Claim");
+
+            txtTokenGetAuthen.setName("txtTokenGetAuthen"); // NOI18N
+
             javax.swing.GroupLayout jPanelDBSettingLayout = new javax.swing.GroupLayout(jPanelDBSetting);
             jPanelDBSetting.setLayout(jPanelDBSettingLayout);
             jPanelDBSettingLayout.setHorizontalGroup(
@@ -147,20 +160,26 @@ public class ConfigServerForm extends javax.swing.JFrame {
                         .addComponent(jLabelTextDriverName)
                         .addComponent(jLabelTextUserName)
                         .addComponent(jLabelTextPassword)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2))
                     .addGap(21, 21, 21)
                     .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonOKSettingDB, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDBSettingLayout.createSequentialGroup()
+                            .addComponent(jButtonOKSettingDB, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))
                         .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                         .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                         .addComponent(jComboBoxDriverName, javax.swing.GroupLayout.Alignment.TRAILING, 0, 223, Short.MAX_VALUE)
                         .addComponent(jTextFieldPort, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDBSettingLayout.createSequentialGroup()
-                            .addComponent(jhcisPathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addComponent(jhcisPathTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jTextFieldServerName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                        .addComponent(jTextFieldServer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                        .addComponent(jTextFieldServer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                        .addComponent(txtTokenClaim)
+                        .addComponent(txtTokenGetAuthen))
                     .addContainerGap())
             );
             jPanelDBSettingLayout.setVerticalGroup(
@@ -195,13 +214,21 @@ public class ConfigServerForm extends javax.swing.JFrame {
                         .addComponent(jhcisPathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1)
                         .addComponent(jLabel1))
+                    .addGap(27, 27, 27)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTokenGetAuthen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addGroup(jPanelDBSettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTokenClaim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jButtonOKSettingDB)
-                    .addContainerGap(78, Short.MAX_VALUE))
+                    .addContainerGap())
             );
 
             jLayeredPaneBGDBSetting.add(jPanelDBSetting);
-            jPanelDBSetting.setBounds(10, 30, 380, 360);
+            jPanelDBSetting.setBounds(10, 30, 380, 450);
             jPanelDBSetting.getAccessibleContext().setAccessibleName("Please config connection JHCIS database ");
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,7 +239,7 @@ public class ConfigServerForm extends javax.swing.JFrame {
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLayeredPaneBGDBSetting, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(jLayeredPaneBGDBSetting, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             );
 
             pack();
@@ -230,7 +257,10 @@ public class ConfigServerForm extends javax.swing.JFrame {
                 , (String) jComboBoxDriverName.getItemAt(jComboBoxDriverName.getSelectedIndex())
                 , jTextFieldPort.getText()
                 , jTextFieldUsername.getText()
-                , jPasswordFieldPassword.getText()));
+                , jPasswordFieldPassword.getText()
+                , txtTokenGetAuthen.getText()
+                , txtTokenClaim.getText()       
+                ));
         Service.Service.driverDatabase =  fileSettingDataBaseFFCManager.readDriverDataBase();
         //Create Server Connection
         //Service.Service.connectionSQL = new ConnectSQL();
@@ -293,6 +323,8 @@ public class ConfigServerForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSettingDBClose;
     private javax.swing.JComboBox jComboBoxDriverName;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelTextDriverName;
     private javax.swing.JLabel jLabelTextPassword;
     private javax.swing.JLabel jLabelTextPort;
@@ -306,6 +338,8 @@ public class ConfigServerForm extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldServerName;
     private javax.swing.JTextField jTextFieldUsername;
     private javax.swing.JTextField jhcisPathTextField;
+    private javax.swing.JTextField txtTokenClaim;
+    private javax.swing.JTextField txtTokenGetAuthen;
     // End of variables declaration//GEN-END:variables
 
     private void setbackground(JComponent component, String imagePath){
@@ -331,7 +365,8 @@ public class ConfigServerForm extends javax.swing.JFrame {
         jTextFieldPort.setText(driverDataBase.getPort());
         jTextFieldUsername.setText(driverDataBase.getUserName());
         jPasswordFieldPassword.setText(driverDataBase.getPassword());
-        
+        txtTokenGetAuthen.setText(driverDataBase.getTokenAuth());
+        txtTokenClaim.setText(driverDataBase.getTokenClaim());
     }
 
 }

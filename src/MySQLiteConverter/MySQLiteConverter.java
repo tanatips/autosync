@@ -420,6 +420,9 @@ public class MySQLiteConverter {
         } else {
             ResultSetMetaData rsmd = rs.getMetaData();
             String table_name = rsmd.getTableName(1);
+            if(table_name.equals("ffc_sf_token")){
+                System.out.print("============> "+table_name);
+            }
 
             // initialize sql command to create and insert new table
             String sql_create = "CREATE TABLE IF NOT EXISTS " + table_name

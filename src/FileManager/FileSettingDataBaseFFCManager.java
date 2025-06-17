@@ -28,12 +28,16 @@ public class FileSettingDataBaseFFCManager extends FileBehavior{
                 +driverDataBase.getUserName()
                 +"/"
                 +driverDataBase.getPassword()
+                +"/"
+                +driverDataBase.getTokenAuth()
+                +"/"
+                +driverDataBase.getTokenClaim()
                 +"/");
     }
 
     public DriverDataBase readDriverDataBase(){
         String []temp= readData().split("/");
-        return new DriverDataBase(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5]);
+        return new DriverDataBase(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7]);
     }
 //    public static void main(String[]args){
 //        FileSettingDataBaseFFCManager a = new FileSettingDataBaseFFCManager();

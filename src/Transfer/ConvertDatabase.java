@@ -208,6 +208,7 @@ public class ConvertDatabase {
                             ||table[i].equals("cpersonincomplete")  ||table[i].equals("cpersonproblem")
                             ||table[i].equals("ffc_poi")            ||table[i].equals("ffc_hospital")
                             ||table[i].equals("ffc_506radius")
+                            ||table[i].equals("ffc_sf_token")
                             ||table[i].equals("cbusiness")          ||table[i].equals("user_tab")
                          // ** Add 2012-05-24
                             ||table[i].equals("creligion")
@@ -255,6 +256,9 @@ public class ConvertDatabase {
                                 && !table[i].equals("visitepiappoint")
                                 ) {
                             // mslc.mysqlConvertToSqlite(table[i]);
+                                if(table[i].equals("ffc_sf_token")){
+                                    System.out.println(table[i]);
+                                }
                                 java.sql.Statement stm = mslc.getMySQLsStatement();
                                 ResultSet rs = stm.executeQuery("select * from " + table[i]);
                                 mslc.mysqlConvertToSqlite(rs);
@@ -268,7 +272,7 @@ public class ConvertDatabase {
                                                 System.out.println("houseList : "+houseList.get(j));
                                                 ResultSet rs = query.getRsQuery(table[i],this.villageList.get(j),this.houseList.get(j));
                                                 countVillageInformation(table[i],rs);
-                                                System.out.println(table[i]);
+                                                
 
                                                 rs.beforeFirst();
                                                 mslc.mysqlConvertToSqlite(rs);
@@ -408,6 +412,7 @@ public class ConvertDatabase {
                             ||table[i].equals("cpersonincomplete")  ||table[i].equals("cpersonproblem")
                             ||table[i].equals("ffc_poi")            ||table[i].equals("ffc_hospital")
                             ||table[i].equals("ffc_506radius")
+                            ||table[i].equals("ffc_sf_token")
                             ||table[i].equals("cbusiness")          ||table[i].equals("user_tab")
                          // ** Add 2012-05-24
                             ||table[i].equals("creligion")
