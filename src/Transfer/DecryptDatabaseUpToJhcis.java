@@ -52,6 +52,25 @@ public class DecryptDatabaseUpToJhcis implements Runnable{
         }
     };
 
+    public DecryptDatabaseUpToJhcis() {
+        this.countTime = new Runnable() {
+            int count = 1;
+            @Override
+            public void run(){
+                while(decryptThread.isAlive()){
+                    try {
+                        Thread.sleep(1000);
+                        MainForm.transForm.setTextDecryptTimeLabel(String.valueOf(count));
+                        count++;
+                        
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(DecryptDatabaseUpToJhcis.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+    }
+
     public void run(){
         try {
             Service.Service.Service();
@@ -118,22 +137,7 @@ public class DecryptDatabaseUpToJhcis implements Runnable{
         }
     }
 
-    Runnable countTime = new Runnable() {
-        int count = 1;
-        @Override
-        public void run(){
-            while(decryptThread.isAlive()){
-                try {
-                    Thread.sleep(1000);
-                    MainForm.transForm.setTextDecryptTimeLabel(String.valueOf(count));
-                    count++;
-                    
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(DecryptDatabaseUpToJhcis.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    };
+    Runnable countTime;
 
     public void getDecryptThread(Thread decryptThread){
         this.decryptThread = decryptThread;

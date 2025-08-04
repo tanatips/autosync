@@ -4,7 +4,6 @@
  */
 package ConvertSQLiteToSQL;
 
-
 import FFC_Form.MainForm;
 import FFC_Information.FFCInformationManager;
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
-
-
 
 /**
  *
@@ -32,23 +29,70 @@ public class ConvertSQLiteToSQL {
     int visitDrugUpdateCount = 0;
     int houseUpdateCount = 0;
     int ncdUpdateCount = 0;
+    int f43specialppUpdateCount = 0;
+    int ffcSfPersonInfoUpdateCount = 0;
+
     ConnectDatabase.ConnectSQLite SQLiteConnection;
 
     FFCInformationManager ffcInformationManager;
-    
-   public  ConvertSQLiteToSQL() throws ClassNotFoundException, SQLException{
-       SQLiteConnection = new ConnectDatabase.ConnectSQLite();
-       ffcInformationManager = new FFCInformationManager();
-       ffcInformationManager.openConnection(Service.Service.ffcInformationPath);
-   }
-   
-   public void setConnection(ConnectDatabase.ConnectSQLite connectSQLite){
-       this.SQLiteConnection = connectSQLite;
-      
-   }
 
+    private FfcSfDrugsHandler ffcSfDrugsHandler;
+    private FfcSfSmokerInfoHandler ffcSfSmokerInfoHandler;
+    private FfcSfStressDepressionInfoHandler ffcSfStressDepressionInfoHandler;
+    private FfcSfNicotineInfoHandler ffcSfNicotineInfoHandler;
 
-    public void closeConnection(){
+    private FfcSfDrinkingInfoHandler ffcSfDrinkingInfoHandler;
+    private FfcSfStressDepression2qInfoHandler ffcSfStressDepression2qInfoHandler;
+    private FfcSfStressDepression9qInfoHandler ffcSfStressDepression9qInfoHandler;
+    private FfcSfSuicideAssessment8qInfoHandler ffcSfSuicideAssessment8qInfoHandler;
+
+    private FfcSfHealthRiskAssessmentInfoHandler ffcSfHealthRiskAssessmentInfoHandler;
+    private FfcSfCardReadingHistoryHandler ffcSfCardReadingHistoryHandler;
+    private FfcSfCardiovascularRiskInfoHandler ffcSfCardiovascularRiskInfoHandler;
+    private FfcSfScreeningResultCodeHandler ffcSfScreeningResultCodeHandler;
+
+    private FfcSfCounselingSignatureHandler ffcSfCounselingSignatureHandler;
+    private FfcNhsoCardReadingHistoryHandler ffcNhsoCardReadingHistoryHandler;
+    private FfcSfNhsoClaimDataHandler ffcSfNhsoClaimDataHandler;
+
+    private FfcSfPersonInfoHandler ffcSfPersonInfoHandler;
+
+    public ConvertSQLiteToSQL() throws ClassNotFoundException, SQLException {
+        SQLiteConnection = new ConnectDatabase.ConnectSQLite();
+        ffcInformationManager = new FFCInformationManager();
+        ffcInformationManager.openConnection(Service.Service.ffcInformationPath);
+        ffcSfDrugsHandler = new FfcSfDrugsHandler(SQLiteConnection);
+        ffcSfSmokerInfoHandler = new FfcSfSmokerInfoHandler(SQLiteConnection);
+        ffcSfStressDepressionInfoHandler = new FfcSfStressDepressionInfoHandler(SQLiteConnection);
+        ffcSfNicotineInfoHandler = new FfcSfNicotineInfoHandler(SQLiteConnection);
+
+        ffcSfDrinkingInfoHandler = new FfcSfDrinkingInfoHandler(SQLiteConnection);
+        ffcSfStressDepression2qInfoHandler = new FfcSfStressDepression2qInfoHandler(SQLiteConnection);
+        ffcSfStressDepression9qInfoHandler = new FfcSfStressDepression9qInfoHandler(SQLiteConnection);
+        ffcSfSuicideAssessment8qInfoHandler = new FfcSfSuicideAssessment8qInfoHandler(SQLiteConnection);
+
+        ffcSfHealthRiskAssessmentInfoHandler = new FfcSfHealthRiskAssessmentInfoHandler(SQLiteConnection);
+        ffcSfCardReadingHistoryHandler = new FfcSfCardReadingHistoryHandler(SQLiteConnection);
+        ffcSfCardiovascularRiskInfoHandler = new FfcSfCardiovascularRiskInfoHandler(SQLiteConnection);
+        ffcSfScreeningResultCodeHandler = new FfcSfScreeningResultCodeHandler(SQLiteConnection);
+
+        ffcSfCounselingSignatureHandler = new FfcSfCounselingSignatureHandler(SQLiteConnection);
+        ffcNhsoCardReadingHistoryHandler = new FfcNhsoCardReadingHistoryHandler(SQLiteConnection);
+        ffcSfNhsoClaimDataHandler = new FfcSfNhsoClaimDataHandler(SQLiteConnection);
+        ffcSfPersonInfoHandler = new FfcSfPersonInfoHandler(SQLiteConnection);
+
+    }
+
+    public void setConnection(ConnectDatabase.ConnectSQLite connectSQLite) {
+        this.SQLiteConnection = connectSQLite;
+
+    }
+
+    public void updateF43SpecialPP() throws SQLException {
+        Service.Service.updateCount.f43specialppCount = this.updateCheckDateupdate("f43specialpp");
+    }
+
+    public void closeConnection() {
         try {
             this.SQLiteConnection.closeConnection();
         } catch (SQLException ex) {
@@ -58,212 +102,172 @@ public class ConvertSQLiteToSQL {
     }
 
     //Personbehvior
-    public int updateAndInsertCheckDateupdate(String tableName) throws SQLException
-    {
+    public int updateAndInsertCheckDateupdate(String tableName) throws SQLException {
         int count = 0;
         String LastUpdate = this.getLastUpdate();
         System.out.println(LastUpdate);
         Timestamp ts1 = Timestamp.valueOf(LastUpdate);
         Timestamp ts2;
-        
+
         ArrayList<ResultSet> personAndroidUpdateRs = new ArrayList<>();
         ArrayList<String> personPidAndroidUpdateString = new ArrayList<>();
         ArrayList<ResultSet> personUpdate = new ArrayList<>();
         ArrayList<ResultSet> personInsert = new ArrayList<>();
-          
-       System.out.println(villageCode);
-       
-       ResultSet rs;
-       rs = this.SQLiteConnection.getResultSet("select dateupdate,pid from " + tableName);
-       while(rs.next())
-       {
-           if(rs.getString("dateupdate") != null)
-           {
-               if("personbehavior".equals(tableName)){
-                    if(rs.getString("dateupdate").length() == 10){
+
+        System.out.println(villageCode);
+
+        ResultSet rs;
+        rs = this.SQLiteConnection.getResultSet("select dateupdate,pid from " + tableName);
+        while (rs.next()) {
+            if (rs.getString("dateupdate") != null) {
+                if ("personbehavior".equals(tableName)) {
+                    if (rs.getString("dateupdate").length() == 10) {
                         String newTime = "";
                         newTime = rs.getString("dateupdate");
                         ts2 = Timestamp.valueOf(newTime + " 00:00:00");
-                    }
-                    else{
+                    } else {
                         String newTime = "";
-                        newTime = rs.getString("dateupdate");  
+                        newTime = rs.getString("dateupdate");
                         ts2 = Timestamp.valueOf(newTime);
                     }
-                       
-               }else{
-                       String newTime = "";
-                       newTime = rs.getString("dateupdate");
-                       ts2 = Timestamp.valueOf(newTime);
-                  
-               }
-               if(ts1.compareTo(ts2) < 0)
-               {
+
+                } else {
+                    String newTime = "";
+                    newTime = rs.getString("dateupdate");
+                    ts2 = Timestamp.valueOf(newTime);
+
+                }
+                if (ts1.compareTo(ts2) < 0) {
                     personPidAndroidUpdateString.add(rs.getString("pid"));
-                    personAndroidUpdateRs.add(this.SQLiteConnection.getResultSet("select * from "+ tableName +" where pid =" + rs.getString("pid")));
+                    personAndroidUpdateRs.add(this.SQLiteConnection.getResultSet("select * from " + tableName + " where pid =" + rs.getString("pid")));
                     ResultSetMetaData rsmd = personAndroidUpdateRs.get(0).getMetaData();
                     //System.out.println(rsmd.getColumnCount());
-                    System.out.println(rs.getString("dateupdate")+ " : " +rs.getString("pid"));
-               }
-           }
-           else
-           {
-               
-           }
-       }
-       
-       Statement stmt = Service.Service.connectionSQL.connection.createStatement();
-       for(int i=0; i<personPidAndroidUpdateString.size(); i++)
-       {
-            //System.out.println(personPidUpdateString.get(i).toString());
-           ResultSet getUpdateRs = Service.Service.connectionSQL.getResultSet("select * from "+ tableName +" where pid =" + personPidAndroidUpdateString.get(i).toString());
-           personUpdate.add(getUpdateRs);
-         if(getUpdateRs.next()){
+                    System.out.println(rs.getString("dateupdate") + " : " + rs.getString("pid"));
+                }
+            } else {
 
-           }else{
-                personInsert.add(personAndroidUpdateRs.get(i)); 
-           }
-           getUpdateRs.beforeFirst();
-       }
+            }
+        }
+
+        Statement stmt = Service.Service.connectionSQL.connection.createStatement();
+        for (int i = 0; i < personPidAndroidUpdateString.size(); i++) {
+            //System.out.println(personPidUpdateString.get(i).toString());
+            ResultSet getUpdateRs = Service.Service.connectionSQL.getResultSet("select * from " + tableName + " where pid =" + personPidAndroidUpdateString.get(i).toString());
+            personUpdate.add(getUpdateRs);
+            if (getUpdateRs.next()) {
+
+            } else {
+                personInsert.add(personAndroidUpdateRs.get(i));
+            }
+            getUpdateRs.beforeFirst();
+        }
         System.out.println(personInsert.size() + "======================================================");
         System.out.println(personPidAndroidUpdateString.size() + "======================================================");
-        System.out.println(personUpdate.size()+"======================================================");
+        System.out.println(personUpdate.size() + "======================================================");
 
-       for(int i=0; i<personPidAndroidUpdateString.size(); i++)
-       {
-          System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-          String queryUpdate = "UPDATE " + tableName + " SET ";
+        for (int i = 0; i < personPidAndroidUpdateString.size(); i++) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            String queryUpdate = "UPDATE " + tableName + " SET ";
 
-          while(personUpdate.get(i).next() && personAndroidUpdateRs.get(i).next()){
-              if(personUpdate.get(i).getString("pid").equals(personAndroidUpdateRs.get(i).getString("pid"))){
-                System.out.println(personUpdate.get(i).getString("pid") + " = " + personAndroidUpdateRs.get(i).getString("pid"));
-                if(personUpdate.get(i).getString("dateupdate") != null)
-                {
-                    if("personbehavior".equals(tableName))
-                    {
-                        if(personUpdate.get(i).getString("dateupdate").length()== 10)
-                        {
-                            ts1 = Timestamp.valueOf(personUpdate.get(i).getString("dateupdate")+ " 00:00:00");
-                        }
-                        else
-                        {
+            while (personUpdate.get(i).next() && personAndroidUpdateRs.get(i).next()) {
+                if (personUpdate.get(i).getString("pid").equals(personAndroidUpdateRs.get(i).getString("pid"))) {
+                    System.out.println(personUpdate.get(i).getString("pid") + " = " + personAndroidUpdateRs.get(i).getString("pid"));
+                    if (personUpdate.get(i).getString("dateupdate") != null) {
+                        if ("personbehavior".equals(tableName)) {
+                            if (personUpdate.get(i).getString("dateupdate").length() == 10) {
+                                ts1 = Timestamp.valueOf(personUpdate.get(i).getString("dateupdate") + " 00:00:00");
+                            } else {
+                                ts1 = Timestamp.valueOf(personUpdate.get(i).getString("dateupdate"));
+                            }
+
+                            if (personAndroidUpdateRs.get(i).getString("dateupdate").length() == 10) {
+                                ts2 = Timestamp.valueOf(personAndroidUpdateRs.get(i).getString("dateupdate") + " 00:00:00");
+                            } else {
+                                ts2 = Timestamp.valueOf(personAndroidUpdateRs.get(i).getString("dateupdate"));
+                            }
+
+                        } else {
                             ts1 = Timestamp.valueOf(personUpdate.get(i).getString("dateupdate"));
-                        }
-                        
-                        if(personAndroidUpdateRs.get(i).getString("dateupdate").length()== 10)
-                        {
-                            ts2 = Timestamp.valueOf(personAndroidUpdateRs.get(i).getString("dateupdate")+ " 00:00:00");
-                        }
-                        else
-                        {
                             ts2 = Timestamp.valueOf(personAndroidUpdateRs.get(i).getString("dateupdate"));
                         }
-                        
-                    }
-                    else
-                    {
-                        ts1 = Timestamp.valueOf(personUpdate.get(i).getString("dateupdate"));
-                        ts2 = Timestamp.valueOf(personAndroidUpdateRs.get(i).getString("dateupdate"));
-                    }
 
-                    if(ts1.compareTo(ts2) < 0)
-                    {
-                        ResultSetMetaData rsmd = personUpdate.get(i).getMetaData();
-                        //System.out.println(rsmd.getColumnCount());
-                        for(int j=1; j<=rsmd.getColumnCount(); j++)
-                        {
-                            if(j != rsmd.getColumnCount())
-                            {
-                                if(personAndroidUpdateRs.get(i).getString(j) != null)
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "', ";
-                                }
-                                else
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + ", ";
+                        if (ts1.compareTo(ts2) < 0) {
+                            ResultSetMetaData rsmd = personUpdate.get(i).getMetaData();
+                            //System.out.println(rsmd.getColumnCount());
+                            for (int j = 1; j <= rsmd.getColumnCount(); j++) {
+                                if (j != rsmd.getColumnCount()) {
+                                    if (personAndroidUpdateRs.get(i).getString(j) != null) {
+                                        queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "', ";
+                                    } else {
+                                        queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + ", ";
+                                    }
+                                } else {
+                                    if (personAndroidUpdateRs.get(i).getString(j) != null) {
+                                        queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "' WHERE pid = " + personPidAndroidUpdateString.get(i);
+                                        System.out.println(queryUpdate);
+                                        stmt.executeUpdate(queryUpdate);
+                                    } else {
+                                        queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + " WHERE pid = " + personPidAndroidUpdateString.get(i);
+                                        System.out.println(queryUpdate);
+                                        stmt.executeUpdate(queryUpdate);
+                                    }
                                 }
                             }
-                            else
-                            {
-                                if(personAndroidUpdateRs.get(i).getString(j) != null)
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "' WHERE pid = " + personPidAndroidUpdateString.get(i);
-                                    System.out.println(queryUpdate);
-                                    stmt.executeUpdate(queryUpdate);
+                            count++;
+                        }
+                    } else {
+                        ResultSetMetaData rsmd = personUpdate.get(i).getMetaData();
+                        //System.out.println(rsmd.getColumnCount());
+                        for (int j = 1; j <= rsmd.getColumnCount(); j++) {
+                            if (j != rsmd.getColumnCount()) {
+                                if (personAndroidUpdateRs.get(i).getString(j) != null) {
+                                    queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "', ";
+                                } else {
+                                    queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + ", ";
                                 }
-                                else
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + " WHERE pid = " + personPidAndroidUpdateString.get(i);
-                                    System.out.println(queryUpdate);
+                            } else {
+                                if (personAndroidUpdateRs.get(i).getString(j) != null) {
+                                    queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "' WHERE pid = " + personPidAndroidUpdateString.get(i);
+                                    //System.out.println(queryUpdate);
                                     stmt.executeUpdate(queryUpdate);
+                                } else {
+                                    queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + " WHERE pid = " + personPidAndroidUpdateString.get(i);
+                                    //System.out.println(queryUpdate);
+                                    stmt.executeUpdate(queryUpdate);
+
                                 }
                             }
                         }
                         count++;
                     }
-                }else{
-                    ResultSetMetaData rsmd = personUpdate.get(i).getMetaData();
-                    //System.out.println(rsmd.getColumnCount());
-                    for(int j=1; j<=rsmd.getColumnCount(); j++)
-                    {
-                        if(j != rsmd.getColumnCount())
-                            {
-                                if(personAndroidUpdateRs.get(i).getString(j) != null)
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "', ";
-                                }
-                                else
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + ", ";
-                                }
-                            }
-                            else
-                            {
-                                if(personAndroidUpdateRs.get(i).getString(j) != null)
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = '" + personAndroidUpdateRs.get(i).getString(j) + "' WHERE pid = " + personPidAndroidUpdateString.get(i);
-                                    //System.out.println(queryUpdate);
-                                    stmt.executeUpdate(queryUpdate);
-                                }
-                                else
-                                {
-                                    queryUpdate += rsmd.getColumnName(j) + " = " + personAndroidUpdateRs.get(i).getString(j) + " WHERE pid = " + personPidAndroidUpdateString.get(i);
-                                    //System.out.println(queryUpdate);
-                                    stmt.executeUpdate(queryUpdate);
-                                    
-                                }
-                            }
-                    }
-                    count++;
+                } else {
                 }
-            }else{
-           }
-          }
+            }
         }
-        if(!personInsert.isEmpty()){
+        if (!personInsert.isEmpty()) {
             this.InsertData(tableName, personInsert);
-            count+=personInsert.size();
+            count += personInsert.size();
         }
         System.out.println("ENDDDDDDDDDDDDDDDDDDDDDDDDDDD");
         return count;
     }
 
-    public int updateCheckDateupdate(String tablename) throws SQLException{
+    public int updateCheckDateupdate(String tablename) throws SQLException {
         int count = 0;
         String lastUpdate = this.getLastUpdate();
         //System.out.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         //System.out.println(lastUpdate);
-        String sqliteQuery = "SELECT * FROM "+tablename+" WHERE dateupdate > '"+lastUpdate+"'";
+        String sqliteQuery = "SELECT * FROM " + tablename + " WHERE dateupdate > '" + lastUpdate + "'";
         ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
-        while(rs.next()){
+        while (rs.next()) {
             ArrayList<ResultSet> arrayRs = new ArrayList<>();
             arrayRs.add(rs);
-            String Query = "SELECT * FROM "+tablename+this.getQueryWhereCondition(tablename, rs);
+            String Query = "SELECT * FROM " + tablename + this.getQueryWhereCondition(tablename, rs);
             ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
-            if(rss.next()){
+            if (rss.next()) {
                 System.out.println("Update data");
                 this.updateDataOneRow(tablename, arrayRs);
-            }else{
+            } else {
                 System.out.println("Insert data");
                 this.InsertData(tablename, arrayRs);
             }
@@ -272,52 +276,51 @@ public class ConvertSQLiteToSQL {
         return count;
     }
 
-
-    public int updateCheckDateupdateNDC(String tablename) throws SQLException{
+    public int updateCheckDateupdateNDC(String tablename) throws SQLException {
         int count = 0;
         String lastUpdate = this.getLastUpdate();
-        String sqliteQuery ;
+        String sqliteQuery;
         //if(tablename.equals("ncd_person_ncd_screen")){
-            sqliteQuery = "SELECT * FROM "+tablename+" WHERE dateupdate > '"+lastUpdate+"'";
+        sqliteQuery = "SELECT * FROM " + tablename + " WHERE dateupdate > '" + lastUpdate + "'";
         //}
         // else{
-         //   sqliteQuery = "SELECT * FROM "+tablename+" WHERE d_update > '"+lastUpdate+"'";
+        //   sqliteQuery = "SELECT * FROM "+tablename+" WHERE d_update > '"+lastUpdate+"'";
         //}
 
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println(lastUpdate);
         System.out.println(sqliteQuery);
         ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
-        while(rs.next()){
+        while (rs.next()) {
             ArrayList<ResultSet> arrayRs = new ArrayList<>();
             arrayRs.add(rs);
-            String Query = "SELECT * FROM "+tablename+this.getQueryWhereCondition(tablename, rs);
-           // String pid = rs.getString("pid");
+            String Query = "SELECT * FROM " + tablename + this.getQueryWhereCondition(tablename, rs);
+            // String pid = rs.getString("pid");
             System.out.println(Query);
             ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
-            if(rss.next()){
+            if (rss.next()) {
                 System.out.println("Update data");
                 this.updateDataOneRow(tablename, arrayRs);
 
                 String pidThisRow = rs.getString("pid");
-                System.out.println("0000000000000000000000000000 PID :::::::::::::  "+pidThisRow);
-                if(tablename.equals("ncd_person_ncd_screen")){
-                    updateOtherNCD("ncd_person",lastUpdate,pidThisRow);
-                    updateOtherNCD("ncd_person_ncd",lastUpdate,pidThisRow);
-                    updateOtherNCD("ncd_person_ncd_hist",lastUpdate,pidThisRow);
-                    updateOtherNCD("ncd_person_ncd_hist_detail",lastUpdate,pidThisRow);
+                System.out.println("0000000000000000000000000000 PID :::::::::::::  " + pidThisRow);
+                if (tablename.equals("ncd_person_ncd_screen")) {
+                    updateOtherNCD("ncd_person", lastUpdate, pidThisRow);
+                    updateOtherNCD("ncd_person_ncd", lastUpdate, pidThisRow);
+                    updateOtherNCD("ncd_person_ncd_hist", lastUpdate, pidThisRow);
+                    updateOtherNCD("ncd_person_ncd_hist_detail", lastUpdate, pidThisRow);
                     ncdUpdateCount++;
                 }
 
-            }else{
+            } else {
                 System.out.println("Insert data");
                 //this.InsertData(tablename, arrayRs);
-                this.InsertNCD("ncd_person",rs);
-                this.InsertNCD("ncd_person_ncd",rs);
-                this.InsertNCD("ncd_person_ncd_hist",rs);
-                this.InsertNCD("ncd_person_ncd_hist_detail",rs);
+                this.InsertNCD("ncd_person", rs);
+                this.InsertNCD("ncd_person_ncd", rs);
+                this.InsertNCD("ncd_person_ncd_hist", rs);
+                this.InsertNCD("ncd_person_ncd_hist_detail", rs);
                 System.out.println("finish detail");
-                this.InsertNCD("ncd_person_ncd_screen",rs);
+                this.InsertNCD("ncd_person_ncd_screen", rs);
 
             }
             count++;
@@ -326,40 +329,39 @@ public class ConvertSQLiteToSQL {
     }
 
     ////////////////////////
-    public void updateOtherNCD(String tablename,String lastUpdate,String pid) throws SQLException{
+    public void updateOtherNCD(String tablename, String lastUpdate, String pid) throws SQLException {
         int count = 0;
         //String lastUpdate = this.getLastUpdate();
-        String sqliteQuery ;
-        sqliteQuery = "SELECT * FROM "+tablename+" WHERE pid = '"+pid+"'";
+        String sqliteQuery;
+        sqliteQuery = "SELECT * FROM " + tablename + " WHERE pid = '" + pid + "'";
         //System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         //System.out.println(lastUpdate);
         //System.out.println(sqliteQuery);
         ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
-        if(tablename.equals("ncd_person_ncd_hist_detail")){
-            String sqliteQuery2 = "SELECT * FROM ncd_person_ncd_screen  WHERE pid = '"+pid+"'";
+        if (tablename.equals("ncd_person_ncd_hist_detail")) {
+            String sqliteQuery2 = "SELECT * FROM ncd_person_ncd_screen  WHERE pid = '" + pid + "'";
             ResultSet rs2 = this.SQLiteConnection.getResultSet(sqliteQuery2);
 
             Statement stm1 = Service.Service.connectionSQL.connection.createStatement();
-            String deleteQuery = "DELETE FROM "+tablename+this.getQueryWhereCondition(tablename, rs2);
+            String deleteQuery = "DELETE FROM " + tablename + this.getQueryWhereCondition(tablename, rs2);
             System.out.println(deleteQuery);
             stm1.executeUpdate(deleteQuery);
         }
-        while(rs.next()){
+        while (rs.next()) {
             ArrayList<ResultSet> arrayRs = new ArrayList<>();
             arrayRs.add(rs);
-            if(tablename.equals("ncd_person_ncd_hist_detail")){               
+            if (tablename.equals("ncd_person_ncd_hist_detail")) {
                 this.InsertData(tablename, arrayRs);
-            }
-            else{
-                String Query = "SELECT * FROM "+tablename+this.getQueryWhereCondition(tablename, rs);
+            } else {
+                String Query = "SELECT * FROM " + tablename + this.getQueryWhereCondition(tablename, rs);
                 // String pid = rs.getString("pid");
                 System.out.println(Query);
                 ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
-                if(rss.next()){
+                if (rss.next()) {
                     System.out.println("Update data");
                     this.updateDataOneRow(tablename, arrayRs);
 
-                }else{
+                } else {
                     System.out.println("Insert data");
                     this.InsertData(tablename, arrayRs);
                 }
@@ -367,92 +369,81 @@ public class ConvertSQLiteToSQL {
             }
 
         }
-        return ;
+        return;
     }
 
-     private void InsertNCD(String tableName,ResultSet rs) throws SQLException{
-         String sqliteQuery ;
-         sqliteQuery = "SELECT * FROM "+tableName+this.getQueryWhereCondition(tableName, rs);
-         ResultSet rss = this.SQLiteConnection.getResultSet(sqliteQuery);
-         ArrayList<ResultSet> arrayRs = new ArrayList<>();
+    private void InsertNCD(String tableName, ResultSet rs) throws SQLException {
+        String sqliteQuery;
+        sqliteQuery = "SELECT * FROM " + tableName + this.getQueryWhereCondition(tableName, rs);
+        ResultSet rss = this.SQLiteConnection.getResultSet(sqliteQuery);
+        ArrayList<ResultSet> arrayRs = new ArrayList<>();
 
-         int x = 1 ;
-         Statement stm = Service.Service.connectionSQL.connection.createStatement();
-         while(rss.next()){
-            System.out.println("|||||||||||||||||||||||||||||||||||||||======== "+x);
+        int x = 1;
+        Statement stm = Service.Service.connectionSQL.connection.createStatement();
+        while (rss.next()) {
+            System.out.println("|||||||||||||||||||||||||||||||||||||||======== " + x);
             //arrayRs.add(rss);
 
+            String insertQuery1 = "INSERT INTO " + tableName + " (";
+            String insertQuery2 = " VALUES (";
+            ResultSetMetaData rsmd = rss.getMetaData();
+            int ColumnCount = rsmd.getColumnCount();
+            //System.out.print("ColumnCount = "+ColumnCount);
+            for (int i = 1; i <= ColumnCount; i++) {
+                insertQuery1 += rsmd.getColumnLabel(i);
 
-
-
-                String insertQuery1 = "INSERT INTO " + tableName + " (";
-                String insertQuery2 = " VALUES (";
-                ResultSetMetaData rsmd = rss.getMetaData();
-                int ColumnCount = rsmd.getColumnCount();
-                //System.out.print("ColumnCount = "+ColumnCount);
-                for (int i = 1; i <= ColumnCount; i++) {
-                        insertQuery1 += rsmd.getColumnLabel(i);
-
-                    if (rss.getString(i) != null) {
-                        insertQuery2 += "'" + rss.getString(i) + "'";
-                    } else {
-                        insertQuery2 += rss.getString(i);
-                    }
-                    if (i < ColumnCount) {
-                        insertQuery1 += ",";
-                        insertQuery2 += ",";
-                    } else {
-                        insertQuery1 += ")";
-                        insertQuery2 += ")";
+                if (rss.getString(i) != null) {
+                    insertQuery2 += "'" + rss.getString(i) + "'";
+                } else {
+                    insertQuery2 += rss.getString(i);
+                }
+                if (i < ColumnCount) {
+                    insertQuery1 += ",";
+                    insertQuery2 += ",";
+                } else {
+                    insertQuery1 += ")";
+                    insertQuery2 += ")";
                     break;
-                    }
-                    //System.out.print(" "+i);
                 }
-                //System.out.println(insertQuery1);
-                //System.out.println(insertQuery2);
-                System.out.println("ccccccccccccccccccccccccxxx  "+tableName);
-                System.out.println(insertQuery1+insertQuery2);
-                stm.executeUpdate(insertQuery1 + insertQuery2);
-                x++;
-                }
+                //System.out.print(" "+i);
+            }
+            //System.out.println(insertQuery1);
+            //System.out.println(insertQuery2);
+            System.out.println("ccccccccccccccccccccccccxxx  " + tableName);
+            System.out.println(insertQuery1 + insertQuery2);
+            stm.executeUpdate(insertQuery1 + insertQuery2);
+            x++;
+        }
 
-
-
-
-
-
-           // this.InsertData(tableName, arrayRs);
-            
-            System.out.println("Endddddd");
-         }
-    
+        // this.InsertData(tableName, arrayRs);
+        System.out.println("Endddddd");
+    }
 
     //////////////////////
-
-    public void updatePerson() throws SQLException{
+    public void updatePerson() throws SQLException {
         int pidmax = Integer.parseInt(this.ffcInformationManager.getMaxpid(Service.Service.serialDeviceConnect));
         String lastUpdate = this.getLastUpdate();
 
-        String sqliteQuery = "SELECT person.* FROM person WHERE person.dateupdate > '"+lastUpdate+"'";
+        String sqliteQuery = "SELECT person.* FROM person WHERE person.dateupdate > '" + lastUpdate + "'";
         ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
 
         int countloop = 0;
-        while(rs.next()){
+        while (rs.next()) {
             ArrayList<ResultSet> personUpdate = new ArrayList<>();
             //ArrayList<ResultSet> personInsert = new ArrayList<ResultSet>();
-            
-            String Query = "SELECT person.* FROM person"+this.getQueryWhereCondition("person", rs);
+
+            String Query = "SELECT person.* FROM person" + this.getQueryWhereCondition("person", rs);
             ResultSet rss = this.SQLiteConnection.getResultSet(Query);
-            if(rs.getInt("pid") > pidmax){
+            if (rs.getInt("pid") > pidmax) {
                 int lastPid = Service.Service.connectionSQL.getLastNum("person", "pid");
-                int newPid = lastPid+1;
-                System.out.println("Insert Person : "+rs.getString("pid")+" >> "+newPid);
+                int newPid = lastPid + 1;
+                System.out.println("Insert Person : " + rs.getString("pid") + " >> " + newPid);
                 this.insertSpecificColumn("person", rss, String.valueOf(newPid), "pid");
                 this.syncPidAndroidGroup(rs.getString("pid"), String.valueOf(newPid));
                 this.personUpdateCount++;
-            }else{
+            } else {
                 personUpdate.add(rss);
-                System.out.println("Update Person : "+rss.getString("pid"));
+                System.out.println("Update Person : " + rss.getString("pid"));
                 this.updateData("person", personUpdate);
                 this.personUpdateCount++;
             }
@@ -460,25 +451,25 @@ public class ConvertSQLiteToSQL {
         }
     }
 
-    public int updateAndInsertHouse() throws SQLException,Exception{
-        int countUpdate=0;
+    public int updateAndInsertHouse() throws SQLException, Exception {
+        int countUpdate = 0;
         int hcodemax = Integer.parseInt(this.ffcInformationManager.getMaxhcode(Service.Service.serialDeviceConnect));
         String lastUpdate = this.getLastUpdate();
 
-        String sqliteQuery = "SELECT house.* FROM house WHERE house.dateupdate > '"+lastUpdate+"'";
+        String sqliteQuery = "SELECT house.* FROM house WHERE house.dateupdate > '" + lastUpdate + "'";
         ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
 
         int countloop = 0;
-        while(rs.next()){
+        while (rs.next()) {
             ArrayList<ResultSet> houseUpdate = new ArrayList<>();
 
-            String Query = "SELECT house.* FROM house"+this.getQueryWhereCondition("house", rs);
+            String Query = "SELECT house.* FROM house" + this.getQueryWhereCondition("house", rs);
             ResultSet rss = this.SQLiteConnection.getResultSet(Query);
-            if(rs.getInt("hcode") > hcodemax){
+            if (rs.getInt("hcode") > hcodemax) {
                 //personInsert.add(rss);
                 int lasthcode = Service.Service.connectionSQL.getLastNum("house", "hcode");
-                int newhcode = lasthcode+1;
-                System.out.println("Insert house : "+rs.getString("hcode")+" >> "+newhcode);
+                int newhcode = lasthcode + 1;
+                System.out.println("Insert house : " + rs.getString("hcode") + " >> " + newhcode);
                 this.insertSpecificColumn("house", rss, String.valueOf(newhcode), "hcode");
                 this.syncHcodeAndroidGroup(rs.getString("hcode"), String.valueOf(newhcode));
                 ArrayList<String> houseUpdateString = new ArrayList<>();
@@ -487,11 +478,11 @@ public class ConvertSQLiteToSQL {
                 this.UpdateHouseGroupTables("housegenusculex", houseUpdateString);
                 this.UpdateHouseGroupTables("housevesselwater", houseUpdateString);
                 countUpdate++;
-            }else{
+            } else {
                 ArrayList<String> houseUpdateString = new ArrayList<>();
                 houseUpdateString.add(rss.getString("hcode"));
                 houseUpdate.add(rss);
-                System.out.println("Update hcode : "+rss.getString("hcode"));
+                System.out.println("Update hcode : " + rss.getString("hcode"));
                 this.updateData("house", houseUpdate);
                 this.UpdateHouseGroupTables("houseanimal", houseUpdateString);
                 this.UpdateHouseGroupTables("housegenusculex", houseUpdateString);
@@ -503,142 +494,113 @@ public class ConvertSQLiteToSQL {
         return countUpdate;
     }
 
-    
-
-    public String getLastUpdate() throws SQLException{
+    public String getLastUpdate() throws SQLException {
         return this.ffcInformationManager.getLastupdate(Service.Service.serialDeviceConnect);
     }
 
     //อัพเดท visit
-    public void insertVisit(String tableName) throws SQLException
-    {
+    public void insertVisit(String tableName) throws SQLException {
         int visitMax = Integer.parseInt(this.ffcInformationManager.getMaxvisit(Service.Service.serialDeviceConnect));
         int visitMaxServer = 0;
-        
-        
+
 //        ArrayList<ResultSet> visitNoInsertRs = new ArrayList<>();
-        
         String queryVisitMax = "SELECT MAX(visitno) AS visitMaxServer FROM visit";
         ResultSet rs1 = Service.Service.connectionSQL.getResultSet(queryVisitMax);
-        while(rs1.next())
-        {
+        while (rs1.next()) {
             visitMaxServer = Integer.parseInt(rs1.getString("visitMaxServer"));
             System.out.println(visitMaxServer);
         }
         rs1.close();
         int visitMaxNew = visitMaxServer;
-        String query = "Select * From "+ tableName +" WHERE visitno > " + visitMax;
-        
+        String query = "Select * From " + tableName + " WHERE visitno > " + visitMax;
+
         ResultSet rs = this.SQLiteConnection.getResultSet(query);
         Statement stmt = Service.Service.connectionSQL.connection.createStatement();
         int visitNoColumnIndex = 2;
-      
-        while(rs.next())
-        {   
-            String insertData1 = "INSERT INTO "+tableName+" (";
+
+        while (rs.next()) {
+            String insertData1 = "INSERT INTO " + tableName + " (";
             String insertData2 = " VALUES (";
             ResultSetMetaData rsmd = rs.getMetaData();
-          
+
 //                String queryInsert = "SELECT * FROM "+tableName+" WHERE visitno = "+rs.getString("visitno");
 //                visitNoInsertRs.add(this.SQLiteConnection.getResultSet(queryInsert));
-                for(int i=1; i<=rsmd.getColumnCount(); i++)
-                {
-                    if(i != rsmd.getColumnCount())
-                    {
-                          insertData1 +=rsmd.getColumnLabel(i) + ",";
-                          
-                          if(rs.getString(i) != null)
-                          {
-                              if(i == visitNoColumnIndex)
-                              {
-                                  visitMaxNew = visitMaxNew + 1;
-                                  insertData2 += "'" + visitMaxNew + "',";
-                              }
-                              else
-                              {
-                                  insertData2 += "'" + rs.getString(i) + "',";
-                              }
-                          }                
-                          else
-                          {
-                              insertData2 += rs.getString(i) + ",";
-                          }
-                    }
-                    else
-                    {
-                        if(rs.getString(i) != null)
-                            insertData2 += "'" + rs.getString(i) + "')";
-                        else
-                            insertData2 += rs.getString(i) + ")";
-                        insertData1 += rsmd.getColumnLabel(i)+ ")";
-                        
-                    }
-                }
-                
-                stmt.executeUpdate(insertData1 + insertData2);
-               
-                visitUpdateCount++;
-               
-                insertOtherVisit("visitdiag",visitMaxNew,rs.getString("visitno"));
-                insertOtherVisit("visitdrug",visitMaxNew,rs.getString("visitno"));
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                if (i != rsmd.getColumnCount()) {
+                    insertData1 += rsmd.getColumnLabel(i) + ",";
 
-                this.insertVisitGroup(rs.getString("visitno"),visitMaxNew);
+                    if (rs.getString(i) != null) {
+                        if (i == visitNoColumnIndex) {
+                            visitMaxNew = visitMaxNew + 1;
+                            insertData2 += "'" + visitMaxNew + "',";
+                        } else {
+                            insertData2 += "'" + rs.getString(i) + "',";
+                        }
+                    } else {
+                        insertData2 += rs.getString(i) + ",";
+                    }
+                } else {
+                    if (rs.getString(i) != null) {
+                        insertData2 += "'" + rs.getString(i) + "')";
+                    } else {
+                        insertData2 += rs.getString(i) + ")";
+                    }
+                    insertData1 += rsmd.getColumnLabel(i) + ")";
+
+                }
+            }
+
+            stmt.executeUpdate(insertData1 + insertData2);
+
+            visitUpdateCount++;
+
+            insertOtherVisit("visitdiag", visitMaxNew, rs.getString("visitno"));
+            insertOtherVisit("visitdrug", visitMaxNew, rs.getString("visitno"));
+
+            this.insertVisitGroup(rs.getString("visitno"), visitMaxNew);
 //         
-                System.out.println("======================================================================");
+            System.out.println("======================================================================");
         }
         rs.close();
         stmt.close();
         MainForm.transForm.setValueTransferProgressBar(100);
-        
+
     }
 
-
     //อัพเดท visit อื่นๆ
-    public boolean insertOtherVisit(String tableName,int visitMaxNew,String visitInsert) throws SQLException
-    {
-        String query = "Select * From "+ tableName+" WHERE visitno = "+ visitInsert; 
+    public boolean insertOtherVisit(String tableName, int visitMaxNew, String visitInsert) throws SQLException {
+        String query = "Select * From " + tableName + " WHERE visitno = " + visitInsert;
         ResultSet rs = this.SQLiteConnection.getResultSet(query);
         Statement stmt = Service.Service.connectionSQL.connection.createStatement();
         boolean result = false;
-        if(rs.next())
-        {
-           ResultSet rss = this.SQLiteConnection.getResultSet(query);
-            while(rss.next())
-            {   
-                String insertData1 = "INSERT INTO "+tableName+" (";
+        if (rs.next()) {
+            ResultSet rss = this.SQLiteConnection.getResultSet(query);
+            while (rss.next()) {
+                String insertData1 = "INSERT INTO " + tableName + " (";
                 String insertData2 = " VALUES (";
                 ResultSetMetaData rsmd = rss.getMetaData();
-                for(int i=1; i<=rsmd.getColumnCount(); i++)
-                {
-                    if(i != rsmd.getColumnCount())
-                        {
-                              insertData1 +=rsmd.getColumnLabel(i) + ",";
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    if (i != rsmd.getColumnCount()) {
+                        insertData1 += rsmd.getColumnLabel(i) + ",";
 
-                              if(rss.getString(i) != null)
-                              {
-                                  if(rsmd.getColumnLabel(i).equals("visitno") || rsmd.getColumnLabel(i).equals("visitNo"))
-                                  {
-                                      insertData2 += "'" + visitMaxNew + "',";
-                                  }
-                                  else
-                                  {
-                                      insertData2 += "'" + rss.getString(i) + "',";
-                                  }
-                              }                
-                              else
-                              {
-                                  insertData2 += rss.getString(i) + ",";
-                              }
+                        if (rss.getString(i) != null) {
+                            if (rsmd.getColumnLabel(i).equals("visitno") || rsmd.getColumnLabel(i).equals("visitNo")) {
+                                insertData2 += "'" + visitMaxNew + "',";
+                            } else {
+                                insertData2 += "'" + rss.getString(i) + "',";
+                            }
+                        } else {
+                            insertData2 += rss.getString(i) + ",";
                         }
-                        else
-                        {
-                            if(rss.getString(i) != null)
-                                insertData2 += "'" + rss.getString(i) + "')";
-                            else
-                                insertData2 += rss.getString(i) + ")";
-                                insertData1 += rsmd.getColumnLabel(i)+ ")";
+                    } else {
+                        if (rss.getString(i) != null) {
+                            insertData2 += "'" + rss.getString(i) + "')";
+                        } else {
+                            insertData2 += rss.getString(i) + ")";
+                        }
+                        insertData1 += rsmd.getColumnLabel(i) + ")";
 
-                        }
+                    }
                 }
                 switch (tableName) {
                     case "visitdiag":
@@ -651,22 +613,19 @@ public class ConvertSQLiteToSQL {
                 //System.out.println(insertData1);
                 System.out.println(insertData1 + insertData2);
                 stmt.executeUpdate(insertData1 + insertData2);
-                
+
             }
             rss.close();
             rs.close();
-           result = true;
-        }
-        else
-        {
-            System.out.println(tableName + " : No "+tableName+" Insert");
+            result = true;
+        } else {
+            System.out.println(tableName + " : No " + tableName + " Insert");
             result = false;
         }
         return result;
     }
-    
-    public void printUpdateCount()
-    {
+
+    public void printUpdateCount() {
         System.out.println(this.personUpdateCount);
         System.out.println(this.personBehaviorUpdateCount);
         System.out.println(this.visitUpdateCount);
@@ -674,145 +633,142 @@ public class ConvertSQLiteToSQL {
         System.out.println(this.visitDrugUpdateCount);
         System.out.println(this.houseUpdateCount);
     }
-    
-    public String getPersonUpdateCount()
-    {
+
+    public String getPersonUpdateCount() {
         return String.valueOf(this.personUpdateCount);
     }
-    
-    public String getPersonBehaviorUpdateCount()
-    {
+
+    public String getPersonBehaviorUpdateCount() {
         return String.valueOf(this.personBehaviorUpdateCount);
     }
-    
-    public String getVisitUpdateCount()
-    {
+
+    public String getVisitUpdateCount() {
         return String.valueOf(this.visitUpdateCount);
     }
-    public String getNcdUpdateCount()
-    {
+
+    public String getNcdUpdateCount() {
         return String.valueOf(this.ncdUpdateCount);
     }
-    public String getVisitdiagUpdateCount()
-    {
+
+    public String getVisitdiagUpdateCount() {
         return String.valueOf(this.visitDiagUpdateCount);
     }
-    
-    public String getVisitDrugUpdateCount()
-    {
+
+    public String getVisitDrugUpdateCount() {
         return String.valueOf(this.visitDrugUpdateCount);
     }
 
-    public String gethouseUpdateCount(){
+    public String gethouseUpdateCount() {
         return String.valueOf(this.houseUpdateCount);
     }
-    
-    public ArrayList<String> checkUpdate() throws ClassNotFoundException, SQLException{
-           
-            Service.Service.SQLiteConnection.connectSQLite("./FFC/Db_tmp/mJHCIS.db");
-            ArrayList<String> listUpdate = new ArrayList<>();
-            listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "person")));
-            listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "personbehavior")));
-            listUpdate.add(String.valueOf(this.sumGisUpdateCount(Service.Service.SQLiteConnection)));
-            listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visit")));
-            listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdiag")));
-            listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdrug")));
-            listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "persondeath")));
-            String countNCD = String.valueOf(this.checkUpdateNCD(Service.Service.SQLiteConnection, "ncd_person_ncd_screen"));
-            
-            listUpdate.add(countNCD);
 
-            if (Service.Service.SQLiteConnection.closeConnection()) {
-                System.out.println("Connection Close");
-            } else {
-                System.out.println("Connection is alive");
-            }
-            return listUpdate;
+    public ArrayList<String> checkUpdate() throws ClassNotFoundException, SQLException {
+
+        Service.Service.SQLiteConnection.connectSQLite("./FFC/Db_tmp/mJHCIS.db");
+        ArrayList<String> listUpdate = new ArrayList<>();
+        listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "person")));
+        listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "personbehavior")));
+        listUpdate.add(String.valueOf(this.sumGisUpdateCount(Service.Service.SQLiteConnection)));
+        listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visit")));
+        listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdiag")));
+        listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdrug")));
+        listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "persondeath")));
+        listUpdate.add(String.valueOf(this.checkUpdateF43SpecialPP(Service.Service.SQLiteConnection, "f43specialpp")));
+
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfPersonInfo(Service.Service.SQLiteConnection, "ffc_sf_person_info")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfDrugs(Service.Service.SQLiteConnection, "ffc_sf_drugs")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfStressDepressionInfo(Service.Service.SQLiteConnection, "ffc_sf_stress_depression_info")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfNicotineInfo(Service.Service.SQLiteConnection, "ffc_sf_nicotine_info")));
+
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfDrinkingInfo(Service.Service.SQLiteConnection, "ffc_sf_drinking_info")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfStressDepression2qInfo(Service.Service.SQLiteConnection, "ffc_sf_stress_depression_2q_info")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfStressDepression9qInfo(Service.Service.SQLiteConnection, "ffc_sf_stress_depression_9q_info")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfSuicideAssessment8qInfo(Service.Service.SQLiteConnection, "ffc_sf_suicide_assessment_8q_info")));
+
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfHealthRiskAssessmentInfo(Service.Service.SQLiteConnection, "ffc_sf_health_risk_assessment_info")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfCardReadingHistory(Service.Service.SQLiteConnection, "ffc_sf_card_reading_history")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfCardiovascularRiskInfo(Service.Service.SQLiteConnection, "ffc_sf_cardiovascular_risk_info")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfScreeningResultCode(Service.Service.SQLiteConnection, "ffc_sf_screening_result_code")));
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfCounselingSignature(Service.Service.SQLiteConnection, "ffc_sf_counseling_signature")));           // เพิ่มบรรทัดนี้
+        listUpdate.add(String.valueOf(this.checkUpdateFfcNhsoCardReadingHistory(Service.Service.SQLiteConnection, "ffc_nhso_card_reading_history")));          // เพิ่มบรรทัดนี้
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfNhsoClaimData(Service.Service.SQLiteConnection, "ffc_sf_nhso_claim_data")));                       // เพิ่มบรรทัดนี้
+
+        String countNCD = String.valueOf(this.checkUpdateNCD(Service.Service.SQLiteConnection, "ncd_person_ncd_screen"));
+
+        listUpdate.add(countNCD);
+
+        if (Service.Service.SQLiteConnection.closeConnection()) {
+            System.out.println("Connection Close");
+        } else {
+            System.out.println("Connection is alive");
+        }
+        return listUpdate;
     }
-    
-    public int checkUpdatePerson(ConnectDatabase.ConnectSQLite connection,String tableName) throws SQLException{
+
+    public int checkUpdatePerson(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
         int updateCount = 0;
         String LastUpdate = getLastUpdate();
         System.out.println(LastUpdate);
         Timestamp ts1 = Timestamp.valueOf(LastUpdate);
         Timestamp ts2;
-        
+
         ResultSet rs;
         rs = connection.getResultSet("SELECT dateupdate FROM " + tableName);
-       while(rs.next())
-       {
-           if(rs.getString("dateupdate") != null)
-           {    //System.out.println(rs.getString("dateupdate").substring(0, 1));
-                if("personbehavior".equals(tableName)){
-                    if(rs.getString("dateupdate").length() == 10){
-                            ts2 = Timestamp.valueOf(rs.getString("dateupdate") + " 00:00:00");
+        while (rs.next()) {
+            if (rs.getString("dateupdate") != null) {    //System.out.println(rs.getString("dateupdate").substring(0, 1));
+                if ("personbehavior".equals(tableName)) {
+                    if (rs.getString("dateupdate").length() == 10) {
+                        ts2 = Timestamp.valueOf(rs.getString("dateupdate") + " 00:00:00");
+                    } else {
+                        ts2 = Timestamp.valueOf(rs.getString("dateupdate"));
                     }
-                    else{
-                            ts2 = Timestamp.valueOf(rs.getString("dateupdate"));
-                    }
-               }else{
-                            ts2 = Timestamp.valueOf(rs.getString("dateupdate"));
-               }
-                   //System.out.println(ts1.toString()+" : "+ts2.toString());
-                if(ts1.compareTo(ts2) < 0)
-               {
+                } else {
+                    ts2 = Timestamp.valueOf(rs.getString("dateupdate"));
+                }
+                //System.out.println(ts1.toString()+" : "+ts2.toString());
+                if (ts1.compareTo(ts2) < 0) {
                     updateCount++;
-               }  
-           }
-           else
-           {
-               
-           }
-       }
-        System.out.println(tableName +" Update Count : "+updateCount);
-       return updateCount;
+                }
+            } else {
+
+            }
+        }
+        System.out.println(tableName + " Update Count : " + updateCount);
+        return updateCount;
     }
-    
-    public int checkUpdatevisit(ConnectDatabase.ConnectSQLite connection,String tableName) throws SQLException{
+
+    public int checkUpdatevisit(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
         int updateCount = 0;
         // visitMaxManager = new VisitMaxInformationManager();
         //visitMaxManager.setFileURL("./FFC/maxvisit_information.ffc");
         int visitMax = Integer.parseInt(this.ffcInformationManager.getMaxvisit(Service.Service.serialDeviceConnect));
-         String query = "Select COUNT(*) AS updateCount From "+ tableName +" WHERE visitno > " + visitMax;
-         ResultSet rs = connection.getResultSet(query);
-         while(rs.next()){
-             updateCount = Integer.parseInt(rs.getString("updateCount"));
-         }
-         return updateCount;
+        String query = "Select COUNT(*) AS updateCount From " + tableName + " WHERE visitno > " + visitMax;
+        ResultSet rs = connection.getResultSet(query);
+        while (rs.next()) {
+            updateCount = Integer.parseInt(rs.getString("updateCount"));
+        }
+        return updateCount;
     }
 
     //check update NCD
-    public int checkUpdateNCD(ConnectDatabase.ConnectSQLite connection,String tableName) throws SQLException{
+    public int checkUpdateNCD(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
         int updateCount = 0;
         String lastUpdate = this.getLastUpdate();
-        String sqliteQuery = "SELECT * FROM "+tableName+" WHERE dateupdate > '"+lastUpdate+"'";
+        String sqliteQuery = "SELECT * FROM " + tableName + " WHERE dateupdate > '" + lastUpdate + "'";
         System.out.println(sqliteQuery);
         ResultSet rs = connection.getResultSet(sqliteQuery);
-        while(rs.next()){
-             updateCount++;
+        while (rs.next()) {
+            updateCount++;
         }
-         return updateCount;
-
-
-
-
-
-
-
-
-
-
+        return updateCount;
 
     }
-
-
-
 
     public void InsertWithNewPid(String tableName, ArrayList<ResultSet> personInsert) {
         String[] table = {"personbehavior"};
         int lastPid = 0;
         int newPid;
-        ResultSet rs = Service.Service.connectionSQL.getResultSet("SELECT MAX(pid) AS lastPid FROM "+ tableName);
+        ResultSet rs = Service.Service.connectionSQL.getResultSet("SELECT MAX(pid) AS lastPid FROM " + tableName);
         try {
             while (rs.next()) {
                 lastPid = rs.getInt("lastPid");
@@ -822,13 +778,12 @@ public class ConvertSQLiteToSQL {
             System.out.println(ex.getMessage());
             return;
         }
-        newPid = lastPid+1;
+        newPid = lastPid + 1;
         for (ResultSet person : personInsert) {
             try {
                 this.insertSpecificColumn(tableName, person, String.valueOf(newPid), "pid");
                 this.updateNewPidOtherTable(table, String.valueOf(newPid), String.valueOf(lastPid), "pid");
 
-                
             } catch (SQLException ex) {
                 Logger.getLogger(ConvertSQLiteToSQL.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println(ex.getMessage());
@@ -842,10 +797,9 @@ public class ConvertSQLiteToSQL {
         }
     }
 
-
-    private void InsertData(String tableName,ArrayList<ResultSet> dataInsert) throws SQLException{
+    private void InsertData(String tableName, ArrayList<ResultSet> dataInsert) throws SQLException {
         Statement stm = Service.Service.connectionSQL.connection.createStatement();
-        
+
         for (ResultSet data : dataInsert) {
             String insertQuery1 = "INSERT INTO " + tableName + " (";
             String insertQuery2 = " VALUES (";
@@ -853,7 +807,7 @@ public class ConvertSQLiteToSQL {
             int ColumnCount = rsmd.getColumnCount();
             //System.out.print("ColumnCount = "+ColumnCount);
             for (int i = 1; i <= ColumnCount; i++) {
-                    insertQuery1 += rsmd.getColumnLabel(i);
+                insertQuery1 += rsmd.getColumnLabel(i);
 
                 if (data.getString(i) != null) {
                     insertQuery2 += "'" + data.getString(i) + "'";
@@ -866,19 +820,19 @@ public class ConvertSQLiteToSQL {
                 } else {
                     insertQuery1 += ")";
                     insertQuery2 += ")";
-                break;
+                    break;
                 }
                 //System.out.print(" "+i);
             }
             //System.out.println(insertQuery1);
             //System.out.println(insertQuery2);
-            System.out.println("ccccccccccccccccccccccccxxx  "+tableName);
-            System.out.println(insertQuery1+insertQuery2);
+            System.out.println("ccccccccccccccccccccccccxxx  " + tableName);
+            System.out.println(insertQuery1 + insertQuery2);
             stm.executeUpdate(insertQuery1 + insertQuery2);
-            }
+        }
     }
 
-    private boolean InsertDataResultSet(String tableName,ResultSet dataInsert){
+    private boolean InsertDataResultSet(String tableName, ResultSet dataInsert) {
         try {
             Statement stm;
             stm = Service.Service.connectionSQL.connection.createStatement();
@@ -915,54 +869,54 @@ public class ConvertSQLiteToSQL {
         }
     }
 
-    public void updateData(String tableName, ArrayList<ResultSet> data) throws SQLException{
+    public void updateData(String tableName, ArrayList<ResultSet> data) throws SQLException {
         Statement stm = Service.Service.connectionSQL.connection.createStatement();
-        for(ResultSet dataUpdate : data){
-            
+        for (ResultSet dataUpdate : data) {
+
             ResultSetMetaData rsmd = dataUpdate.getMetaData();
             int ColumnCount = rsmd.getColumnCount();
             int rowCount = 0;
-            while(dataUpdate.next()){
+            while (dataUpdate.next()) {
                 String updateQuery = "UPDATE " + tableName + " SET ";
                 for (int i = 1; i <= ColumnCount; i++) {
-                    updateQuery += rsmd.getColumnLabel(i)+" = ";
+                    updateQuery += rsmd.getColumnLabel(i) + " = ";
 
-                if (dataUpdate.getString(i) != null) {
-                    updateQuery += "'" + dataUpdate.getString(i) + "'";
-                } else {
-                    updateQuery += dataUpdate.getString(i);
-                }
-                if (i < ColumnCount) {
-                    updateQuery += ",";
+                    if (dataUpdate.getString(i) != null) {
+                        updateQuery += "'" + dataUpdate.getString(i) + "'";
+                    } else {
+                        updateQuery += dataUpdate.getString(i);
+                    }
+                    if (i < ColumnCount) {
+                        updateQuery += ",";
 
-                } else {
+                    } else {
                         updateQuery += this.getQueryWhereCondition(tableName, dataUpdate);
                         break;
+                    }
                 }
+                rowCount++;
+                System.out.println(updateQuery);
+                stm.addBatch(updateQuery);
             }
-            rowCount++;
-            System.out.println(updateQuery);
-            stm.addBatch(updateQuery);
-            }
-            System.out.println("Row = "+ rowCount);
+            System.out.println("Row = " + rowCount);
         }
-        
+
         stm.executeBatch();
         //String updateQuery2 = "";
     }
 
-    public void updateDataOneRow(String tableName, ArrayList<ResultSet> data) throws SQLException{
+    public void updateDataOneRow(String tableName, ArrayList<ResultSet> data) throws SQLException {
         Statement stm = Service.Service.connectionSQL.connection.createStatement();
-        for(ResultSet dataUpdate : data){
+        for (ResultSet dataUpdate : data) {
             ResultSetMetaData rsmd = dataUpdate.getMetaData();
             int ColumnCount = rsmd.getColumnCount();
             int rowCount = 0;
 
             System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            System.out.println("ColumnCount ======= "+ColumnCount);
+            System.out.println("ColumnCount ======= " + ColumnCount);
             String updateQuery = "UPDATE " + tableName + " SET ";
             for (int i = 1; i <= ColumnCount; i++) {
-                updateQuery += rsmd.getColumnLabel(i)+" = ";
+                updateQuery += rsmd.getColumnLabel(i) + " = ";
 
                 if (dataUpdate.getString(i) != null) {
                     //System.out.println("11111111111111111111111111111111111111111111111111111111111111");
@@ -977,8 +931,8 @@ public class ConvertSQLiteToSQL {
 
                 } else {
                     System.out.println("4444444444444444444444444444444444444444444444444444444");
-                        updateQuery += this.getQueryWhereCondition(tableName, dataUpdate);
-                        break;
+                    updateQuery += this.getQueryWhereCondition(tableName, dataUpdate);
+                    break;
                 }
             }
             rowCount++;
@@ -987,175 +941,171 @@ public class ConvertSQLiteToSQL {
             System.out.println(updateQuery);
             stm.addBatch(updateQuery);
 
-            System.out.println("Row = "+ rowCount);
+            System.out.println("Row = " + rowCount);
         }
 
         stm.executeBatch();
-        
+
         //String row_pid = data.getString("pid");
         //String updateQuery2 = "";
     }
 
     //update housevesselwater, houseanimal, housegenusculex
-    public void UpdateHouseGroupTables(String tableName, ArrayList<String> hcode) throws SQLException{
+    public void UpdateHouseGroupTables(String tableName, ArrayList<String> hcode) throws SQLException {
         Statement stm = Service.Service.connectionSQL.connection.createStatement();
-        for(int i=0;i<hcode.size();i++){
-        String query = "SELECT * FROM "+ tableName +" WHERE hcode = "+hcode.get(i);
-        System.out.println(query);
-        ResultSet rsSQLite = this.SQLiteConnection.getResultSet(query);
-        stm.executeUpdate("DELETE FROM " +tableName+ " WHERE hcode = "+hcode.get(i));
-        while(rsSQLite.next()){
-            System.out.println("===========Find House=============");
-            ArrayList<ResultSet> rsUpdateSQLite = new ArrayList<>();
-            rsUpdateSQLite.add(rsSQLite);
-            this.InsertData(tableName, rsUpdateSQLite);
+        for (int i = 0; i < hcode.size(); i++) {
+            String query = "SELECT * FROM " + tableName + " WHERE hcode = " + hcode.get(i);
+            System.out.println(query);
+            ResultSet rsSQLite = this.SQLiteConnection.getResultSet(query);
+            stm.executeUpdate("DELETE FROM " + tableName + " WHERE hcode = " + hcode.get(i));
+            while (rsSQLite.next()) {
+                System.out.println("===========Find House=============");
+                ArrayList<ResultSet> rsUpdateSQLite = new ArrayList<>();
+                rsUpdateSQLite.add(rsSQLite);
+                this.InsertData(tableName, rsUpdateSQLite);
+            }
         }
-      }
     }
 
-    
-    public void updateFamilyplan(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitfp", visitMaxNew, visitInsert)){
+    public void updateFamilyplan(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitfp", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.familyPlanCount++;
         }
     }
-    
-    public void updateCcbp(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitlabcancer", visitMaxNew, visitInsert)){
+
+    public void updateCcbp(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitlabcancer", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.ccbpCount++;
         }
     }
-    
-    public void updatePg(String visitInsert, int visitMaxNew) throws SQLException{
+
+    public void updatePg(String visitInsert, int visitMaxNew) throws SQLException {
         this.insertVisitAncRisk(visitInsert);
         this.updateCheckDateupdate("visitancpregnancy");
-        if(this.insertOtherVisit("visitanc", visitMaxNew, visitInsert)){
+        if (this.insertOtherVisit("visitanc", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.pgCount++;
         }
     }
-    
-    public void updateLabBlood(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitlabblood", visitMaxNew, visitInsert)){
+
+    public void updateLabBlood(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitlabblood", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.labBloodCount++;
         }
     }
-    
-    public void updateApg(String visitInsert, int visitMaxNew) throws SQLException{
-        boolean check1 =false;
-        boolean check2 =false;
-        if(this.insertOtherVisit("visitancdeliver", visitMaxNew, visitInsert)){
+
+    public void updateApg(String visitInsert, int visitMaxNew) throws SQLException {
+        boolean check1 = false;
+        boolean check2 = false;
+        if (this.insertOtherVisit("visitancdeliver", visitMaxNew, visitInsert)) {
             check1 = true;
         }
-        if(this.insertOtherVisit("visitancmothercare", visitMaxNew, visitInsert)){
+        if (this.insertOtherVisit("visitancmothercare", visitMaxNew, visitInsert)) {
             check2 = true;
         }
-        if(check1||check2){
-           Service.Service.updateCount.apgCount++; 
+        if (check1 || check2) {
+            Service.Service.updateCount.apgCount++;
         }
 
     }
-    
-    public void updateBabypg(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitbabycare", visitMaxNew, visitInsert)){
+
+    public void updateBabypg(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitbabycare", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.babypgCount++;
         }
     }
-    
-    public void updateNutrition(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitnutrition", visitMaxNew, visitInsert)){
+
+    public void updateNutrition(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitnutrition", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.nutritionCount++;
         }
     }
-    
-    public void updateEpi(String visitInsert, int visitMaxNew) throws SQLException{
+
+    public void updateEpi(String visitInsert, int visitMaxNew) throws SQLException {
         this.insertOtherVisit("visitepiappoint", visitMaxNew, visitInsert);
-        if(this.insertOtherVisit("visitepi", visitMaxNew, visitInsert)){
+        if (this.insertOtherVisit("visitepi", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.epiCount++;
         }
     }
-    
-    public void updateDentalcheck(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitdentalcheck", visitMaxNew, visitInsert)){
+
+    public void updateDentalcheck(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitdentalcheck", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.mouthCount++;
         }
     }
-    
-    public void updatePersongrow() throws SQLException{
+
+    public void updatePersongrow() throws SQLException {
         int persongrowCount = 0;
         persongrowCount = this.updateVillageOtherTable("persongrow", "datesurvey");
         Service.Service.updateCount.persongrow = persongrowCount;
-        
+
     }
 
-    
-    public void updateWomen() throws SQLException{
+    public void updateWomen() throws SQLException {
         Service.Service.updateCount.womanCount = this.updateCheckDateupdate("women");
     }
-    
-    
-    public void update506addr(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitdiag506address", visitMaxNew, visitInsert)){
+
+    public void update506addr(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitdiag506address", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.Addr506Count++;
         }
     }
 
-    public void updateHvisit(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visithomehealthindividual", visitMaxNew, visitInsert)){
+    public void updateHvisit(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visithomehealthindividual", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.hvisitCount++;
         }
     }
 
-    public void updateVisitScreenSpecialDisease(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("visitscreenspecialdisease", visitMaxNew, visitInsert)){
+    public void updateVisitScreenSpecialDisease(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("visitscreenspecialdisease", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.specialDiseaseCount++;
         }
     }
 
-
-     public void updateOldter(String visitInsert, int visitMaxNew) throws SQLException{
-        if(this.insertOtherVisit("ffc_visitoldter", visitMaxNew, visitInsert)){
+    public void updateOldter(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("ffc_visitoldter", visitMaxNew, visitInsert)) {
             Service.Service.updateCount.oldCount++;
         }
     }
 
-    public void updateDental(String visitInsert, int visitMaxnew) throws SQLException{
-        boolean check1 =false;
-        boolean check2 =false;
-        if(this.insertOtherVisit("visitdrugdental", visitMaxnew, visitInsert)){
+    public void updateDental(String visitInsert, int visitMaxnew) throws SQLException {
+        boolean check1 = false;
+        boolean check2 = false;
+        if (this.insertOtherVisit("visitdrugdental", visitMaxnew, visitInsert)) {
             check1 = true;
         }
-        if(this.insertOtherVisit("visitdrugdentaldiag", visitMaxnew, visitInsert)){
+        if (this.insertOtherVisit("visitdrugdentaldiag", visitMaxnew, visitInsert)) {
             check2 = true;
         }
-        if(check1||check2){
+        if (check1 || check2) {
             Service.Service.updateCount.dentalCount++;
         }
     }
 
-    public void updateVisitdiagAppoi(String visitInsert, int visitMaxnew) throws SQLException{
+    public void updateVisitdiagAppoi(String visitInsert, int visitMaxnew) throws SQLException {
         this.insertOtherVisit("visitdiagappoint", visitMaxnew, visitInsert);
     }
 
-   //paeng
-    public void updateVisiNcdPersonNcdScreen(String visitInsert, int visitMaxnew) throws SQLException{
+    //paeng
+    public void updateVisiNcdPersonNcdScreen(String visitInsert, int visitMaxnew) throws SQLException {
         this.insertOtherVisit("ncd_person_ncd_screen ", visitMaxnew, visitInsert);
     }
 
-    public void updatePersonbehavior() throws SQLException{
+    public void updatePersonbehavior() throws SQLException {
         Service.Service.updateCount.personbehaviorCount = this.updateCheckDateupdate("personbehavior");
     }
 
-    public void updatePersondeath() throws SQLException{
+    public void updatePersondeath() throws SQLException {
         Service.Service.updateCount.persondeathCount = this.updateCheckDateupdate("persondeath");
     }
-    
-    public void updatePersonunableGroup() throws SQLException{
+
+    public void updatePersonunableGroup() throws SQLException {
         this.updatepersonunable("personunable");
         Service.Service.updateCount.personunableCount = this.updateCheckDateupdate("personunable1type");
         this.updatepersonunable("personunable2prob");
         this.updatepersonunable("personunable3need");
         this.updatepersonunable("personunable4help");
-       }
+    }
 
     //by paeng ncd
 //    public void updatePersonNcd() throws SQLException{
@@ -1173,14 +1123,13 @@ public class ConvertSQLiteToSQL {
 //    public void updatePersonNcpNcdHistDetail() throws SQLException{
 //        Service.Service.updateCount.ncd_person_ncd_hist_detail = this.updateCheckDateupdateNDC("ncd_person_ncd_hist_detail");
 //    }
-
-    public void updatePersonNcpNcdScreen() throws SQLException{
+    public void updatePersonNcpNcdScreen() throws SQLException {
         Service.Service.updateCount.ncd_person_ncd_screen = this.updateCheckDateupdateNDC("ncd_person_ncd_screen");
         //System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+Service.Service.updateCount.ncd_person_ncd_screen);
     }
 
+    public class UpdateCountSet {
 
-    public class UpdateCountSet{
         public int personCount = 0;
         public int personbehaviorCount = 0;
         public int persondeathCount = 0;
@@ -1210,17 +1159,36 @@ public class ConvertSQLiteToSQL {
         public int nutritionCount = 0;
         public int epiCount = 0;
         public int persongrow = 0;
-        public int mouthCount = 0; 
+        public int mouthCount = 0;
 
         //by paeng for NCD
         public int ncd_person_ncd_screen = 0;
 
+        public int f43specialppCount = 0;
+        public int ffcSfPersonInfoCount = 0;
+        public int ffcSfDrugsCount = 0;
+        public int ffcSfSmokerInfoCount = 0;
+        public int ffcSfStressDepressionInfoCount = 0;
+        public int ffcSfNicotineInfoCount = 0;
 
-        public void UpdateCountSet(){
+        public int ffcSfDrinkingInfoCount = 0;
+        public int ffcSfStressDepression2qInfoCount = 0;
+        public int ffcSfStressDepression9qInfoCount = 0;
+        public int ffcSfSuicideAssessment8qInfoCount = 0;
+
+        public int ffcSfHealthRiskAssessmentInfoCount = 0;
+        public int ffcSfCardReadingHistoryCount = 0;
+        public int ffcSfCardiovascularRiskInfoCount = 0;
+        public int ffcSfScreeningResultCodeCount = 0;
+        public int ffcSfCounselingSignatureCount = 0;
+        public int ffcNhsoCardReadingHistoryCount = 0;
+        public int ffcSfNhsoClaimDataCount = 0;
+
+        public void UpdateCountSet() {
 
         }
 
-        public void clearValue(){
+        public void clearValue() {
             this.personCount = 0;
             this.personbehaviorCount = 0;
             this.persondeathCount = 0;
@@ -1250,28 +1218,46 @@ public class ConvertSQLiteToSQL {
             this.mouthCount = 0;
 
             //by paeng for NCD
-           
             this.ncd_person_ncd_screen = 0;
+            this.f43specialppCount = 0;
+            this.ffcSfPersonInfoCount = 0;
+            this.ffcSfDrugsCount = 0;
+            this.ffcSfSmokerInfoCount = 0;
+            this.ffcSfStressDepressionInfoCount = 0;
+            this.ffcSfNicotineInfoCount = 0;
+            this.ffcSfDrinkingInfoCount = 0;
+            this.ffcSfStressDepression2qInfoCount = 0;
+            this.ffcSfStressDepression9qInfoCount = 0;
+            this.ffcSfSuicideAssessment8qInfoCount = 0;
+
+            this.ffcSfHealthRiskAssessmentInfoCount = 0;
+            this.ffcSfCardReadingHistoryCount = 0;
+            this.ffcSfCardiovascularRiskInfoCount = 0;
+            this.ffcSfScreeningResultCodeCount = 0;
+
+            this.ffcSfCounselingSignatureCount = 0;
+            this.ffcNhsoCardReadingHistoryCount = 0;
+            this.ffcSfNhsoClaimDataCount = 0;
         }
     }
 
-    public UpdateCountSet getUpdateCountSet(){
+    public UpdateCountSet getUpdateCountSet() {
         UpdateCountSet updatecountset = new UpdateCountSet();
         return updatecountset;
     }
 
-    public boolean insertVisitHomeHealth(String tableName,int visitMaxNew,String visitInsert) throws SQLException{
-        String query = "Select * From "+ tableName+ " WHERE visitno = "+ visitInsert; 
+    public boolean insertVisitHomeHealth(String tableName, int visitMaxNew, String visitInsert) throws SQLException {
+        String query = "Select * From " + tableName + " WHERE visitno = " + visitInsert;
         ResultSet rs = this.SQLiteConnection.getResultSet(query);
-        if(rs.next()){
+        if (rs.next()) {
             System.out.println("Findddddddd Inserttttttttt Homehealthhh");
-            
+
             ResultSet rss = this.SQLiteConnection.getResultSet(query);
-          
+
             this.insertSpecificColumn(tableName, rss, Integer.toString(visitMaxNew), "visitno");
-           
+
             ResultSet rsss = this.SQLiteConnection.getResultSet(query);
-            while(rsss.next()){
+            while (rsss.next()) {
                 System.out.println("homehealthtyperss : " + rsss.getString("homehealthtype"));
                 switch (rsss.getString("homehealthtype")) {
                     case "901":
@@ -1286,287 +1272,295 @@ public class ConvertSQLiteToSQL {
                 }
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public void insertSpecificColumn(String tableName, ResultSet dataInsert, String newId, String columnName) throws SQLException{
+    public void insertSpecificColumn(String tableName, ResultSet dataInsert, String newId, String columnName) throws SQLException {
         Statement stmt = Service.Service.connectionSQL.connection.createStatement();
         String columnNameSelect = columnName;
-        while(dataInsert.next())
-            {
-                String insertData1 = "INSERT INTO "+tableName+" (";
-                String insertData2 = " VALUES (";
-                ResultSetMetaData rsmd = dataInsert.getMetaData();
-                for(int i=1; i<=rsmd.getColumnCount(); i++)
-                {
-                    if(i != rsmd.getColumnCount())
-                        {
-                              insertData1 +=rsmd.getColumnLabel(i) + ",";
-                              if(dataInsert.getString(i) != null)
-                              {
-                                  if(rsmd.getColumnName(i).equals(columnNameSelect))
-                                  {
-                                      insertData2 += "'" + newId + "',";
-                                  }
-                                  else
-                                  {
-                                      insertData2 += "'" + dataInsert.getString(i) + "',";
-                                  }
-                              }
-                              else
-                              {
-                                  insertData2 += dataInsert.getString(i) + ",";
-                              }
+        while (dataInsert.next()) {
+            String insertData1 = "INSERT INTO " + tableName + " (";
+            String insertData2 = " VALUES (";
+            ResultSetMetaData rsmd = dataInsert.getMetaData();
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                if (i != rsmd.getColumnCount()) {
+                    insertData1 += rsmd.getColumnLabel(i) + ",";
+                    if (dataInsert.getString(i) != null) {
+                        if (rsmd.getColumnName(i).equals(columnNameSelect)) {
+                            insertData2 += "'" + newId + "',";
+                        } else {
+                            insertData2 += "'" + dataInsert.getString(i) + "',";
                         }
-                        else
-                        {
-                            if(dataInsert.getString(i) != null)
-                                insertData2 += "'" + dataInsert.getString(i) + "')";
-                            else
-                                insertData2 += dataInsert.getString(i) + ")";
-                                insertData1 += rsmd.getColumnLabel(i)+ ")";
+                    } else {
+                        insertData2 += dataInsert.getString(i) + ",";
+                    }
+                } else {
+                    if (dataInsert.getString(i) != null) {
+                        insertData2 += "'" + dataInsert.getString(i) + "')";
+                    } else {
+                        insertData2 += dataInsert.getString(i) + ")";
+                    }
+                    insertData1 += rsmd.getColumnLabel(i) + ")";
 
-                        }
                 }
-                //System.out.println(insertData1);
-                //System.out.println(insertData2);
-                System.out.println(insertData1 + insertData2);
-                stmt.executeUpdate(insertData1 + insertData2);
+            }
+            //System.out.println(insertData1);
+            //System.out.println(insertData2);
+            System.out.println(insertData1 + insertData2);
+            stmt.executeUpdate(insertData1 + insertData2);
+        }
+    }
+
+    public void updateNewPidOtherTable(String[] tableName, String newPid, String oldPid, String columnUpdate) throws SQLException {
+        Statement stmt = Service.Service.connectionSQL.connection.createStatement();
+        int tableAmount = tableName.length;
+
+        for (int i = 0; i < tableAmount; i++) {
+            String query = "UPDATE " + tableName[i] + " SET " + columnUpdate + " = '" + newPid + "'" + " WHERE " + columnUpdate + "='" + oldPid + "'";
+            System.out.println(query);
+            stmt.addBatch(query);
+        }
+        stmt.executeBatch();
+    }
+
+    public int updateVillageOtherTable(String tableName, String fieldCheck) throws SQLException {
+        //ArrayList<ResultSet> newUpdate = new ArrayList<ResultSet>();
+        int countUpdate = 0;
+        String lastUpdate = this.getLastUpdate();
+
+        Statement stmt = Service.Service.connectionSQL.connection.createStatement();
+        String queryNewUpdate = "SELECT * FROM " + tableName + " WHERE " + fieldCheck + " > '" + lastUpdate + "'";
+        System.out.println(queryNewUpdate);
+        ResultSet NewUpdateRs = this.SQLiteConnection.getResultSet(queryNewUpdate);
+        ArrayList<ResultSet> arrayListUpdate = new ArrayList<>();
+        ArrayList<ResultSet> arrayListInsert = new ArrayList<>();
+        while (NewUpdateRs.next()) {
+            String query = "SELECT * FROM " + tableName + this.getQueryWhereCondition(tableName, NewUpdateRs);
+            System.out.println(query);
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                ResultSet rss = this.SQLiteConnection.getResultSet(query);
+                arrayListUpdate.add(rss);
+                countUpdate++;
+            } else {
+                ResultSet rss = this.SQLiteConnection.getResultSet(query);
+                arrayListInsert.add(rss);
+                countUpdate++;
             }
         }
+        this.updateData(tableName, arrayListUpdate);
+        this.InsertData(tableName, arrayListInsert);
+        System.out.println(tableName + " Update Count : " + countUpdate);
+        return countUpdate;
+    }
 
-       public void updateNewPidOtherTable(String[] tableName, String newPid, String oldPid, String columnUpdate) throws SQLException{
-           Statement stmt = Service.Service.connectionSQL.connection.createStatement();
-           int tableAmount = tableName.length;
-
-           for(int i=0; i< tableAmount; i++){
-               String query = "UPDATE "+ tableName[i] + " SET "+ columnUpdate + " = '" + newPid +"'" + " WHERE " + columnUpdate + "='" + oldPid +"'";
-               System.out.println(query);
-               stmt.addBatch(query);  
-           }
-           stmt.executeBatch();
-       }
-
-       public int updateVillageOtherTable(String tableName,String fieldCheck) throws SQLException{
-           //ArrayList<ResultSet> newUpdate = new ArrayList<ResultSet>();
-           int countUpdate = 0;
-           String lastUpdate = this.getLastUpdate();
-
-           Statement stmt = Service.Service.connectionSQL.connection.createStatement();
-           String queryNewUpdate = "SELECT * FROM "+tableName+" WHERE "+fieldCheck+" > '"+lastUpdate+"'";
-           System.out.println(queryNewUpdate);
-           ResultSet NewUpdateRs = this.SQLiteConnection.getResultSet(queryNewUpdate);
-           ArrayList<ResultSet> arrayListUpdate = new ArrayList<>();
-           ArrayList<ResultSet> arrayListInsert = new ArrayList<>();
-            while(NewUpdateRs.next()){
-                    String query = "SELECT * FROM "+tableName+this.getQueryWhereCondition(tableName, NewUpdateRs);
-                    System.out.println(query);
-                    ResultSet rs = stmt.executeQuery(query);
-                    if(rs.next()){
-                        ResultSet rss = this.SQLiteConnection.getResultSet(query);
-                        arrayListUpdate.add(rss);
-                        countUpdate++;
-                    }else{
-                        ResultSet rss = this.SQLiteConnection.getResultSet(query);
-                        arrayListInsert.add(rss);
-                        countUpdate++;
-                    }
-            }
-           this.updateData(tableName, arrayListUpdate);
-           this.InsertData(tableName, arrayListInsert);
-           System.out.println(tableName+ " Update Count : "+ countUpdate);
-           return countUpdate;
-       }
-
-       private String getQueryWhereCondition(String tableName, ResultSet rs) throws SQLException{
-           System.out.println("table name :::::::::::::::: "+tableName);
-           String value = "";
+    private String getQueryWhereCondition(String tableName, ResultSet rs) throws SQLException {
+        System.out.println("table name :::::::::::::::: " + tableName);
+        String value = "";
         switch (tableName) {
             case "housevesselwater":
                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND hcode = '" + rs.getString("hcode") + "' AND vessel ='" + rs.getString("vessel") + "'";
                 break;
             case "housegenoculex":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND hcode = '" + rs.getString("hcode") + "' AND datesurvey ='" + rs.getString("datesurvey") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND hcode = '" + rs.getString("hcode") + "' AND datesurvey ='" + rs.getString("datesurvey") + "'";
                 break;
             case "houseanimal":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND hcode = '" + rs.getString("hcode") + "' AND animaltype ='" + rs.getString("animaltype") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND hcode = '" + rs.getString("hcode") + "' AND animaltype ='" + rs.getString("animaltype") + "'";
                 break;
             case "villagebusiness":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND businessno = '" + rs.getString("businessno") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND businessno = '" + rs.getString("businessno") + "'";
                 break;
             case "villageschool":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND schoolno = '" + rs.getString("schoolno") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND schoolno = '" + rs.getString("schoolno") + "'";
                 break;
             case "villagetemple":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND templeno = '" + rs.getString("templeno") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND templeno = '" + rs.getString("templeno") + "'";
                 break;
             case "villagewater":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND waterno = '" + rs.getString("waterno") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND waterno = '" + rs.getString("waterno") + "'";
                 break;
             case "house":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND hcode = '" + rs.getString("hcode") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND hcode = '" + rs.getString("hcode") + "'";
                 break;
             case "ffc_poi":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND poino = '" + rs.getString("poino") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND poino = '" + rs.getString("poino") + "'";
                 break;
             case "ffc_hospital":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND hospitalno = '" + rs.getString("hospitalno") + "'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND villcode = '" + rs.getString("villcode") + "' AND hospitalno = '" + rs.getString("hospitalno") + "'";
                 break;
             case "visitancrisk":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "' AND pregno = '" + rs.getString("pregno") + "' AND ancriskcode = '" + rs.getString("ancriskcode") + "'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "' AND pregno = '" + rs.getString("pregno") + "' AND ancriskcode = '" + rs.getString("ancriskcode") + "'";
                 break;
             case "person":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
             case "visitancpregnancy":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "' AND pregno = '" + rs.getString("pregno") + "'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "' AND pregno = '" + rs.getString("pregno") + "'";
                 break;
             case "persongrow":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "' AND growcode = '" + rs.getString("growcode") + "'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "' AND growcode = '" + rs.getString("growcode") + "'";
                 break;
             case "personbehavior":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid")+"'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
             case "women":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid")+"'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
             case "personunable1type":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid")+"' AND typecode = '" + rs.getString("typecode") + "'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "' AND typecode = '" + rs.getString("typecode") + "'";
                 break;
             case "persondeath":
-                 value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid")+"'";
+                value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
             case "ncd_person":
-                 value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
             case "ncd_person_ncd":
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
             case "ncd_person_ncd_hist":
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
             case "ncd_person_ncd_hist_detail":
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"'";
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid") + "'";
                 break;
-            case "ncd_person_ncd_screen":
-            {
-                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid")+"' AND no = '"+rs.getString("no")+"'";
+            case "ncd_person_ncd_screen": {
+                value = " WHERE pcucode ='" + rs.getString("pcucode") + "' AND pid = '" + rs.getString("pid") + "' AND no = '" + rs.getString("no") + "'";
                 System.out.println("insite where");
                 break;
             }
         }
-           return value;
-       }
+        return value;
+    }
 
-       public void insertVisitGroup(String visitInsert, int visitMaxNew) throws SQLException{
-           this.updateFamilyplan(visitInsert, visitMaxNew);
-           this.update506addr(visitInsert, visitMaxNew);
-           this.updateApg(visitInsert, visitMaxNew);
-           this.updateBabypg(visitInsert, visitMaxNew);
-           this.updateCcbp(visitInsert, visitMaxNew);
-           this.updateHvisit(visitInsert, visitMaxNew);
-           this.updatePg(visitInsert, visitMaxNew);
-           this.updateVisitScreenSpecialDisease(visitInsert, visitMaxNew);
-           this.updateDental(visitInsert, visitMaxNew);
-           this.updateLabBlood(visitInsert, visitMaxNew);
-           this.updateOldter(visitInsert, visitMaxNew);
-           this.updateEpi(visitInsert, visitMaxNew);
-           this.updateDentalcheck(visitInsert, visitMaxNew);
-           this.updateNutrition(visitInsert, visitMaxNew);
-           this.updateVisitdiagAppoi(visitInsert, visitMaxNew);
-           //this.updateVisiNcdPersonNcdScreen(visitInsert, visitMaxNew);
-       }
+    public void insertVisitGroup(String visitInsert, int visitMaxNew) throws SQLException {
+        this.updateFamilyplan(visitInsert, visitMaxNew);
+        this.update506addr(visitInsert, visitMaxNew);
+        this.updateApg(visitInsert, visitMaxNew);
+        this.updateBabypg(visitInsert, visitMaxNew);
+        this.updateCcbp(visitInsert, visitMaxNew);
+        this.updateHvisit(visitInsert, visitMaxNew);
+        this.updatePg(visitInsert, visitMaxNew);
+        this.updateVisitScreenSpecialDisease(visitInsert, visitMaxNew);
+        this.updateDental(visitInsert, visitMaxNew);
+        this.updateLabBlood(visitInsert, visitMaxNew);
+        this.updateOldter(visitInsert, visitMaxNew);
+        this.updateEpi(visitInsert, visitMaxNew);
+        this.updateDentalcheck(visitInsert, visitMaxNew);
+        this.updateNutrition(visitInsert, visitMaxNew);
+        this.updateVisitdiagAppoi(visitInsert, visitMaxNew);
+        this.updateF43SpecialPP(visitInsert, visitMaxNew);
+        this.updateFfcSfPersonInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfDrugs(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfSmokerInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfNicotineInfo(SQLiteConnection, visitInsert, visitMaxNew);
 
-       public void updateOtherGroup() throws SQLException, Exception{
-           this.updatePerson();
-           this.updatePersongrow();
-           this.updatePersonunableGroup();
-           this.updateWomen();
-       }
+        this.updateFfcSfDrinkingInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfStressDepression2qInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfStressDepression9qInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfSuicideAssessment8qInfo(SQLiteConnection, visitInsert, visitMaxNew);
 
-       private boolean insertVisitAncRisk(String visitno) throws SQLException{
-           System.out.println("Insert Visitancrisk");
-           String query = "SELECT distinct visitancrisk.* FROM (SELECT pcucodeperson,pid,pregno FROM visitanc WHERE visitno = '"+visitno+"')t1 "
-                   + "JOIN visitancrisk ON t1.pcucodeperson = visitancrisk.pcucodeperson AND t1.pid = visitancrisk.pid AND t1.pregno = visitancrisk.pregno";
-           System.out.println(query);
-           ResultSet rs = Service.Service.SQLiteConnection.getResultSet(query);
-           try {
-               
-               int count = 0;
-               boolean checkupdate = false;
-                while(rs.next()){
-                    ArrayList<ResultSet> data = new ArrayList<>();
-                    //System.out.println("Ancriskcode :"+rs.getString("ancriskcode"));
-                    System.out.println("count round :"+ count++);
-                    String query1 = "SELECT visitancrisk.pid FROM visitancrisk " + this.getQueryWhereCondition("visitancrisk", rs);
-                    System.out.println(query1);
-                    ResultSet rss = Service.Service.connectionSQL.getResultSet(query1);
-                    
-                    if(rss.next()){
-                        System.out.println("Find Data");
-                        //data.add(rs);
-                    }else{
-                        System.out.println("Not Find Add Data");
-                        System.out.println(rs.getString("ancriskcode"));
-                        data.add(rs);
-                    }
-                   this.InsertData("visitancrisk", data);
-                   
-                }
-                return true;
-           } catch (SQLException ex) {
-                Logger.getLogger(ConvertSQLiteToSQL.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println(ex.getErrorCode());
-                return false;
-           }
-       }
+        this.updateFfcSfHealthRiskAssessmentInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfCardReadingHistory(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfCardiovascularRiskInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfScreeningResultCode(SQLiteConnection, visitInsert, visitMaxNew);
 
-       public int checkUpdateGisGroup(ConnectDatabase.ConnectSQLite connection,String tableName) throws SQLException{
-           int countUpdate = 0;
-           String lastUpdate = this.getLastUpdate();
-           Statement stmt = Service.Service.connectionSQL.connection.createStatement();
-           String queryNewUpdate = "SELECT * FROM "+tableName+" WHERE dateupdate > '"+lastUpdate+"'";
-           System.out.println(queryNewUpdate);
-           ResultSet NewUpdateRs = connection.getResultSet(queryNewUpdate);
-           if(connection.SQLiteConnection.isClosed()){
-               System.out.println("closeeeee");
-           }else{
-               System.out.println("opennnnnn");
-           }
-            while(NewUpdateRs.next()){
-                    String query = "SELECT * FROM "+tableName+this.getQueryWhereCondition(tableName, NewUpdateRs);
-                    System.out.println(query);
-                    ResultSet rs = stmt.executeQuery(query);
-                    if(rs.next()){
-                        countUpdate++;
-                    }else{
-                        countUpdate++;
-                    }
-            }
-           System.out.println(tableName+ " Update Count : "+ countUpdate);
-           return countUpdate;
-       }
-       
-       public int sumGisUpdateCount(ConnectDatabase.ConnectSQLite connection){
-        int count=0;
+        this.updateFfcSfCounselingSignature(SQLiteConnection, visitInsert, visitMaxNew);           // เพิ่มบรรทัดนี้
+        this.updateFfcNhsoCardReadingHistory(SQLiteConnection, visitInsert, visitMaxNew);          // เพิ่มบรรทัดนี้
+        this.updateFfcSfNhsoClaimData(SQLiteConnection, visitInsert, visitMaxNew);
+        //this.updateVisiNcdPersonNcdScreen(visitInsert, visitMaxNew);
+    }
+
+    public void updateOtherGroup() throws SQLException, Exception {
+        this.updatePerson();
+        this.updatePersongrow();
+        this.updatePersonunableGroup();
+        this.updateWomen();
+    }
+
+    private boolean insertVisitAncRisk(String visitno) throws SQLException {
+        System.out.println("Insert Visitancrisk");
+        String query = "SELECT distinct visitancrisk.* FROM (SELECT pcucodeperson,pid,pregno FROM visitanc WHERE visitno = '" + visitno + "')t1 "
+                + "JOIN visitancrisk ON t1.pcucodeperson = visitancrisk.pcucodeperson AND t1.pid = visitancrisk.pid AND t1.pregno = visitancrisk.pregno";
+        System.out.println(query);
+        ResultSet rs = Service.Service.SQLiteConnection.getResultSet(query);
         try {
-            count +=checkUpdateGisGroup(connection,"villagebusiness");
-            count +=checkUpdateGisGroup(connection,"villagetemple");
-            count +=checkUpdateGisGroup(connection,"villagewater");
-            count +=checkUpdateGisGroup(connection,"villageschool");
-            count +=checkUpdateGisGroup(connection,"ffc_poi");
-            count +=checkUpdateGisGroup(connection,"ffc_hospital");
-            count +=checkUpdateGisGroup(connection,"house");
+
+            int count = 0;
+            boolean checkupdate = false;
+            while (rs.next()) {
+                ArrayList<ResultSet> data = new ArrayList<>();
+                //System.out.println("Ancriskcode :"+rs.getString("ancriskcode"));
+                System.out.println("count round :" + count++);
+                String query1 = "SELECT visitancrisk.pid FROM visitancrisk " + this.getQueryWhereCondition("visitancrisk", rs);
+                System.out.println(query1);
+                ResultSet rss = Service.Service.connectionSQL.getResultSet(query1);
+
+                if (rss.next()) {
+                    System.out.println("Find Data");
+                    //data.add(rs);
+                } else {
+                    System.out.println("Not Find Add Data");
+                    System.out.println(rs.getString("ancriskcode"));
+                    data.add(rs);
+                }
+                this.InsertData("visitancrisk", data);
+
+            }
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConvertSQLiteToSQL.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getErrorCode());
+            return false;
+        }
+    }
+
+    public int checkUpdateGisGroup(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        int countUpdate = 0;
+        String lastUpdate = this.getLastUpdate();
+        Statement stmt = Service.Service.connectionSQL.connection.createStatement();
+        String queryNewUpdate = "SELECT * FROM " + tableName + " WHERE dateupdate > '" + lastUpdate + "'";
+        System.out.println(queryNewUpdate);
+        ResultSet NewUpdateRs = connection.getResultSet(queryNewUpdate);
+        if (connection.SQLiteConnection.isClosed()) {
+            System.out.println("closeeeee");
+        } else {
+            System.out.println("opennnnnn");
+        }
+        while (NewUpdateRs.next()) {
+            String query = "SELECT * FROM " + tableName + this.getQueryWhereCondition(tableName, NewUpdateRs);
+            System.out.println(query);
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                countUpdate++;
+            } else {
+                countUpdate++;
+            }
+        }
+        System.out.println(tableName + " Update Count : " + countUpdate);
+        return countUpdate;
+    }
+
+    public int sumGisUpdateCount(ConnectDatabase.ConnectSQLite connection) {
+        int count = 0;
+        try {
+            count += checkUpdateGisGroup(connection, "villagebusiness");
+            count += checkUpdateGisGroup(connection, "villagetemple");
+            count += checkUpdateGisGroup(connection, "villagewater");
+            count += checkUpdateGisGroup(connection, "villageschool");
+            count += checkUpdateGisGroup(connection, "ffc_poi");
+            count += checkUpdateGisGroup(connection, "ffc_hospital");
+            count += checkUpdateGisGroup(connection, "house");
         } catch (SQLException ex) {
             Logger.getLogger(ConvertSQLiteToSQL.class.getName()).log(Level.SEVERE, null, ex);
 
         }
         return count;
-       }
+    }
 
-       public void addCount(String tableName){
+    public void addCount(String tableName) {
         switch (tableName) {
             case "women":
                 Service.Service.updateCount.womanCount++;
@@ -1574,81 +1568,684 @@ public class ConvertSQLiteToSQL {
             case "ffc_visitspecialperson":
                 personUpdateCount++;
                 break;
+            case "f43specialpp":
+                Service.Service.updateCount.f43specialppCount++;
+                break;
+            case "ffc_sf_person_info":
+                Service.Service.updateCount.ffcSfPersonInfoCount++;
+                break;
+            case "ffc_sf_cardiovascular_risk_info":
+                Service.Service.updateCount.ffcSfCardiovascularRiskInfoCount++;
+                break;
+            case "ffc_sf_card_reading_history":
+                Service.Service.updateCount.ffcSfCardReadingHistoryCount++;
+                break;
+            case "ffc_sf_counseling_signature":
+                Service.Service.updateCount.ffcSfCounselingSignatureCount++;
+                break;
+            case "ffc_sf_drinking_info":
+                Service.Service.updateCount.ffcSfDrinkingInfoCount++;
+                break;
+            case "ffc_sf_drugs":
+                Service.Service.updateCount.ffcSfDrugsCount++;
+                break;
+            case "ffc_sf_health_risk_assessment_info":
+                Service.Service.updateCount.ffcSfHealthRiskAssessmentInfoCount++;
+                break;
+            case "ffc_sf_nhso_claim_data":
+                Service.Service.updateCount.ffcSfNhsoClaimDataCount++;
+                break;
+            case "ffc_sf_nicotine_info":
+                Service.Service.updateCount.ffcSfNicotineInfoCount++;
+                break;
+            case "ffc_sf_screening_result_code":
+                Service.Service.updateCount.ffcSfScreeningResultCodeCount++;
+                break;
+            case "ffc_sf_smoker_info":
+                Service.Service.updateCount.ffcSfSmokerInfoCount++;
+                break;
+            case "ffc_sf_stress_depression_2q_info":
+                Service.Service.updateCount.ffcSfStressDepression2qInfoCount++;
+                break;
+            case "ffc_sf_stress_depression_9q_info":
+                Service.Service.updateCount.ffcSfStressDepression9qInfoCount++;
+                break;
+            case "ffc_sf_stress_depression_info":
+                Service.Service.updateCount.ffcSfStressDepressionInfoCount++;
+                break;
+            case "ffc_sf_suicide_assessment_8q_info":
+                Service.Service.updateCount.ffcSfSuicideAssessment8qInfoCount++;
+                break;
+            case "ffc_nhso_card_reading_history":
+                Service.Service.updateCount.ffcNhsoCardReadingHistoryCount++;
+                break;
         }
-       }
-
-       public void insertVisitCount() throws SQLException{
-           SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",java.util.Locale.US);
-           Date d = new Date();
-           String insertQuery = "INSERT INTO ffc_androidvisit (datesurvey,amount) VALUES ('"+sdf.format(d)+"','"+this.visitUpdateCount+"')";
-           System.out.println(insertQuery);
-           Statement stm = Service.Service.connectionSQL.connection.createStatement();
-           stm.executeUpdate(insertQuery);
-           
-       }
-
-       public void syncPidAndroid(String tableName,String oldPid,String newPid) throws SQLException{
-           String query = "UPDATE "+tableName+" SET pid = '"+newPid+"' WHERE pid = '"+oldPid+"'";
-           Statement stm = this.SQLiteConnection.SQLiteConnection.createStatement();
-           stm.executeUpdate(query);
-       }
-
-       public void syncHcodeAndroid(String tableName,String oldHcode,String newHcode) throws SQLException{
-           String query = "UPDATE "+tableName+" SET hcode = '"+newHcode+"' WHERE hcode = '"+oldHcode+"'";
-           Statement stm = this.SQLiteConnection.SQLiteConnection.createStatement();
-           stm.executeUpdate(query);
-       }
-
-       private void syncPidAndroidGroup(String oldPid,String newPid) throws SQLException{
-           this.syncPidAndroid("visit", oldPid, newPid);
-           this.syncPidAndroid("women", oldPid, newPid);
-           this.syncPidAndroid("house", oldPid, newPid);
-           this.syncPidAndroid("personbehavior", oldPid, newPid);
-           //this.syncPidAndroid("personaddresscontract", oldPid, newPid);
-           this.syncPidAndroid("persontype", oldPid, newPid);
-           this.syncPidAndroid("personchronic", oldPid, newPid);
-           this.syncPidAndroid("personchronicfamily", oldPid, newPid);
-           this.syncPidAndroid("personhabit", oldPid, newPid);
-           this.syncPidAndroid("persongrow", oldPid, newPid);
-           this.syncPidAndroid("personunable", oldPid, newPid);
-           this.syncPidAndroid("persondeath", oldPid, newPid);
-       }
-
-       private void syncHcodeAndroidGroup(String oldPid,String newPid) throws SQLException{
-           this.syncHcodeAndroid("houseanimal", oldPid, newPid);
-           this.syncHcodeAndroid("housegenusculex", oldPid, newPid);
-           this.syncHcodeAndroid("housevesselwater", oldPid, newPid);
-       }
-
-       private void updatepersonunable(String tablename) throws SQLException{
-           Statement stm1 = Service.Service.connectionSQL.connection.createStatement();
-           String selectquery = "SElECT * FROM "+tablename;
-           ResultSet rs1 = Service.Service.connectionSQL.getResultSet(selectquery);
-           String deletequery = "DELETE FROM "+tablename;
-           System.out.println(deletequery);
-           stm1.executeUpdate(deletequery);
-           String selectallQuery = "SELECT * FROM "+tablename;
-           Statement stm2 = this.SQLiteConnection.SQLiteConnection.createStatement();
-           ResultSet rs = stm2.executeQuery(selectallQuery);
-           if(!this.InsertDataResultSet(tablename, rs)){
-               stm1.executeUpdate(deletequery);
-               this.InsertDataResultSet(tablename, rs1);
-           }
-       }
-
-       
-
-       public void updateGisGroup() throws SQLException, Exception{
-           
-           Service.Service.updateCount.villbusinessCount = this.updateVillageOtherTable("villagebusiness", "dateupdate");
-           Service.Service.updateCount.villschoolCount = this.updateVillageOtherTable("villageschool", "dateupdate");
-           Service.Service.updateCount.villtempleCount = this.updateVillageOtherTable("villagetemple", "dateupdate");
-           Service.Service.updateCount.villwaterCount = this.updateVillageOtherTable("villagewater", "dateupdate");
-           Service.Service.updateCount.hospitalCount = this.updateVillageOtherTable("ffc_hospital", "dateupdate");
-           Service.Service.updateCount.poiCount = this.updateVillageOtherTable("ffc_poi", "dateupdate");
-       }
-        public void  houseUpdateAndInsert() throws SQLException, Exception{
-           Service.Service.updateCount.houseCount = this.updateAndInsertHouse();
-       }
-       
     }
+
+    public void insertVisitCount() throws SQLException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US);
+        Date d = new Date();
+        String insertQuery = "INSERT INTO ffc_androidvisit (datesurvey,amount) VALUES ('" + sdf.format(d) + "','" + this.visitUpdateCount + "')";
+        System.out.println(insertQuery);
+        Statement stm = Service.Service.connectionSQL.connection.createStatement();
+        stm.executeUpdate(insertQuery);
+
+    }
+
+    public void syncPidAndroid(String tableName, String oldPid, String newPid) throws SQLException {
+        String query = "UPDATE " + tableName + " SET pid = '" + newPid + "' WHERE pid = '" + oldPid + "'";
+        Statement stm = this.SQLiteConnection.SQLiteConnection.createStatement();
+        stm.executeUpdate(query);
+    }
+
+    public void syncHcodeAndroid(String tableName, String oldHcode, String newHcode) throws SQLException {
+        String query = "UPDATE " + tableName + " SET hcode = '" + newHcode + "' WHERE hcode = '" + oldHcode + "'";
+        Statement stm = this.SQLiteConnection.SQLiteConnection.createStatement();
+        stm.executeUpdate(query);
+    }
+
+    private void syncPidAndroidGroup(String oldPid, String newPid) throws SQLException {
+        this.syncPidAndroid("visit", oldPid, newPid);
+        this.syncPidAndroid("women", oldPid, newPid);
+        this.syncPidAndroid("house", oldPid, newPid);
+        this.syncPidAndroid("personbehavior", oldPid, newPid);
+        //this.syncPidAndroid("personaddresscontract", oldPid, newPid);
+        this.syncPidAndroid("persontype", oldPid, newPid);
+        this.syncPidAndroid("personchronic", oldPid, newPid);
+        this.syncPidAndroid("personchronicfamily", oldPid, newPid);
+        this.syncPidAndroid("personhabit", oldPid, newPid);
+        this.syncPidAndroid("persongrow", oldPid, newPid);
+        this.syncPidAndroid("personunable", oldPid, newPid);
+        this.syncPidAndroid("persondeath", oldPid, newPid);
+    }
+
+    private void syncHcodeAndroidGroup(String oldPid, String newPid) throws SQLException {
+        this.syncHcodeAndroid("houseanimal", oldPid, newPid);
+        this.syncHcodeAndroid("housegenusculex", oldPid, newPid);
+        this.syncHcodeAndroid("housevesselwater", oldPid, newPid);
+    }
+
+    private void updatepersonunable(String tablename) throws SQLException {
+        Statement stm1 = Service.Service.connectionSQL.connection.createStatement();
+        String selectquery = "SElECT * FROM " + tablename;
+        ResultSet rs1 = Service.Service.connectionSQL.getResultSet(selectquery);
+        String deletequery = "DELETE FROM " + tablename;
+        System.out.println(deletequery);
+        stm1.executeUpdate(deletequery);
+        String selectallQuery = "SELECT * FROM " + tablename;
+        Statement stm2 = this.SQLiteConnection.SQLiteConnection.createStatement();
+        ResultSet rs = stm2.executeQuery(selectallQuery);
+        if (!this.InsertDataResultSet(tablename, rs)) {
+            stm1.executeUpdate(deletequery);
+            this.InsertDataResultSet(tablename, rs1);
+        }
+    }
+
+    public void updateGisGroup() throws SQLException, Exception {
+
+        Service.Service.updateCount.villbusinessCount = this.updateVillageOtherTable("villagebusiness", "dateupdate");
+        Service.Service.updateCount.villschoolCount = this.updateVillageOtherTable("villageschool", "dateupdate");
+        Service.Service.updateCount.villtempleCount = this.updateVillageOtherTable("villagetemple", "dateupdate");
+        Service.Service.updateCount.villwaterCount = this.updateVillageOtherTable("villagewater", "dateupdate");
+        Service.Service.updateCount.hospitalCount = this.updateVillageOtherTable("ffc_hospital", "dateupdate");
+        Service.Service.updateCount.poiCount = this.updateVillageOtherTable("ffc_poi", "dateupdate");
+    }
+
+    public void houseUpdateAndInsert() throws SQLException, Exception {
+        Service.Service.updateCount.houseCount = this.updateAndInsertHouse();
+    }
+
+    public int checkUpdateF43SpecialPP(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        int updateCount = 0;
+        String lastUpdate = getLastUpdate();
+        System.out.println("Last Update: " + lastUpdate);
+        Timestamp ts1 = Timestamp.valueOf(lastUpdate);
+        Timestamp ts2;
+
+        ResultSet rs = connection.getResultSet("SELECT dateupdate FROM " + tableName);
+        while (rs.next()) {
+            if (rs.getString("dateupdate") != null) {
+                ts2 = Timestamp.valueOf(rs.getString("dateupdate"));
+                if (ts1.compareTo(ts2) < 0) {
+                    updateCount++;
+                }
+            }
+        }
+        System.out.println(tableName + " Update Count : " + updateCount);
+        return updateCount;
+    }
+
+    /**
+     * อัพเดทข้อมูล f43specialpp สำหรับ visit ที่เพิ่มใหม่
+     *
+     * @param visitInsert
+     * @param visitMaxNew
+     * @throws SQLException
+     */
+    public void updateF43SpecialPP(String visitInsert, int visitMaxNew) throws SQLException {
+        if (this.insertOtherVisit("f43specialpp", visitMaxNew, visitInsert)) {
+            Service.Service.updateCount.f43specialppCount++;
+        }
+    }
+
+    public boolean insertF43SpecialPP(String tableName, int visitMaxNew, String visitInsert) throws SQLException {
+        String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
+        ResultSet rs = this.SQLiteConnection.getResultSet(query);
+        Statement stmt = Service.Service.connectionSQL.connection.createStatement();
+        boolean result = false;
+
+        if (rs.next()) {
+            ResultSet rss = this.SQLiteConnection.getResultSet(query);
+            while (rss.next()) {
+                String insertData1 = "INSERT INTO " + tableName + " (";
+                String insertData2 = " VALUES (";
+                ResultSetMetaData rsmd = rss.getMetaData();
+
+                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                    if (i != rsmd.getColumnCount()) {
+                        insertData1 += rsmd.getColumnLabel(i) + ",";
+
+                        if (rss.getString(i) != null) {
+                            if (rsmd.getColumnLabel(i).equals("visitno") || rsmd.getColumnLabel(i).equals("visitNo")) {
+                                insertData2 += "'" + visitMaxNew + "',";
+                            } else {
+                                insertData2 += "'" + rss.getString(i) + "',";
+                            }
+                        } else {
+                            insertData2 += rss.getString(i) + ",";
+                        }
+                    } else {
+                        if (rss.getString(i) != null) {
+                            insertData2 += "'" + rss.getString(i) + "')";
+                        } else {
+                            insertData2 += rss.getString(i) + ")";
+                        }
+                        insertData1 += rsmd.getColumnLabel(i) + ")";
+                    }
+                }
+
+                f43specialppUpdateCount++;
+                System.out.println("Insert F43SpecialPP: " + insertData1 + insertData2);
+                stmt.executeUpdate(insertData1 + insertData2);
+            }
+            rss.close();
+            rs.close();
+            result = true;
+        } else {
+            System.out.println(tableName + " : No " + tableName + " Insert");
+            result = false;
+        }
+        stmt.close();
+        return result;
+    }
+
+    private String getQueryWhereConditionF43SpecialPP(String tableName, ResultSet rs) throws SQLException {
+        String value = "";
+        if ("f43specialpp".equals(tableName)) {
+            value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson")
+                    + "' AND pid = '" + rs.getString("pid")
+                    + "' AND dateserv = '" + rs.getString("dateserv")
+                    + "' AND ppspecial = '" + rs.getString("ppspecial") + "'";
+        }
+        return value;
+    }
+
+    public int updateF43SpecialPPByDate() throws SQLException {
+        int count = 0;
+        String lastUpdate = this.getLastUpdate();
+        String sqliteQuery = "SELECT * FROM f43specialpp WHERE dateupdate > '" + lastUpdate + "'";
+        ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
+
+        while (rs.next()) {
+            ArrayList<ResultSet> arrayRs = new ArrayList<>();
+            arrayRs.add(rs);
+            String Query = "SELECT * FROM f43specialpp" + this.getQueryWhereConditionF43SpecialPP("f43specialpp", rs);
+            ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
+
+            if (rss.next()) {
+                System.out.println("Update f43specialpp data");
+                this.updateDataOneRow("f43specialpp", arrayRs);
+            } else {
+                System.out.println("Insert f43specialpp data");
+                this.InsertData("f43specialpp", arrayRs);
+            }
+            count++;
+        }
+        return count;
+    }
+
+    public String getF43SpecialPPUpdateCount() {
+        return String.valueOf(this.f43specialppUpdateCount);
+    }
+
+    /**
+     * Insert ข้อมูล ffc_sf_person_info สำหรับ visit ใหม่
+     */
+    public boolean insertOtherVisitFfcSfPersonInfo(String tableName, int visitMaxNew, String visitInsert) throws SQLException {
+        try {
+            String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
+            ResultSet rs = this.SQLiteConnection.getResultSet(query);
+            Statement stmt = Service.Service.connectionSQL.connection.createStatement();
+            boolean result = false;
+
+            if (rs.next()) {
+                ResultSet rss = this.SQLiteConnection.getResultSet(query);
+                while (rss.next()) {
+                    String insertData1 = "INSERT INTO " + tableName + " (";
+                    String insertData2 = " VALUES (";
+                    ResultSetMetaData rsmd = rss.getMetaData();
+
+                    for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                        if (i != rsmd.getColumnCount()) {
+                            insertData1 += rsmd.getColumnLabel(i) + ",";
+
+                            if (rss.getString(i) != null) {
+                                if (rsmd.getColumnLabel(i).equals("visitno") || rsmd.getColumnLabel(i).equals("visitNo")) {
+                                    insertData2 += "'" + visitMaxNew + "',";
+                                } else {
+                                    insertData2 += "'" + rss.getString(i) + "',";
+                                }
+                            } else {
+                                insertData2 += rss.getString(i) + ",";
+                            }
+                        } else {
+                            if (rss.getString(i) != null) {
+                                insertData2 += "'" + rss.getString(i) + "')";
+                            } else {
+                                insertData2 += rss.getString(i) + ")";
+                            }
+                            insertData1 += rsmd.getColumnLabel(i) + ")";
+                        }
+                    }
+
+                    ffcSfPersonInfoUpdateCount++;
+                    System.out.println("Insert ffc_sf_person_info: " + insertData1 + insertData2);
+                    stmt.executeUpdate(insertData1 + insertData2);
+                }
+                rss.close();
+                rs.close();
+                result = true;
+            } else {
+                System.out.println(tableName + " : No " + tableName + " Insert");
+                result = false;
+            }
+            stmt.close();
+            return result;
+        } catch (SQLException ex) {
+            // ถ้า table ไม่มีใน SQLite ให้ return false
+            System.out.println("Error accessing " + tableName + " in SQLite: " + ex.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * สร้าง WHERE condition สำหรับ ffc_sf_person_info
+     */
+    private String getQueryWhereConditionFfcSfPersonInfo(String tableName, ResultSet rs) throws SQLException {
+        String value = "";
+        if ("ffc_sf_person_info".equals(tableName)) {
+            // ใช้ idcard เป็นหลักในการเช็ค เนื่องจากเป็น unique identifier
+            value = " WHERE idcard ='" + rs.getString("idcard") + "'";
+
+            // หากต้องการเช็คแบบละเอียดมากขึ้น สามารถใช้หลายเงื่อนไขได้
+            // value = " WHERE idcard ='" + rs.getString("idcard") 
+            //        + "' AND fname = '" + rs.getString("fname") 
+            //        + "' AND lname = '" + rs.getString("lname") + "'";
+        }
+        return value;
+    }
+
+    /**
+     * อัพเดทข้อมูล ffc_sf_person_info โดยเช็ค updated_date
+     */
+    public int updateCheckDateupdateFfcSfPersonInfo(String tablename) throws SQLException {
+        int count = 0;
+        String lastUpdate = this.getLastUpdate();
+        String sqliteQuery = "SELECT * FROM " + tablename + " WHERE updated_date > '" + lastUpdate + "'";
+        ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
+
+        while (rs.next()) {
+            ArrayList<ResultSet> arrayRs = new ArrayList<>();
+            arrayRs.add(rs);
+            String Query = "SELECT * FROM " + tablename + this.getQueryWhereConditionFfcSfPersonInfo(tablename, rs);
+            ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
+
+            if (rss.next()) {
+                System.out.println("Update ffc_sf_person_info data");
+                this.updateDataOneRow(tablename, arrayRs);
+            } else {
+                System.out.println("Insert ffc_sf_person_info data");
+                this.InsertData(tablename, arrayRs);
+            }
+            count++;
+        }
+        return count;
+    }
+
+    public void updateFfcSfDrugs(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfDrugsCount = ffcSfDrugsHandler.updateFfcSfDrugs(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfDrugs(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfDrugsHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfDrugs(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfDrugsHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfDrugsCount++;
+        }
+    }
+
+    public String getFfcSfDrugsUpdateCount() {
+        return String.valueOf(ffcSfDrugsHandler.getUpdateCount());
+    }
+
+    public void updateFfcSfSmokerInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfSmokerInfoCount = ffcSfSmokerInfoHandler.updateFfcSfSmokerInfo(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfSmokerInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfSmokerInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfSmokerInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfSmokerInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfSmokerInfoCount++;
+        }
+    }
+
+    public String getFfcSfSmokerInfoUpdateCount() {
+        return String.valueOf(ffcSfSmokerInfoHandler.getUpdateCount());
+    }
+
+    public void updateFfcSfStressDepressionInfo() throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfStressDepressionInfoCount
+                = ffcSfStressDepressionInfoHandler.updateFfcSfStressDepressionInfo(lastUpdate);
+    }
+
+    public int checkUpdateFfcSfStressDepressionInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfStressDepressionInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfStressDepressionInfo(String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfStressDepressionInfoHandler.updateForNewVisit(visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfStressDepressionInfoCount++;
+        }
+    }
+
+    public String getFfcSfStressDepressionInfoUpdateCount() {
+        return String.valueOf(ffcSfStressDepressionInfoHandler.getUpdateCount());
+    }
+
+    public void updateFfcSfNicotineInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfNicotineInfoCount
+                = ffcSfNicotineInfoHandler.updateFfcSfNicotineInfo(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfNicotineInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfNicotineInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfNicotineInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfNicotineInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfNicotineInfoCount++;
+        }
+    }
+
+    public String getFfcSfNicotineInfoUpdateCount() {
+        return String.valueOf(ffcSfNicotineInfoHandler.getUpdateCount());
+    }
+
+    public void updateFfcSfDrinkingInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfDrinkingInfoCount
+                = ffcSfDrinkingInfoHandler.updateFfcSfDrinkingInfo(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfDrinkingInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfDrinkingInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfDrinkingInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfDrinkingInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfDrinkingInfoCount++;
+        }
+    }
+
+    public String getFfcSfDrinkingInfoUpdateCount() {
+        return String.valueOf(ffcSfDrinkingInfoHandler.getUpdateCount());
+    }
+
+// FFC SF Stress Depression 2Q Methods
+    public void updateFfcSfStressDepression2qInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfStressDepression2qInfoCount
+                = ffcSfStressDepression2qInfoHandler.updateFfcSfStressDepression2qInfo(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfStressDepression2qInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfStressDepression2qInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfStressDepression2qInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfStressDepression2qInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfStressDepression2qInfoCount++;
+        }
+    }
+
+    public String getFfcSfStressDepression2qInfoUpdateCount() {
+        return String.valueOf(ffcSfStressDepression2qInfoHandler.getUpdateCount());
+    }
+
+// FFC SF Stress Depression 9Q Methods
+    public void updateFfcSfStressDepression9qInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfStressDepression9qInfoCount
+                = ffcSfStressDepression9qInfoHandler.updateFfcSfStressDepression9qInfo(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfStressDepression9qInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfStressDepression9qInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfStressDepression9qInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfStressDepression9qInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfStressDepression9qInfoCount++;
+        }
+    }
+
+    public String getFfcSfStressDepression9qInfoUpdateCount() {
+        return String.valueOf(ffcSfStressDepression9qInfoHandler.getUpdateCount());
+    }
+
+// FFC SF Suicide Assessment 8Q Methods
+    public void updateFfcSfSuicideAssessment8qInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfSuicideAssessment8qInfoCount
+                = ffcSfSuicideAssessment8qInfoHandler.updateFfcSfSuicideAssessment8qInfo(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfSuicideAssessment8qInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfSuicideAssessment8qInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfSuicideAssessment8qInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfSuicideAssessment8qInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfSuicideAssessment8qInfoCount++;
+        }
+    }
+
+    public String getFfcSfSuicideAssessment8qInfoUpdateCount() {
+        return String.valueOf(ffcSfSuicideAssessment8qInfoHandler.getUpdateCount());
+    }
+
+    public void updateFfcSfHealthRiskAssessmentInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfHealthRiskAssessmentInfoCount
+                = ffcSfHealthRiskAssessmentInfoHandler.updateFfcSfHealthRiskAssessmentInfo(connection, lastUpdate);
+    }
+
+    public void updateFfcSfHealthRiskAssessmentInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfHealthRiskAssessmentInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfHealthRiskAssessmentInfoCount++;
+        }
+    }
+
+// Card Reading History Methods
+    public void updateFfcSfCardReadingHistory(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfCardReadingHistoryCount
+                = ffcSfCardReadingHistoryHandler.updateFfcSfCardReadingHistory(connection, lastUpdate);
+    }
+
+    public void updateFfcSfCardReadingHistory(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfCardReadingHistoryHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfCardReadingHistoryCount++;
+        }
+    }
+
+// Cardiovascular Risk Methods
+    public void updateFfcSfCardiovascularRiskInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfCardiovascularRiskInfoCount
+                = ffcSfCardiovascularRiskInfoHandler.updateFfcSfCardiovascularRiskInfo(connection, lastUpdate);
+    }
+
+    public void updateFfcSfCardiovascularRiskInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfCardiovascularRiskInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfCardiovascularRiskInfoCount++;
+        }
+    }
+
+// Screening Result Code Methods
+    public void updateFfcSfScreeningResultCode(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfScreeningResultCodeCount
+                = ffcSfScreeningResultCodeHandler.updateFfcSfScreeningResultCode(connection, lastUpdate);
+    }
+
+    public void updateFfcSfScreeningResultCode(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfScreeningResultCodeHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfScreeningResultCodeCount++;
+        }
+    }
+
+    public void updateFfcSfCounselingSignature(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfCounselingSignatureCount
+                = ffcSfCounselingSignatureHandler.updateFfcSfCounselingSignature(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfCounselingSignature(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfCounselingSignatureHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfCounselingSignature(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfCounselingSignatureHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfCounselingSignatureCount++;
+        }
+    }
+
+    public String getFfcSfCounselingSignatureUpdateCount() {
+        return String.valueOf(ffcSfCounselingSignatureHandler.getUpdateCount());
+    }
+
+// NHSO Card Reading History Methods
+    public void updateFfcNhsoCardReadingHistory(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcNhsoCardReadingHistoryCount
+                = ffcNhsoCardReadingHistoryHandler.updateFfcNhsoCardReadingHistory(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcNhsoCardReadingHistory(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcNhsoCardReadingHistoryHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcNhsoCardReadingHistory(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcNhsoCardReadingHistoryHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcNhsoCardReadingHistoryCount++;
+        }
+    }
+
+    public String getFfcNhsoCardReadingHistoryUpdateCount() {
+        return String.valueOf(ffcNhsoCardReadingHistoryHandler.getUpdateCount());
+    }
+
+// NHSO Claim Data Methods
+    public void updateFfcSfNhsoClaimData(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfNhsoClaimDataCount
+                = ffcSfNhsoClaimDataHandler.updateFfcSfNhsoClaimData(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfNhsoClaimData(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfNhsoClaimDataHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfNhsoClaimData(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfNhsoClaimDataHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfNhsoClaimDataCount++;
+        }
+    }
+
+    public String getFfcSfNhsoClaimDataUpdateCount() {
+        return String.valueOf(ffcSfNhsoClaimDataHandler.getUpdateCount());
+    }
+
+    public int checkUpdateFfcSfHealthRiskAssessmentInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfHealthRiskAssessmentInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfCardReadingHistory(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfCardReadingHistoryHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfCardiovascularRiskInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfCardiovascularRiskInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfScreeningResultCode(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfScreeningResultCodeHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfPersonInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfPersonInfoCount
+                = ffcSfPersonInfoHandler.updateFfcSfPersonInfo(connection, lastUpdate);
+    }
+
+    public int checkUpdateFfcSfPersonInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfPersonInfoHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfPersonInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfPersonInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfPersonInfoCount++;
+        }
+    }
+
+    public String getFfcSfPersonInfoUpdateCount() {
+        return String.valueOf(ffcSfPersonInfoHandler.getUpdateCount());
+    }
+
+}

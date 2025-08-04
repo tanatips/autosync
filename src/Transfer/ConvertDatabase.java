@@ -215,13 +215,14 @@ public class ConvertDatabase {
                          // ** for check province code
                             ||table[i].equals("personaddresscontact")
                             ||table[i].equals("ffc_cpoitype")
+                             
 
                         //  ** Add 2012-07-16
                             ||table[i].equals("persongrow") || table[i].equals("visitdiagappoint")
                        // ** Add 2012-07-17
                             ||table[i].equals("ffc_visitoldter") || table[i].equals("ffc_visitspecialperson")
                             ||table[i].equals("visitscreenspecialdisease") || table[i].equals("cpersonhelp")
-
+                            ||table[i].equals("f43specialpp")
                           // ** Add 2012-08-24
                             ||table[i].equals("visitepiappoint")
                             ||table[i].equals("personunable1type") || table[i].equals("personunable2prob")
@@ -413,6 +414,8 @@ public class ConvertDatabase {
                             ||table[i].equals("ffc_poi")            ||table[i].equals("ffc_hospital")
                             ||table[i].equals("ffc_506radius")
                             ||table[i].equals("ffc_sf_token")
+                            ||table[i].equals("f43specialpp")
+                
                             ||table[i].equals("cbusiness")          ||table[i].equals("user_tab")
                          // ** Add 2012-05-24
                             ||table[i].equals("creligion")
@@ -443,6 +446,24 @@ public class ConvertDatabase {
 
                          // ** Add 2012-10-09
                             ||table[i].equals("cfamilyrelation")
+                            
+                            ||table[i].equals("ffc_sf_person_info")
+                            ||table[i].equals("ffc_sf_drinking_info")
+                            || table[i].equals("ffc_sf_cardiovascular_risk_info")
+                            || table[i].equals("ffc_sf_card_reading_history")
+                            || table[i].equals("ffc_sf_counseling_signature")
+                            || table[i].equals("ffc_sf_drinking_info")
+                            || table[i].equals("ffc_sf_drugs")
+                            || table[i].equals("ffc_sf_health_risk_assessment_info")
+                            || table[i].equals("ffc_sf_nhso_claim_data")
+                            || table[i].equals("ffc_sf_nicotine_info")
+                            || table[i].equals("ffc_sf_screening_result_code")
+                            || table[i].equals("ffc_sf_smoker_info")
+                            || table[i].equals("ffc_sf_stress_depression_2q_info")
+                            || table[i].equals("ffc_sf_stress_depression_9q_info")
+                            || table[i].equals("ffc_sf_stress_depression_info")
+                            || table[i].equals("ffc_sf_suicide_assessment_8q_info")
+                            || table[i].equals("ffc_nhso_card_reading_history")
 
                             ){
                                 if (!table[i].equals("house") && !table[i].equals("person")
@@ -467,6 +488,9 @@ public class ConvertDatabase {
                                 MainForm.transForm.setValueTransferProgressBar(JhcisToAndroid.progressCount);
                                 } else {
                                     if(!table[i].equals("cdisease")){
+                                        if(table[i].equals("f43specialpp")){
+                                              System.out.println("-------> table:"+table[i]);
+                                        }
                                         ResultSet rs = query.getRsQueryAll(table[i]);
                                         countVillageInformation(table[i],rs);
                                         System.out.println(table[i]);

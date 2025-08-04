@@ -91,7 +91,22 @@ public class AndroidToJhcis implements Runnable{
             MainForm.transForm.setValueTransferProgressBar(30);
 
             convert.insertVisit("visit");
-
+            
+            convert.updateFfcSfPersonInfo(Service.Service.SQLiteConnection);
+            convert.updateFfcSfDrinkingInfo(Service.Service.SQLiteConnection);
+            convert.updateFfcSfStressDepression2qInfo(Service.Service.SQLiteConnection);
+            convert.updateFfcSfStressDepression9qInfo(Service.Service.SQLiteConnection);
+            convert.updateFfcSfSuicideAssessment8qInfo(Service.Service.SQLiteConnection);
+            
+            convert.updateFfcSfHealthRiskAssessmentInfo(Service.Service.SQLiteConnection);
+            convert.updateFfcSfCardReadingHistory(Service.Service.SQLiteConnection);
+            convert.updateFfcSfCardiovascularRiskInfo(Service.Service.SQLiteConnection);
+            convert.updateFfcSfScreeningResultCode(Service.Service.SQLiteConnection);
+            
+            convert.updateFfcSfCounselingSignature(Service.Service.SQLiteConnection);
+            convert.updateFfcNhsoCardReadingHistory(Service.Service.SQLiteConnection);
+            convert.updateFfcSfNhsoClaimData(Service.Service.SQLiteConnection);
+            
             MainForm.transForm.setValueTransferProgressBar(50);
 
             convert.updateWomen();
