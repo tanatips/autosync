@@ -10,7 +10,7 @@ is divided into following sections:
   - management
 
 -->
-<project name="FFC_Autosync_2012-management-impl" default="run-management" basedir=".." xmlns:j2seproject="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject2="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1">
+<project name="FFC_Autosync_2025-management-impl" default="run-management" basedir=".." xmlns:j2seproject="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject2="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1">
     <target name="default" depends="run-management" description="Build the project and enable management."/>
     <!-- 
     ======================
