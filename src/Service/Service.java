@@ -41,7 +41,7 @@ public class Service {
     public static String mJHCISsdbPath = "./FFC/Db_tmp/mJHCIS.sdb";
     public static String uJHCISPath = "./FFC/Db_tmp/uJHCIS.db";
     public static String ffcInformationPath = "./FFC/FFC_Information.db";
-    public static String autosyncVersion = "3.0.2022.06.13";
+    public static String autosyncVersion = "3.4.2025.08.07";
     public static ConvertSQLiteToSQL convert;
     public static ConvertSQLiteToSQL.UpdateCountSet updateCount;
     public static FileBehavior fileBehavior = new FileBehavior();

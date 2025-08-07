@@ -453,7 +453,7 @@ public class AdjustDatabaseSql {
 // 4. ffc_sf_drinking_info
     private String create_ffc_sf_drinking_info = "CREATE TABLE `ffc_sf_drinking_info` ("
             + "`id` int(11) NOT NULL auto_increment,"
-            + "`id_card` varchar(13) NOT NULL,"
+            + "`idcard` varchar(13) NOT NULL,"
             + "`person_info_id` varchar(100) NOT NULL,"
             + "`drinking` varchar(10) NOT NULL,"
             + "`drinking_frequency` varchar(10) NOT NULL,"
