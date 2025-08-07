@@ -36,8 +36,8 @@ OutputDir=C:\Users\tanatips\Documents\nectec\autosync\output
 OutputBaseFilename=FFC Autosync Plus 2025
 ; Icon สำหรับ installer
 SetupIconFile={#MyAppIcon}
-; Icon สำหรับ uninstaller
-UninstallDisplayIcon={app}\src\resource\rsz_iconffc.ico
+; Icon สำหรับ uninstaller - แก้ไขให้ตรงกับ folder ที่จะ copy ไป
+UninstallDisplayIcon={app}\src\resources\rsz_iconffc.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -53,28 +53,28 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "C:\Users\tanatips\Documents\nectec\autosync\dist\bundles\FFC_Autosync_Plus\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\tanatips\Documents\nectec\autosync\dist\bundles\FFC_Autosync_Plus\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
-; Copy folders to app directory
-Source: "{#FFCFolderSource}\*"; DestDir: "{app}\app\FFC"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#ImageFolderSource}\*"; DestDir: "{app}\app\src\image"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#IconFolderSource}\*"; DestDir: "{app}\app\src\resource"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#FFCFolderSource}\*"; DestDir: "{app}\FFC"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#ImageFolderSource}\*"; DestDir: "{app}\src\image"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "{#IconFolderSource}\*"; DestDir: "{app}\src\resource"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Copy folders to app directory - ลบการ copy ซ้ำออก และแก้ไข path
+Source: "{#FFCFolderSource}\*"; DestDir: "{app}\FFC"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
+Source: "{#ImageFolderSource}\*"; DestDir: "{app}\src\image"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
+Source: "{#IconFolderSource}\*"; DestDir: "{app}\src\resources"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
+Source: "{#FFCFolderSource}\*"; DestDir: "{app}\app\FFC"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
+Source: "{#ImageFolderSource}\*"; DestDir: "{app}\app\src\image"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
+Source: "{#IconFolderSource}\*"; DestDir: "{app}\app\src\resources"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocExt}\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppAssocKey}"; ValueData: ""; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppAssocName}"; Flags: uninsdeletekey
-Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\src\resource\rsz_iconffc.ico"
+Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\src\resources\rsz_iconffc.ico"
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""
 
 [Icons]
-; Shortcut ใน Start Menu พร้อม icon
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\src\resource\rsz_iconffc.ico"
-; Shortcut บน Desktop พร้อม icon
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\src\resource\rsz_iconffc.ico"; Tasks: desktopicon
+; Shortcut ใน Start Menu พร้อม icon - แก้ไข path
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\src\resources\rsz_iconffc.ico"
+; Shortcut บน Desktop พร้อม icon - แก้ไข path
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\src\resources\rsz_iconffc.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
