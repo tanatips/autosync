@@ -64,7 +64,7 @@ public class FfcSfDrugsHandler {
     
     private boolean insertOtherVisit(ConnectDatabase.ConnectSQLite sqliteConnection, String tableName, int visitMaxNew, String visitInsert) throws SQLException {
         try {
-            String query = "SELECT * FROM " + tableName + " WHERE visit_no = " + visitInsert;
+            String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
             ResultSet rs = sqliteConnection.getResultSet(query);
             Statement stmt = Service.Service.connectionSQL.connection.createStatement();
             boolean result = false;
@@ -81,7 +81,7 @@ public class FfcSfDrugsHandler {
                             insertData1 += rsmd.getColumnLabel(i) + ",";
 
                             if (rss.getString(i) != null) {
-                                if (rsmd.getColumnLabel(i).equals("visit_no") || rsmd.getColumnLabel(i).equals("visitno")) {
+                                if (rsmd.getColumnLabel(i).equals("visitno")) {
                                     insertData2 += "'" + visitMaxNew + "',";
                                 } else {
                                     insertData2 += "'" + rss.getString(i) + "',";
@@ -247,25 +247,23 @@ public class FfcSfDrugsHandler {
     
     private boolean createTable() throws SQLException {
         String createTableSQL = "CREATE TABLE `ffc_sf_drugs` ("
-                + "`id` int(11) NOT NULL auto_increment,"
                 + "`person_info_id` varchar(100) NOT NULL,"
                 + "`question` varchar(255) NOT NULL,"
                 + "`subquestion` varchar(255) DEFAULT NULL,"
                 + "`other_drugs` varchar(255) DEFAULT NULL,"
                 + "`answer` varchar(255) DEFAULT NULL,"
                 + "`created_by` varchar(50) NOT NULL,"
-                + "`created_date` timestamp DEFAULT CURRENT_TIMESTAMP,"
+                + "`created_date` datetime DEFAULT CURRENT_TIMESTAMP,"
                 + "`updated_by` varchar(50) DEFAULT NULL,"
-                + "`updated_date` timestamp DEFAULT NULL,"
+                + "`updated_date` datetime DEFAULT NULL,"
                 + "`idcard` varchar(13) DEFAULT NULL,"
                 + "`visitno` varchar(20) DEFAULT NULL,"
-                + "`dateupdate` timestamp DEFAULT NULL,"
-                + "PRIMARY KEY (`id`),"
+                + "`dateupdate` datetime DEFAULT NULL,"
                 + "INDEX `idx_person_info_id` (`person_info_id`),"
                 + "INDEX `idx_idcard` (`idcard`),"
                 + "INDEX `idx_visit_no` (`visitno`),"
                 + "INDEX `idx_dateupdate` (`dateupdate`)"
-                + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+                + ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
         try {
             Statement stmt = Service.Service.connectionSQL.connection.createStatement();

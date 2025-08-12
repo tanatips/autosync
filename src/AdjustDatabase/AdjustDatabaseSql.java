@@ -58,8 +58,8 @@ public class AdjustDatabaseSql {
             + "    id INT PRIMARY KEY AUTO_INCREMENT,\n"
             + "    token_auth VARCHAR(255) NOT NULL,\n"
             + "    token_claim VARCHAR(255) NOT NULL,\n"
-            + "    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n"
-            + "    updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP\n"
+            + "    created_date datetime DATETIME DEFAULT NULL ,\n"
+            + "    updated_date datetime DATETIME DEFAULT NULL \n"
             + ");";
 
     private String create_f43specialpp = "CREATE TABLE f43specialpp (\n"
@@ -302,9 +302,9 @@ public class AdjustDatabaseSql {
             + "`homeNo` varchar(50) DEFAULT NULL,"
             + "`villageNo` varchar(10) DEFAULT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`send_to_claim` int(1) DEFAULT 0,"
             + "`temperature` decimal(4,2) DEFAULT NULL,"
             + "`hcode` varchar(10) DEFAULT NULL,"
@@ -397,9 +397,9 @@ public class AdjustDatabaseSql {
             + "`risk_percentage` varchar(10) DEFAULT NULL,"
             + "`recommendation` text DEFAULT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
@@ -459,37 +459,35 @@ public class AdjustDatabaseSql {
             + "`drinking_frequency` varchar(10) NOT NULL,"
             + "`drinking_alway` varchar(10) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
-            + "INDEX `idx_id_card` (`id_card`),"
+            + "INDEX `idx_idcard` (`idcard`),"
             + "INDEX `idx_person_info_id` (`person_info_id`)"
             + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 
 // 5. ffc_sf_drugs
     private String create_ffc_sf_drugs = "CREATE TABLE `ffc_sf_drugs` ("
-            + "`id` int(11) NOT NULL auto_increment,"
             + "`person_info_id` varchar(100) NOT NULL,"
             + "`question` varchar(255) NOT NULL,"
             + "`subquestion` varchar(255) DEFAULT NULL,"
             + "`other_drugs` varchar(255) DEFAULT NULL,"
             + "`answer` varchar(255) DEFAULT NULL,"
             + "`created_by` varchar(50) NOT NULL,"
-            + "`created_date` timestamp DEFAULT CURRENT_TIMESTAMP,"
+            + "`created_date` datetime DEFAULT CURRENT_TIMESTAMP,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` timestamp DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`idcard` varchar(13) DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
-            + "`dateupdate` timestamp DEFAULT NULL,"
-            + "PRIMARY KEY (`id`),"
+            + "`dateupdate` datetime DEFAULT NULL,"
             + "INDEX `idx_person_info_id` (`person_info_id`),"
             + "INDEX `idx_idcard` (`idcard`),"
             + "INDEX `idx_visit_no` (`visitno`),"
             + "INDEX `idx_dateupdate` (`dateupdate`)"
-            + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+            + ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
 // 6. ffc_sf_health_risk_assessment_info
     private String create_ffc_sf_health_risk_assessment_info = "CREATE TABLE `ffc_sf_health_risk_assessment_info` ("
@@ -505,9 +503,9 @@ public class AdjustDatabaseSql {
             + "`fcbg` varchar(10) NOT NULL,"
             + "`fpg` varchar(10) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
@@ -548,9 +546,9 @@ public class AdjustDatabaseSql {
             + "`points` varchar(50) NOT NULL,"
             + "`sum` int(11) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
@@ -595,9 +593,9 @@ public class AdjustDatabaseSql {
             + "`smoker_assist` varchar(50) NOT NULL,"
             + "`smoker_regularly` varchar(50) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
@@ -617,9 +615,9 @@ public class AdjustDatabaseSql {
             + "`points` varchar(50) NOT NULL,"
             + "`sum` int(11) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
@@ -644,9 +642,9 @@ public class AdjustDatabaseSql {
             + "`points` varchar(50) NOT NULL,"
             + "`sum` int(11) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
@@ -665,9 +663,9 @@ public class AdjustDatabaseSql {
             + "`q4` varchar(10) NOT NULL,"
             + "`q5` varchar(10) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
@@ -692,34 +690,14 @@ public class AdjustDatabaseSql {
             + "`q7` varchar(10) NOT NULL,"
             + "`q8` varchar(10) NOT NULL,"
             + "`created_by` varchar(50) DEFAULT NULL,"
-            + "`created_date` date DEFAULT NULL,"
+            + "`created_date` datetime DEFAULT NULL,"
             + "`updated_by` varchar(50) DEFAULT NULL,"
-            + "`updated_date` date DEFAULT NULL,"
+            + "`updated_date` datetime DEFAULT NULL,"
             + "`visitno` varchar(20) DEFAULT NULL,"
             + "`dateupdate` datetime DEFAULT NULL,"
             + "PRIMARY KEY (`id`),"
             + "INDEX `idx_idcard` (`idcard`),"
             + "INDEX `idx_person_info_id` (`person_info_id`)"
-            + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
-
-// 15. ffc_nhso_card_reading_history
-    private String create_ffc_nhso_card_reading_history = "CREATE TABLE `ffc_nhso_card_reading_history` ("
-            + "`id` int(11) NOT NULL auto_increment,"
-            + "`read_timestamp` datetime NOT NULL,"
-            + "`username` varchar(50) NOT NULL,"
-            + "`citizen_id` varchar(13) NOT NULL,"
-            + "`citizen_name` varchar(200) NOT NULL,"
-            + "`device_model` varchar(100) DEFAULT NULL,"
-            + "`device_brand` varchar(100) DEFAULT NULL,"
-            + "`card_reader_model` varchar(100) DEFAULT NULL,"
-            + "`app_version` varchar(50) DEFAULT NULL,"
-            + "`read_status` varchar(20) DEFAULT NULL,"
-            + "`notes` text DEFAULT NULL,"
-            + "`created_at` datetime DEFAULT CURRENT_TIMESTAMP,"
-            + "PRIMARY KEY (`id`),"
-            + "INDEX `idx_citizen_id` (`citizen_id`),"
-            + "INDEX `idx_read_timestamp` (`read_timestamp`),"
-            + "INDEX `idx_username` (`username`)"
             + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 
 // เพิ่ม create methods สำหรับแต่ละ table
@@ -890,17 +868,4 @@ public class AdjustDatabaseSql {
             return false;
         }
     }
-
-    public boolean create_ffc_nhso_card_reading_history() {
-        try {
-            Statement stm = sqlConnection.createStatement();
-            stm.execute(this.create_ffc_nhso_card_reading_history);
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(AdjustDatabaseSql.class.getName()).log(Level.SEVERE, null, ex);
-            this.errorMessage = ex.getMessage();
-            return false;
-        }
-    }
-
 }

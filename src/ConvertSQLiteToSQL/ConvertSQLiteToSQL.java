@@ -52,10 +52,12 @@ public class ConvertSQLiteToSQL {
     private FfcSfScreeningResultCodeHandler ffcSfScreeningResultCodeHandler;
 
     private FfcSfCounselingSignatureHandler ffcSfCounselingSignatureHandler;
-    private FfcNhsoCardReadingHistoryHandler ffcNhsoCardReadingHistoryHandler;
+   
     private FfcSfNhsoClaimDataHandler ffcSfNhsoClaimDataHandler;
 
     private FfcSfPersonInfoHandler ffcSfPersonInfoHandler;
+    
+    private F43SpecialPpHandler f43SpecialPpHandler;
 
     public ConvertSQLiteToSQL() throws ClassNotFoundException, SQLException {
         SQLiteConnection = new ConnectDatabase.ConnectSQLite();
@@ -77,9 +79,10 @@ public class ConvertSQLiteToSQL {
         ffcSfScreeningResultCodeHandler = new FfcSfScreeningResultCodeHandler(SQLiteConnection);
 
         ffcSfCounselingSignatureHandler = new FfcSfCounselingSignatureHandler(SQLiteConnection);
-        ffcNhsoCardReadingHistoryHandler = new FfcNhsoCardReadingHistoryHandler(SQLiteConnection);
+
         ffcSfNhsoClaimDataHandler = new FfcSfNhsoClaimDataHandler(SQLiteConnection);
         ffcSfPersonInfoHandler = new FfcSfPersonInfoHandler(SQLiteConnection);
+        f43SpecialPpHandler = new F43SpecialPpHandler(SQLiteConnection);
 
     }
 
@@ -87,11 +90,7 @@ public class ConvertSQLiteToSQL {
         this.SQLiteConnection = connectSQLite;
 
     }
-
-    public void updateF43SpecialPP() throws SQLException {
-        Service.Service.updateCount.f43specialppCount = this.updateCheckDateupdate("f43specialpp");
-    }
-
+   
     public void closeConnection() {
         try {
             this.SQLiteConnection.closeConnection();
@@ -100,7 +99,10 @@ public class ConvertSQLiteToSQL {
             System.out.println(ex.getMessage());
         }
     }
-
+    public void updateF43SpecialPP() throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.f43specialppCount = f43SpecialPpHandler.updateF43SpecialPp(SQLiteConnection, lastUpdate);
+    }
     //Personbehvior
     public int updateAndInsertCheckDateupdate(String tableName) throws SQLException {
         int count = 0;
@@ -666,6 +668,7 @@ public class ConvertSQLiteToSQL {
 
         Service.Service.SQLiteConnection.connectSQLite("./FFC/Db_tmp/mJHCIS.db");
         ArrayList<String> listUpdate = new ArrayList<>();
+        String lastUpdate = this.getLastUpdate();
         listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "person")));
         listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "personbehavior")));
         listUpdate.add(String.valueOf(this.sumGisUpdateCount(Service.Service.SQLiteConnection)));
@@ -673,7 +676,7 @@ public class ConvertSQLiteToSQL {
         listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdiag")));
         listUpdate.add(String.valueOf(this.checkUpdatevisit(Service.Service.SQLiteConnection, "visitdrug")));
         listUpdate.add(String.valueOf(this.checkUpdatePerson(Service.Service.SQLiteConnection, "persondeath")));
-        listUpdate.add(String.valueOf(this.checkUpdateF43SpecialPP(Service.Service.SQLiteConnection, "f43specialpp")));
+        listUpdate.add(String.valueOf(f43SpecialPpHandler.checkUpdateCount(Service.Service.SQLiteConnection, lastUpdate)));
 
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfPersonInfo(Service.Service.SQLiteConnection, "ffc_sf_person_info")));
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfDrugs(Service.Service.SQLiteConnection, "ffc_sf_drugs")));
@@ -690,7 +693,7 @@ public class ConvertSQLiteToSQL {
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfCardiovascularRiskInfo(Service.Service.SQLiteConnection, "ffc_sf_cardiovascular_risk_info")));
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfScreeningResultCode(Service.Service.SQLiteConnection, "ffc_sf_screening_result_code")));
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfCounselingSignature(Service.Service.SQLiteConnection, "ffc_sf_counseling_signature")));           // เพิ่มบรรทัดนี้
-        listUpdate.add(String.valueOf(this.checkUpdateFfcNhsoCardReadingHistory(Service.Service.SQLiteConnection, "ffc_nhso_card_reading_history")));          // เพิ่มบรรทัดนี้
+        
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfNhsoClaimData(Service.Service.SQLiteConnection, "ffc_sf_nhso_claim_data")));                       // เพิ่มบรรทัดนี้
 
         String countNCD = String.valueOf(this.checkUpdateNCD(Service.Service.SQLiteConnection, "ncd_person_ncd_screen"));
@@ -1451,13 +1454,17 @@ public class ConvertSQLiteToSQL {
         this.updateDentalcheck(visitInsert, visitMaxNew);
         this.updateNutrition(visitInsert, visitMaxNew);
         this.updateVisitdiagAppoi(visitInsert, visitMaxNew);
+        
         this.updateF43SpecialPP(visitInsert, visitMaxNew);
+
         this.updateFfcSfPersonInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        
         this.updateFfcSfDrugs(SQLiteConnection, visitInsert, visitMaxNew);
         this.updateFfcSfSmokerInfo(SQLiteConnection, visitInsert, visitMaxNew);
         this.updateFfcSfNicotineInfo(SQLiteConnection, visitInsert, visitMaxNew);
-
         this.updateFfcSfDrinkingInfo(SQLiteConnection, visitInsert, visitMaxNew);
+        
+        this.updateFfcSfStressDepressionInfo(SQLiteConnection, visitInsert, visitMaxNew);
         this.updateFfcSfStressDepression2qInfo(SQLiteConnection, visitInsert, visitMaxNew);
         this.updateFfcSfStressDepression9qInfo(SQLiteConnection, visitInsert, visitMaxNew);
         this.updateFfcSfSuicideAssessment8qInfo(SQLiteConnection, visitInsert, visitMaxNew);
@@ -1468,11 +1475,15 @@ public class ConvertSQLiteToSQL {
         this.updateFfcSfScreeningResultCode(SQLiteConnection, visitInsert, visitMaxNew);
 
         this.updateFfcSfCounselingSignature(SQLiteConnection, visitInsert, visitMaxNew);           // เพิ่มบรรทัดนี้
-        this.updateFfcNhsoCardReadingHistory(SQLiteConnection, visitInsert, visitMaxNew);          // เพิ่มบรรทัดนี้
+
         this.updateFfcSfNhsoClaimData(SQLiteConnection, visitInsert, visitMaxNew);
         //this.updateVisiNcdPersonNcdScreen(visitInsert, visitMaxNew);
     }
-
+    public void updateF43SpecialPP(String visitInsert, int visitMaxNew) throws SQLException {
+        if (f43SpecialPpHandler.updateForNewVisit(SQLiteConnection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.f43specialppCount++;
+        }
+    }
     public void updateOtherGroup() throws SQLException, Exception {
         this.updatePerson();
         this.updatePersongrow();
@@ -1616,9 +1627,6 @@ public class ConvertSQLiteToSQL {
             case "ffc_sf_suicide_assessment_8q_info":
                 Service.Service.updateCount.ffcSfSuicideAssessment8qInfoCount++;
                 break;
-            case "ffc_nhso_card_reading_history":
-                Service.Service.updateCount.ffcNhsoCardReadingHistoryCount++;
-                break;
         }
     }
 
@@ -1695,132 +1703,6 @@ public class ConvertSQLiteToSQL {
         Service.Service.updateCount.houseCount = this.updateAndInsertHouse();
     }
 
-    public int checkUpdateF43SpecialPP(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
-        int updateCount = 0;
-        String lastUpdate = getLastUpdate();
-        System.out.println("Last Update: " + lastUpdate);
-        Timestamp ts1 = Timestamp.valueOf(lastUpdate);
-        Timestamp ts2;
-
-        ResultSet rs = connection.getResultSet("SELECT dateupdate FROM " + tableName);
-        while (rs.next()) {
-            if (rs.getString("dateupdate") != null) {
-                ts2 = Timestamp.valueOf(rs.getString("dateupdate"));
-                if (ts1.compareTo(ts2) < 0) {
-                    updateCount++;
-                }
-            }
-        }
-        System.out.println(tableName + " Update Count : " + updateCount);
-        return updateCount;
-    }
-
-    /**
-     * อัพเดทข้อมูล f43specialpp สำหรับ visit ที่เพิ่มใหม่
-     *
-     * @param visitInsert
-     * @param visitMaxNew
-     * @throws SQLException
-     */
-    public void updateF43SpecialPP(String visitInsert, int visitMaxNew) throws SQLException {
-        if (this.insertOtherVisit("f43specialpp", visitMaxNew, visitInsert)) {
-            Service.Service.updateCount.f43specialppCount++;
-        }
-    }
-
-    public boolean insertF43SpecialPP(String tableName, int visitMaxNew, String visitInsert) throws SQLException {
-        String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
-        ResultSet rs = this.SQLiteConnection.getResultSet(query);
-        Statement stmt = Service.Service.connectionSQL.connection.createStatement();
-        boolean result = false;
-
-        if (rs.next()) {
-            ResultSet rss = this.SQLiteConnection.getResultSet(query);
-            while (rss.next()) {
-                String insertData1 = "INSERT INTO " + tableName + " (";
-                String insertData2 = " VALUES (";
-                ResultSetMetaData rsmd = rss.getMetaData();
-
-                for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    if (i != rsmd.getColumnCount()) {
-                        insertData1 += rsmd.getColumnLabel(i) + ",";
-
-                        if (rss.getString(i) != null) {
-                            if (rsmd.getColumnLabel(i).equals("visitno") || rsmd.getColumnLabel(i).equals("visitNo")) {
-                                insertData2 += "'" + visitMaxNew + "',";
-                            } else {
-                                insertData2 += "'" + rss.getString(i) + "',";
-                            }
-                        } else {
-                            insertData2 += rss.getString(i) + ",";
-                        }
-                    } else {
-                        if (rss.getString(i) != null) {
-                            insertData2 += "'" + rss.getString(i) + "')";
-                        } else {
-                            insertData2 += rss.getString(i) + ")";
-                        }
-                        insertData1 += rsmd.getColumnLabel(i) + ")";
-                    }
-                }
-
-                f43specialppUpdateCount++;
-                System.out.println("Insert F43SpecialPP: " + insertData1 + insertData2);
-                stmt.executeUpdate(insertData1 + insertData2);
-            }
-            rss.close();
-            rs.close();
-            result = true;
-        } else {
-            System.out.println(tableName + " : No " + tableName + " Insert");
-            result = false;
-        }
-        stmt.close();
-        return result;
-    }
-
-    private String getQueryWhereConditionF43SpecialPP(String tableName, ResultSet rs) throws SQLException {
-        String value = "";
-        if ("f43specialpp".equals(tableName)) {
-            value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson")
-                    + "' AND pid = '" + rs.getString("pid")
-                    + "' AND dateserv = '" + rs.getString("dateserv")
-                    + "' AND ppspecial = '" + rs.getString("ppspecial") + "'";
-        }
-        return value;
-    }
-
-    public int updateF43SpecialPPByDate() throws SQLException {
-        int count = 0;
-        String lastUpdate = this.getLastUpdate();
-        String sqliteQuery = "SELECT * FROM f43specialpp WHERE dateupdate > '" + lastUpdate + "'";
-        ResultSet rs = this.SQLiteConnection.getResultSet(sqliteQuery);
-
-        while (rs.next()) {
-            ArrayList<ResultSet> arrayRs = new ArrayList<>();
-            arrayRs.add(rs);
-            String Query = "SELECT * FROM f43specialpp" + this.getQueryWhereConditionF43SpecialPP("f43specialpp", rs);
-            ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
-
-            if (rss.next()) {
-                System.out.println("Update f43specialpp data");
-                this.updateDataOneRow("f43specialpp", arrayRs);
-            } else {
-                System.out.println("Insert f43specialpp data");
-                this.InsertData("f43specialpp", arrayRs);
-            }
-            count++;
-        }
-        return count;
-    }
-
-    public String getF43SpecialPPUpdateCount() {
-        return String.valueOf(this.f43specialppUpdateCount);
-    }
-
-    /**
-     * Insert ข้อมูล ffc_sf_person_info สำหรับ visit ใหม่
-     */
     public boolean insertOtherVisitFfcSfPersonInfo(String tableName, int visitMaxNew, String visitInsert) throws SQLException {
         try {
             String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
@@ -1962,10 +1844,10 @@ public class ConvertSQLiteToSQL {
         return String.valueOf(ffcSfSmokerInfoHandler.getUpdateCount());
     }
 
-    public void updateFfcSfStressDepressionInfo() throws SQLException {
+    public void updateFfcSfStressDepressionInfo(ConnectDatabase.ConnectSQLite connection) throws SQLException {
         String lastUpdate = this.getLastUpdate();
         Service.Service.updateCount.ffcSfStressDepressionInfoCount
-                = ffcSfStressDepressionInfoHandler.updateFfcSfStressDepressionInfo(lastUpdate);
+                = ffcSfStressDepressionInfoHandler.updateFfcSfStressDepressionInfo(connection, lastUpdate);
     }
 
     public int checkUpdateFfcSfStressDepressionInfo(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
@@ -1973,8 +1855,8 @@ public class ConvertSQLiteToSQL {
         return ffcSfStressDepressionInfoHandler.checkUpdateCount(connection, lastUpdate);
     }
 
-    public void updateFfcSfStressDepressionInfo(String visitInsert, int visitMaxNew) throws SQLException {
-        if (ffcSfStressDepressionInfoHandler.updateForNewVisit(visitInsert, visitMaxNew)) {
+    public void updateFfcSfStressDepressionInfo(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfStressDepressionInfoHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
             Service.Service.updateCount.ffcSfStressDepressionInfoCount++;
         }
     }
@@ -2161,28 +2043,6 @@ public class ConvertSQLiteToSQL {
 
     public String getFfcSfCounselingSignatureUpdateCount() {
         return String.valueOf(ffcSfCounselingSignatureHandler.getUpdateCount());
-    }
-
-// NHSO Card Reading History Methods
-    public void updateFfcNhsoCardReadingHistory(ConnectDatabase.ConnectSQLite connection) throws SQLException {
-        String lastUpdate = this.getLastUpdate();
-        Service.Service.updateCount.ffcNhsoCardReadingHistoryCount
-                = ffcNhsoCardReadingHistoryHandler.updateFfcNhsoCardReadingHistory(connection, lastUpdate);
-    }
-
-    public int checkUpdateFfcNhsoCardReadingHistory(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
-        String lastUpdate = this.getLastUpdate();
-        return ffcNhsoCardReadingHistoryHandler.checkUpdateCount(connection, lastUpdate);
-    }
-
-    public void updateFfcNhsoCardReadingHistory(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
-        if (ffcNhsoCardReadingHistoryHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
-            Service.Service.updateCount.ffcNhsoCardReadingHistoryCount++;
-        }
-    }
-
-    public String getFfcNhsoCardReadingHistoryUpdateCount() {
-        return String.valueOf(ffcNhsoCardReadingHistoryHandler.getUpdateCount());
     }
 
 // NHSO Claim Data Methods

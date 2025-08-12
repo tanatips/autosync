@@ -21,8 +21,9 @@ public class FfcSfStressDepressionInfoHandler {
     /**
      * อัพเดทข้อมูล ffc_sf_stress_depression_info หลัก
      */
-    public int updateFfcSfStressDepressionInfo(String lastUpdate) throws SQLException {
+    public int updateFfcSfStressDepressionInfo(ConnectDatabase.ConnectSQLite sqliteConnection, String lastUpdate) throws SQLException {
         // ตรวจสอบและสร้าง table ถ้าจำเป็น
+        this.sqliteConnection=sqliteConnection;
         if (!checkAndCreateTable()) {
             System.out.println("Cannot proceed with ffc_sf_stress_depression_info update - table creation failed.");
             return 0;
@@ -70,8 +71,9 @@ public class FfcSfStressDepressionInfoHandler {
     /**
      * อัพเดทข้อมูล ffc_sf_stress_depression_info สำหรับ visit ที่เพิ่มใหม่
      */
-    public boolean updateForNewVisit(String visitInsert, int visitMaxNew) throws SQLException {
+    public boolean updateForNewVisit(ConnectDatabase.ConnectSQLite sqliteConnection, String visitInsert, int visitMaxNew) throws SQLException {
         // ตรวจสอบและสร้าง table ถ้าจำเป็น
+        this.sqliteConnection = sqliteConnection;
         if (!checkAndCreateTable()) {
             System.out.println("Cannot update ffc_sf_stress_depression_info for visit - table creation failed.");
             return false;
@@ -85,7 +87,7 @@ public class FfcSfStressDepressionInfoHandler {
      */
     private boolean insertOtherVisit(String tableName, int visitMaxNew, String visitInsert) throws SQLException {
         try {
-            String query = "SELECT * FROM " + tableName + " WHERE visit_no = " + visitInsert;
+            String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
             ResultSet rs = this.sqliteConnection.getResultSet(query);
             Statement stmt = Service.Service.connectionSQL.connection.createStatement();
             boolean result = false;
@@ -102,7 +104,7 @@ public class FfcSfStressDepressionInfoHandler {
                             insertData1 += rsmd.getColumnLabel(i) + ",";
 
                             if (rss.getString(i) != null) {
-                                if (rsmd.getColumnLabel(i).equals("visit_no") || rsmd.getColumnLabel(i).equals("visitno")) {
+                                if (rsmd.getColumnLabel(i).equals("visitno")) {
                                     insertData2 += "'" + visitMaxNew + "',";
                                 } else {
                                     insertData2 += "'" + rss.getString(i) + "',";
@@ -298,9 +300,9 @@ public class FfcSfStressDepressionInfoHandler {
                 + "`q4` varchar(10) NOT NULL,"
                 + "`q5` varchar(10) NOT NULL,"
                 + "`created_by` varchar(50) DEFAULT NULL,"
-                + "`created_date` date DEFAULT NULL,"
+                + "`created_date` datetime DEFAULT NULL,"
                 + "`updated_by` varchar(50) DEFAULT NULL,"
-                + "`updated_date` date DEFAULT NULL,"
+                + "`updated_date` datetime DEFAULT NULL,"
                 + "`visitno` varchar(20) DEFAULT NULL,"
                 + "`dateupdate` datetime DEFAULT NULL,"
                 + "PRIMARY KEY (`id`),"

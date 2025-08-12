@@ -224,19 +224,44 @@ public class AdjustDatabase implements Runnable{
                     }
                 }
                 
-                // 1. ffc_sf_cardiovascular_risk_info
-            if (Service.Service.connectionSQL.checkExistTable("ffc_sf_cardiovascular_risk_info")) {
-                System.out.println("ffc_sf_cardiovascular_risk_info is Existed");
-            } else {
-                if (adjust.create_ffc_sf_cardiovascular_risk_info()) {
-                    System.out.println("ffc_sf_cardiovascular_risk_info created successfully");
+                if (Service.Service.connectionSQL.checkExistTable("ffc_sf_drugs")) {
+                    System.out.println("ffc_sf_drugs is Existed");
                 } else {
-                    JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
-                    Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
-                    Service.Service.mainform.setVisible(false);
-                    return;
+                    if (adjust.create_ffc_sf_drugs()) {
+                        System.out.println("ffc_sf_drugs created successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
+                        Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
+                        Service.Service.mainform.setVisible(false);
+                        return;
+                    }
                 }
-            }
+
+                if (Service.Service.connectionSQL.checkExistTable("ffc_sf_drinking_info")) {
+                    System.out.println("ffc_sf_drinking_info is Existed");
+                } else {
+                    if (adjust.create_ffc_sf_drinking_info()) {
+                        System.out.println("ffc_sf_drinking_info created successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
+                        Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
+                        Service.Service.mainform.setVisible(false);
+                        return;
+                    }
+                }
+                // 1. ffc_sf_cardiovascular_risk_info
+                if (Service.Service.connectionSQL.checkExistTable("ffc_sf_cardiovascular_risk_info")) {
+                    System.out.println("ffc_sf_cardiovascular_risk_info is Existed");
+                } else {
+                    if (adjust.create_ffc_sf_cardiovascular_risk_info()) {
+                        System.out.println("ffc_sf_cardiovascular_risk_info created successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
+                        Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
+                        Service.Service.mainform.setVisible(false);
+                        return;
+                    }
+                }
 
             // 2. ffc_sf_card_reading_history
             if (Service.Service.connectionSQL.checkExistTable("ffc_sf_card_reading_history")) {
@@ -266,34 +291,9 @@ public class AdjustDatabase implements Runnable{
                 }
             }
 
-            // 4. ffc_sf_drinking_info
-            if (Service.Service.connectionSQL.checkExistTable("ffc_sf_drinking_info")) {
-                System.out.println("ffc_sf_drinking_info is Existed");
-            } else {
-                if (adjust.create_ffc_sf_drinking_info()) {
-                    System.out.println("ffc_sf_drinking_info created successfully");
-                } else {
-                    JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
-                    Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
-                    Service.Service.mainform.setVisible(false);
-                    return;
-                }
-            }
+            
 
-            // 5. ffc_sf_drugs
-            if (Service.Service.connectionSQL.checkExistTable("ffc_sf_drugs")) {
-                System.out.println("ffc_sf_drugs is Existed");
-            } else {
-                if (adjust.create_ffc_sf_drugs()) {
-                    System.out.println("ffc_sf_drugs created successfully");
-                } else {
-                    JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
-                    Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);
-                    Service.Service.mainform.setVisible(false);
-                    return;
-                }
-            }
-
+           
             // 6. ffc_sf_health_risk_assessment_info
             if (Service.Service.connectionSQL.checkExistTable("ffc_sf_health_risk_assessment_info")) {
                 System.out.println("ffc_sf_health_risk_assessment_info is Existed");
@@ -420,12 +420,12 @@ public class AdjustDatabase implements Runnable{
                 }
             }
 
-            // 15. ffc_nhso_card_reading_history
-            if (Service.Service.connectionSQL.checkExistTable("ffc_nhso_card_reading_history")) {
-                System.out.println("ffc_nhso_card_reading_history is Existed");
+            // 15. ffc_sf_card_reading_history
+            if (Service.Service.connectionSQL.checkExistTable("ffc_sf_card_reading_history")) {
+                System.out.println("ffc_sf_card_reading_history is Existed");
             } else {
-                if (adjust.create_ffc_nhso_card_reading_history()) {
-                    System.out.println("ffc_nhso_card_reading_history created successfully");
+                if (adjust.create_ffc_sf_card_reading_history()) {
+                    System.out.println("ffc_sf_card_reading_history created successfully");
                 } else {
                     JOptionPane.showMessageDialog(Service.Service.mainform, "ไม่สามารถปรับปรุงฐานข้อมูลได้\n" + "ERROR : " + adjust.getErrorMessage());
                     Service.Service.mainform.setVisibleAdjustDatabaseDialog(false);

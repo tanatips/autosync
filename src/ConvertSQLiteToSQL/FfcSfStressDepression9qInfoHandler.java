@@ -54,7 +54,7 @@ public class FfcSfStressDepression9qInfoHandler {
     
     private boolean insertOtherVisit(ConnectDatabase.ConnectSQLite sqliteConnection, String tableName, int visitMaxNew, String visitInsert) throws SQLException {
         try {
-            String query = "SELECT * FROM " + tableName + " WHERE visit_no = " + visitInsert;
+            String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
             ResultSet rs = sqliteConnection.getResultSet(query);
             Statement stmt = Service.Service.connectionSQL.connection.createStatement();
             boolean result = false;
@@ -70,7 +70,7 @@ public class FfcSfStressDepression9qInfoHandler {
                         if (i != rsmd.getColumnCount()) {
                             insertData1 += rsmd.getColumnLabel(i) + ",";
                             if (rss.getString(i) != null) {
-                                if (rsmd.getColumnLabel(i).equals("visit_no") || rsmd.getColumnLabel(i).equals("visitno")) {
+                                if (rsmd.getColumnLabel(i).equals("visitno")) {
                                     insertData2 += "'" + visitMaxNew + "',";
                                 } else {
                                     insertData2 += "'" + rss.getString(i) + "',";
@@ -230,9 +230,9 @@ public class FfcSfStressDepression9qInfoHandler {
                 + "`points` varchar(50) NOT NULL,"
                 + "`sum` int(11) NOT NULL,"
                 + "`created_by` varchar(50) DEFAULT NULL,"
-                + "`created_date` date DEFAULT NULL,"
+                + "`created_date` datetime DEFAULT NULL,"
                 + "`updated_by` varchar(50) DEFAULT NULL,"
-                + "`updated_date` date DEFAULT NULL,"
+                + "`updated_date` datetime DEFAULT NULL,"
                 + "`visitno` varchar(20) DEFAULT NULL,"
                 + "`dateupdate` datetime DEFAULT NULL,"
                 + "PRIMARY KEY (`id`),"

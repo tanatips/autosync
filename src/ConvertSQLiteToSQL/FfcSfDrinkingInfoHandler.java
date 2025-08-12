@@ -52,7 +52,7 @@ public class FfcSfDrinkingInfoHandler {
     
     private boolean insertOtherVisit(ConnectDatabase.ConnectSQLite sqliteConnection, String tableName, int visitMaxNew, String visitInsert) throws SQLException {
         try {
-            String query = "SELECT * FROM " + tableName + " WHERE visit_no = " + visitInsert;
+            String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
             ResultSet rs = sqliteConnection.getResultSet(query);
             Statement stmt = Service.Service.connectionSQL.connection.createStatement();
             boolean result = false;
@@ -68,7 +68,7 @@ public class FfcSfDrinkingInfoHandler {
                         if (i != rsmd.getColumnCount()) {
                             insertData1 += rsmd.getColumnLabel(i) + ",";
                             if (rss.getString(i) != null) {
-                                if (rsmd.getColumnLabel(i).equals("visit_no") || rsmd.getColumnLabel(i).equals("visitno")) {
+                                if (rsmd.getColumnLabel(i).equals("visitno") || rsmd.getColumnLabel(i).equals("visitno")) {
                                     insertData2 += "'" + visitMaxNew + "',";
                                 } else {
                                     insertData2 += "'" + rss.getString(i) + "',";
@@ -126,7 +126,7 @@ public class FfcSfDrinkingInfoHandler {
     
     private String getQueryWhereCondition(String tableName, ResultSet rs) throws SQLException {
         if ("ffc_sf_drinking_info".equals(tableName)) {
-            return " WHERE id_card ='" + rs.getString("id_card") 
+            return " WHERE idcard ='" + rs.getString("idcard") 
                    + "' AND person_info_id = '" + rs.getString("person_info_id") + "'";
         }
         return "";
@@ -214,19 +214,19 @@ public class FfcSfDrinkingInfoHandler {
     private boolean createTable() throws SQLException {
         String createTableSQL = "CREATE TABLE `ffc_sf_drinking_info` ("
                 + "`id` int(11) NOT NULL auto_increment,"
-                + "`id_card` varchar(13) NOT NULL,"
+                + "`idcard` varchar(13) NOT NULL,"
                 + "`person_info_id` varchar(100) NOT NULL,"
                 + "`drinking` varchar(10) NOT NULL,"
                 + "`drinking_frequency` varchar(10) NOT NULL,"
                 + "`drinking_alway` varchar(10) NOT NULL,"
                 + "`created_by` varchar(50) DEFAULT NULL,"
-                + "`created_date` date DEFAULT NULL,"
+                + "`created_date` datetime DEFAULT NULL,"
                 + "`updated_by` varchar(50) DEFAULT NULL,"
-                + "`updated_date` date DEFAULT NULL,"
+                + "`updated_date` datetime DEFAULT NULL,"
                 + "`visitno` varchar(20) DEFAULT NULL,"
                 + "`dateupdate` datetime DEFAULT NULL,"
                 + "PRIMARY KEY (`id`),"
-                + "INDEX `idx_id_card` (`id_card`),"
+                + "INDEX `idx_idcard` (`idcard`),"
                 + "INDEX `idx_person_info_id` (`person_info_id`)"
                 + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 

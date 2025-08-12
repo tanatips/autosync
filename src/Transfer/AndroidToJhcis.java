@@ -94,6 +94,7 @@ public class AndroidToJhcis implements Runnable{
             
             convert.updateFfcSfPersonInfo(Service.Service.SQLiteConnection);
             convert.updateFfcSfDrinkingInfo(Service.Service.SQLiteConnection);
+            convert.updateFfcSfStressDepressionInfo(Service.Service.SQLiteConnection);
             convert.updateFfcSfStressDepression2qInfo(Service.Service.SQLiteConnection);
             convert.updateFfcSfStressDepression9qInfo(Service.Service.SQLiteConnection);
             convert.updateFfcSfSuicideAssessment8qInfo(Service.Service.SQLiteConnection);
@@ -104,8 +105,10 @@ public class AndroidToJhcis implements Runnable{
             convert.updateFfcSfScreeningResultCode(Service.Service.SQLiteConnection);
             
             convert.updateFfcSfCounselingSignature(Service.Service.SQLiteConnection);
-            convert.updateFfcNhsoCardReadingHistory(Service.Service.SQLiteConnection);
+            
             convert.updateFfcSfNhsoClaimData(Service.Service.SQLiteConnection);
+            convert.updateF43SpecialPP();
+            
             
             MainForm.transForm.setValueTransferProgressBar(50);
 

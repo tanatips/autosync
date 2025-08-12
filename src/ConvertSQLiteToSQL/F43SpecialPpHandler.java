@@ -5,55 +5,66 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FfcNhsoCardReadingHistoryHandler {
+public class F43SpecialPpHandler {
     
     private ConnectDatabase.ConnectSQLite sqliteConnection;
     private int updateCount = 0;
-    private String tablename = "ffc_nhso_card_reading_history";
     
-    public FfcNhsoCardReadingHistoryHandler(ConnectDatabase.ConnectSQLite sqliteConnection) {
+    public F43SpecialPpHandler(ConnectDatabase.ConnectSQLite sqliteConnection) {
         this.sqliteConnection = sqliteConnection;
     }
     
-    public int updateFfcNhsoCardReadingHistory(ConnectDatabase.ConnectSQLite sqliteConnection, String lastUpdate) throws SQLException {
+    public int updateF43SpecialPp(ConnectDatabase.ConnectSQLite sqliteConnection, String lastUpdate) throws SQLException {
         this.sqliteConnection = sqliteConnection;
         if (!checkAndCreateTable()) {
-            System.out.println("Cannot proceed with " + this.tablename + " update - table creation failed.");
+            System.out.println("Cannot proceed with f43specialpp update - table creation failed.");
             return 0;
         }
-        return this.updateCheckDateupdate(sqliteConnection, this.tablename, lastUpdate);
+        return this.updateCheckDateupdate(sqliteConnection, "f43specialpp", lastUpdate);
     }
     
     public int checkUpdateCount(ConnectDatabase.ConnectSQLite sqliteConnection, String lastUpdate) throws SQLException {
-        if (!checkAndCreateTable()) return 0;
-        
+        if (!checkAndCreateTable()) {
+            System.out.println("Cannot check f43specialpp updates - table creation failed.");
+            return 0;
+        }
+
         int updateCount = 0;
+        System.out.println("Last Update: " + lastUpdate);
         Timestamp ts1 = Timestamp.valueOf(lastUpdate);
-        
+        Timestamp ts2;
+
         try {
-            ResultSet rs = sqliteConnection.getResultSet("SELECT created_at FROM " + tablename);
+            ResultSet rs = sqliteConnection.getResultSet("SELECT dateupdate FROM f43specialpp");
             while (rs.next()) {
-                if (rs.getString("created_at") != null) {
-                    Timestamp ts2 = Timestamp.valueOf(rs.getString("created_at"));
-                    if (ts1.compareTo(ts2) < 0) updateCount++;
+                if (rs.getString("dateupdate") != null) {
+                    ts2 = Timestamp.valueOf(rs.getString("dateupdate"));
+                    if (ts1.compareTo(ts2) < 0) {
+                        updateCount++;
+                    }
                 }
             }
             rs.close();
         } catch (SQLException ex) {
-            System.out.println("Table " + tablename + " not found in SQLite database: " + ex.getMessage());
+            System.out.println("Table f43specialpp not found in SQLite database: " + ex.getMessage());
             return 0;
         }
+
+        System.out.println("f43specialpp Update Count : " + updateCount);
         return updateCount;
     }
     
     public boolean updateForNewVisit(ConnectDatabase.ConnectSQLite sqliteConnection, String visitInsert, int visitMaxNew) throws SQLException {
-        if (!checkAndCreateTable()) return false;
-        return this.insertOtherVisit(sqliteConnection, tablename, visitMaxNew, visitInsert);
+        if (!checkAndCreateTable()) {
+            System.out.println("Cannot update f43specialpp for visit - table creation failed.");
+            return false;
+        }
+        return this.insertOtherVisit(sqliteConnection, "f43specialpp", visitMaxNew, visitInsert);
     }
     
     private boolean insertOtherVisit(ConnectDatabase.ConnectSQLite sqliteConnection, String tableName, int visitMaxNew, String visitInsert) throws SQLException {
         try {
-            String query = "SELECT * FROM " + tableName + " WHERE citizen_id = '" + visitInsert + "'";
+            String query = "SELECT * FROM " + tableName + " WHERE visitno = " + visitInsert;
             ResultSet rs = sqliteConnection.getResultSet(query);
             Statement stmt = Service.Service.connectionSQL.connection.createStatement();
             boolean result = false;
@@ -68,8 +79,13 @@ public class FfcNhsoCardReadingHistoryHandler {
                     for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                         if (i != rsmd.getColumnCount()) {
                             insertData1 += rsmd.getColumnLabel(i) + ",";
+
                             if (rss.getString(i) != null) {
-                                insertData2 += "'" + rss.getString(i) + "',";
+                                if (rsmd.getColumnLabel(i).equals("visitno") || rsmd.getColumnLabel(i).equals("visitNo")) {
+                                    insertData2 += "'" + visitMaxNew + "',";
+                                } else {
+                                    insertData2 += "'" + rss.getString(i) + "',";
+                                }
                             } else {
                                 insertData2 += rss.getString(i) + ",";
                             }
@@ -82,13 +98,17 @@ public class FfcNhsoCardReadingHistoryHandler {
                             insertData1 += rsmd.getColumnLabel(i) + ")";
                         }
                     }
+
                     updateCount++;
-                    System.out.println("Insert " + this.tablename + ": " + insertData1 + insertData2);
+                    System.out.println("Insert f43specialpp: " + insertData1 + insertData2);
                     stmt.executeUpdate(insertData1 + insertData2);
                 }
                 rss.close();
                 rs.close();
                 result = true;
+            } else {
+                System.out.println(tableName + " : No " + tableName + " Insert");
+                result = false;
             }
             stmt.close();
             return result;
@@ -100,20 +120,20 @@ public class FfcNhsoCardReadingHistoryHandler {
     
     private int updateCheckDateupdate(ConnectDatabase.ConnectSQLite sqliteConnection, String tablename, String lastUpdate) throws SQLException {
         int count = 0;
-        String sqliteQuery = "SELECT * FROM " + tablename + " WHERE created_at > '" + lastUpdate + "'";
+        String sqliteQuery = "SELECT * FROM " + tablename + " WHERE dateupdate > '" + lastUpdate + "'";
         ResultSet rs = sqliteConnection.getResultSet(sqliteQuery);
 
         while (rs.next()) {
             ArrayList<ResultSet> arrayRs = new ArrayList<>();
             arrayRs.add(rs);
-            String Query = "SELECT * FROM " + tablename + getQueryWhereCondition(tablename, rs);
+            String Query = "SELECT * FROM " + tablename + this.getQueryWhereCondition(tablename, rs);
             ResultSet rss = Service.Service.connectionSQL.getResultSet(Query);
 
             if (rss.next()) {
-                System.out.println("Update " + this.tablename + " data");
+                System.out.println("Update f43specialpp data");
                 this.updateDataOneRow(tablename, arrayRs);
             } else {
-                System.out.println("Insert " + this.tablename + " data");
+                System.out.println("Insert f43specialpp data");
                 this.insertData(tablename, arrayRs);
             }
             count++;
@@ -122,15 +142,19 @@ public class FfcNhsoCardReadingHistoryHandler {
     }
     
     private String getQueryWhereCondition(String tableName, ResultSet rs) throws SQLException {
-        if (this.tablename.equals(tableName)) {
-            return " WHERE citizen_id ='" + rs.getString("citizen_id") 
-                   + "' AND read_timestamp = '" + rs.getString("read_timestamp") + "'";
+        String value = "";
+        if ("f43specialpp".equals(tableName)) {
+            value = " WHERE pcucodeperson ='" + rs.getString("pcucodeperson") 
+                   + "' AND pid = '" + rs.getString("pid") 
+                   + "' AND dateserv = '" + rs.getString("dateserv") 
+                   + "' AND ppspecial = '" + rs.getString("ppspecial") + "'";
         }
-        return "";
+        return value;
     }
     
     private void insertData(String tableName, ArrayList<ResultSet> dataInsert) throws SQLException {
         Statement stm = Service.Service.connectionSQL.connection.createStatement();
+
         for (ResultSet data : dataInsert) {
             String insertQuery1 = "INSERT INTO " + tableName + " (";
             String insertQuery2 = " VALUES (";
@@ -139,6 +163,7 @@ public class FfcNhsoCardReadingHistoryHandler {
             
             for (int i = 1; i <= ColumnCount; i++) {
                 insertQuery1 += rsmd.getColumnLabel(i);
+
                 if (data.getString(i) != null) {
                     insertQuery2 += "'" + data.getString(i) + "'";
                 } else {
@@ -153,7 +178,8 @@ public class FfcNhsoCardReadingHistoryHandler {
                     break;
                 }
             }
-            System.out.println("Insert " + this.tablename + ": " + insertQuery1 + insertQuery2);
+            
+            System.out.println("Insert f43specialpp: " + insertQuery1 + insertQuery2);
             stm.executeUpdate(insertQuery1 + insertQuery2);
         }
     }
@@ -167,6 +193,7 @@ public class FfcNhsoCardReadingHistoryHandler {
             String updateQuery = "UPDATE " + tableName + " SET ";
             for (int i = 1; i <= ColumnCount; i++) {
                 updateQuery += rsmd.getColumnLabel(i) + " = ";
+
                 if (dataUpdate.getString(i) != null) {
                     updateQuery += "'" + dataUpdate.getString(i) + "'";
                 } else {
@@ -179,16 +206,18 @@ public class FfcNhsoCardReadingHistoryHandler {
                     break;
                 }
             }
-            System.out.println("Update " + this.tablename + ": " + updateQuery);
+
+            System.out.println("Update f43specialpp: " + updateQuery);
             stm.addBatch(updateQuery);
         }
+
         stm.executeBatch();
     }
     
     public boolean checkAndCreateTable() throws SQLException {
         try {
             String checkTableQuery = "SELECT COUNT(*) AS table_count FROM information_schema.tables "
-                    + "WHERE table_schema = DATABASE() AND table_name = '" + this.tablename + "'";
+                    + "WHERE table_schema = DATABASE() AND table_name = 'f43specialpp'";
 
             ResultSet rs = Service.Service.connectionSQL.getResultSet(checkTableQuery);
             int tableCount = 0;
@@ -198,35 +227,41 @@ public class FfcNhsoCardReadingHistoryHandler {
             rs.close();
 
             if (tableCount == 0) {
-                System.out.println("Table " + this.tablename + " not found. Creating table...");
-                return createTable();
+                System.out.println("Table f43specialpp not found. Creating table...");
+                if (createTable()) {
+                    System.out.println("Table f43specialpp created successfully.");
+                    return true;
+                } else {
+                    System.out.println("Failed to create table f43specialpp.");
+                    return false;
+                }
+            } else {
+                System.out.println("Table f43specialpp already exists.");
+                return true;
             }
-            return true;
         } catch (SQLException ex) {
-            Logger.getLogger(FfcNhsoCardReadingHistoryHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(F43SpecialPpHandler.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error checking/creating table f43specialpp: " + ex.getMessage());
             return false;
         }
     }
     
     private boolean createTable() throws SQLException {
-        String createTableSQL = "CREATE TABLE `ffc_nhso_card_reading_history` ("
-                + "`id` int(11) NOT NULL auto_increment,"
-                + "`read_timestamp` datetime NOT NULL,"
-                + "`username` varchar(50) NOT NULL,"
-                + "`citizen_id` varchar(13) NOT NULL,"
-                + "`citizen_name` varchar(200) NOT NULL,"
-                + "`device_model` varchar(100) DEFAULT NULL,"
-                + "`device_brand` varchar(100) DEFAULT NULL,"
-                + "`card_reader_model` varchar(100) DEFAULT NULL,"
-                + "`app_version` varchar(50) DEFAULT NULL,"
-                + "`read_status` varchar(20) DEFAULT NULL,"
-                + "`notes` text DEFAULT NULL,"
-                + "`created_at` datetime DEFAULT CURRENT_TIMESTAMP,"
-                + "PRIMARY KEY (`id`),"
-                + "INDEX `idx_citizen_id` (`citizen_id`),"
-                + "INDEX `idx_read_timestamp` (`read_timestamp`),"
-                + "INDEX `idx_username` (`username`)"
-                + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+        String createTableSQL = "CREATE TABLE `f43specialpp` ("
+                + "`pcucodeperson` varchar(6) NOT NULL,"
+                + "`pid` varchar(15) NOT NULL,"
+                + "`ppspecial` varchar(2) NOT NULL,"
+                + "`dateserv` date NOT NULL,"
+                + "`clinic` varchar(5) DEFAULT NULL,"
+                + "`provider` varchar(6) DEFAULT NULL,"
+                + "`spcialppcode` varchar(2) DEFAULT NULL,"
+                + "`visitno` varchar(15) DEFAULT NULL,"
+                + "`dateupdate` datetime DEFAULT NULL,"
+                + "PRIMARY KEY (`pcucodeperson`,`pid`,`ppspecial`,`dateserv`),"
+                + "INDEX `idx_visitno` (`visitno`),"
+                + "INDEX `idx_dateupdate` (`dateupdate`),"
+                + "INDEX `idx_pid` (`pid`)"
+                + ") ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
         try {
             Statement stmt = Service.Service.connectionSQL.connection.createStatement();
@@ -234,11 +269,17 @@ public class FfcNhsoCardReadingHistoryHandler {
             stmt.close();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(FfcNhsoCardReadingHistoryHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(F43SpecialPpHandler.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error creating table f43specialpp: " + ex.getMessage());
             return false;
         }
     }
     
-    public int getUpdateCount() { return this.updateCount; }
-    public void resetUpdateCount() { this.updateCount = 0; }
+    public int getUpdateCount() {
+        return this.updateCount;
+    }
+    
+    public void resetUpdateCount() {
+        this.updateCount = 0;
+    }
 }
