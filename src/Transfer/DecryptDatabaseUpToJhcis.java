@@ -88,7 +88,7 @@ public class DecryptDatabaseUpToJhcis implements Runnable{
             adbManager.setPathFileBat("./FFC/adb/adbPull.bat");
             // General Android 2.x - 3.x
             adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, 
-                    "/sdcard/Android/data/th.in.ffc/databases/mJHCIS.sdb", "../Db_tmp/mJHCIS.sdb");
+                    "/sdcard/Android/data/th.in.ffc/files/databases/mJHCIS.sdb", "../Db_tmp/mJHCIS.sdb");
             // Nexus 7 Only Android 4.x
             //adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, 
             //    "/storage/sdcard0/Android/data/th.in.ffc/databases/mJHCIS.sdb", "../Db_tmp/mJHCIS.sdb");

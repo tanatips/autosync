@@ -624,7 +624,8 @@ public class ConnectDeviceForm extends javax.swing.JFrame {
             if(!"".equals(deviceNameTextField.getText()) && !"".equals(deviceModelTextField.getText()))
             {
                     AdbCommand adbCommand = new AdbCommand();
-                        String filePathForCheck = "/sdcard/Android/data/th.in.ffc/databases/";
+                        // String filePathForCheck = "/sdcard/Android/data/th.in.ffc/files/databases/";
+                        String filePathForCheck = "/sdcard/Android/data/th.in.ffc/files/databases/";
                         String fileNameForCheck = "uJHCIS.db";
                    
                     if(false){
@@ -1192,7 +1193,7 @@ public class ConnectDeviceForm extends javax.swing.JFrame {
         }
         AdbManager.AdbFileManager adbManager = new AdbManager.AdbFileManager();
          adbManager.setPathFileBat("./FFC/adb/adbPush.bat");
-         adbManager.writeAdbBatFileCopyPush(this.serialLabel.getText(),"../Db_tmp/uJHCIS.db", "/sdcard/Android/data/th.in.ffc/databases/uJHCIS.db");
+         adbManager.writeAdbBatFileCopyPush(this.serialLabel.getText(),"../Db_tmp/uJHCIS.db", "/sdcard/Android/data/th.in.ffc/files/databases/uJHCIS.db");
          RunAdb pushUJHCIS = new RunAdb("./FFC/adb/adbPush.bat");
          pushUJHCIS.setOnAdbErrorListener(this.adblistener);
          if(!pushUJHCIS.runAdb()){

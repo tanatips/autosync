@@ -136,7 +136,7 @@ public class JhcisToAndroid implements Runnable{
             adbManager.setPathFileBat("./FFC/adb/adbPush.bat");
             // Android 2.x - 3.x
             adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-                    "../Db_tmp/mJHCIS.sdb", "/sdcard/Android/data/th.in.ffc/databases/mJHCIS.sdb");
+                    "../Db_tmp/mJHCIS.sdb", "/sdcard/Android/data/th.in.ffc/files/databases/mJHCIS.sdb");
             // Android 4.x (Nexus 7)
             //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
             //      "../Db_tmp/mJHCIS.sdb", "/storage/sdcard0/Android/data/th.in.ffc/databases/mJHCIS.sdb");
@@ -151,7 +151,7 @@ public class JhcisToAndroid implements Runnable{
             }
             // Android 2.x -3.x
             adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
-            "../Db_tmp/uJHCIS.db", "/sdcard/Android/data/th.in.ffc/databases/uJHCIS.db");
+            "../Db_tmp/uJHCIS.db", "/sdcard/Android/data/th.in.ffc/files/databases/uJHCIS.db");
             // Android 4.x
             //adbManager.writeAdbBatFileCopyPush(Service.Service.serialDeviceConnect, 
             //        "../Db_tmp/uJHCIS.db", "/storage/sdcard0/Android/data/th.in.ffc/databases/uJHCIS.db");

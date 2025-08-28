@@ -20,18 +20,23 @@ public class AdbFileManager extends BatFileManager{
         super.setPathData(filePath);
     }
     public void writeAdbBatFileCopyPush(String deviceSerial,String sourcePath ,String DestinationPath){
-        String Command = "@echo off"
-                + "\n"
-                + "cd ./FFC/adb"
-                + "\n"
-                + "adb -s "
-                + deviceSerial
-                + " push "
-                + sourcePath
-                + " "
-                + DestinationPath
-                + "\n"
-                + "echo success";
+       String Command = "@echo off"
+            + "\n"
+            + "cd ./FFC/adb"
+            + "\n"
+            + "adb -s "
+            + deviceSerial
+            + " push "
+            + sourcePath
+            + " "
+            + DestinationPath
+            + "\n"
+            + "adb -s "
+            + deviceSerial
+            + " shell chmod 777 "
+            + DestinationPath
+            + "\n"
+            + "echo success";
                 
         super.writeData(Command);
     }
