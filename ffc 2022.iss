@@ -54,9 +54,6 @@ Source: "C:\Users\tanatips\Documents\nectec\autosync\dist\bundles\FFC_Autosync_P
 Source: "C:\Users\tanatips\Documents\nectec\autosync\dist\bundles\FFC_Autosync_Plus\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; Copy folders to app directory - ลบการ copy ซ้ำออก และแก้ไข path
-Source: "{#FFCFolderSource}\*"; DestDir: "{app}\FFC"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
-Source: "{#ImageFolderSource}\*"; DestDir: "{app}\src\image"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
-Source: "{#IconFolderSource}\*"; DestDir: "{app}\src\resources"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
 Source: "{#FFCFolderSource}\*"; DestDir: "{app}\app\FFC"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
 Source: "{#ImageFolderSource}\*"; DestDir: "{app}\app\src\image"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
 Source: "{#IconFolderSource}\*"; DestDir: "{app}\app\src\resources"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
@@ -72,9 +69,9 @@ Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes
 
 [Icons]
 ; Shortcut ใน Start Menu พร้อม icon - แก้ไข path
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\src\resources\rsz_iconffc.ico"
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\app\src\resources\rsz_iconffc.ico"
 ; Shortcut บน Desktop พร้อม icon - แก้ไข path
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\src\resources\rsz_iconffc.ico"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\app\src\resources\rsz_iconffc.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

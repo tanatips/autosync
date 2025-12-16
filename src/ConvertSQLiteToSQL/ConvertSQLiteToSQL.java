@@ -58,6 +58,8 @@ public class ConvertSQLiteToSQL {
     private FfcSfPersonInfoHandler ffcSfPersonInfoHandler;
     
     private F43SpecialPpHandler f43SpecialPpHandler;
+    
+    private FfcSfTokenHandler ffcSfTokenHandler;
 
     public ConvertSQLiteToSQL() throws ClassNotFoundException, SQLException {
         SQLiteConnection = new ConnectDatabase.ConnectSQLite();
@@ -83,6 +85,8 @@ public class ConvertSQLiteToSQL {
         ffcSfNhsoClaimDataHandler = new FfcSfNhsoClaimDataHandler(SQLiteConnection);
         ffcSfPersonInfoHandler = new FfcSfPersonInfoHandler(SQLiteConnection);
         f43SpecialPpHandler = new F43SpecialPpHandler(SQLiteConnection);
+        
+        ffcSfTokenHandler = new FfcSfTokenHandler(SQLiteConnection);
 
     }
 
@@ -695,6 +699,7 @@ public class ConvertSQLiteToSQL {
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfCounselingSignature(Service.Service.SQLiteConnection, "ffc_sf_counseling_signature")));           // เพิ่มบรรทัดนี้
         
         listUpdate.add(String.valueOf(this.checkUpdateFfcSfNhsoClaimData(Service.Service.SQLiteConnection, "ffc_sf_nhso_claim_data")));                       // เพิ่มบรรทัดนี้
+        listUpdate.add(String.valueOf(this.checkUpdateFfcSfToken(Service.Service.SQLiteConnection, "ffc_sf_token"))); 
 
         String countNCD = String.valueOf(this.checkUpdateNCD(Service.Service.SQLiteConnection, "ncd_person_ncd_screen"));
 
@@ -1186,6 +1191,7 @@ public class ConvertSQLiteToSQL {
         public int ffcSfCounselingSignatureCount = 0;
         public int ffcNhsoCardReadingHistoryCount = 0;
         public int ffcSfNhsoClaimDataCount = 0;
+        public int ffcSfTokenCount = 0;
 
         public void UpdateCountSet() {
 
@@ -1241,6 +1247,8 @@ public class ConvertSQLiteToSQL {
             this.ffcSfCounselingSignatureCount = 0;
             this.ffcNhsoCardReadingHistoryCount = 0;
             this.ffcSfNhsoClaimDataCount = 0;
+            
+            this.ffcSfTokenCount = 0;
         }
     }
 
@@ -1477,6 +1485,7 @@ public class ConvertSQLiteToSQL {
         this.updateFfcSfCounselingSignature(SQLiteConnection, visitInsert, visitMaxNew);           // เพิ่มบรรทัดนี้
 
         this.updateFfcSfNhsoClaimData(SQLiteConnection, visitInsert, visitMaxNew);
+        this.updateFfcSfToken(SQLiteConnection, visitInsert, visitMaxNew); 
         //this.updateVisiNcdPersonNcdScreen(visitInsert, visitMaxNew);
     }
     public void updateF43SpecialPP(String visitInsert, int visitMaxNew) throws SQLException {
@@ -1626,6 +1635,9 @@ public class ConvertSQLiteToSQL {
                 break;
             case "ffc_sf_suicide_assessment_8q_info":
                 Service.Service.updateCount.ffcSfSuicideAssessment8qInfoCount++;
+                break;
+            case "ffc_sf_token":
+                Service.Service.updateCount.ffcSfTokenCount++;
                 break;
         }
     }
@@ -2107,5 +2119,23 @@ public class ConvertSQLiteToSQL {
     public String getFfcSfPersonInfoUpdateCount() {
         return String.valueOf(ffcSfPersonInfoHandler.getUpdateCount());
     }
+    
+    public void updateFfcSfToken(ConnectDatabase.ConnectSQLite connection) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        Service.Service.updateCount.ffcSfTokenCount = ffcSfTokenHandler.updateFfcSfToken(connection, lastUpdate);
+    }   
 
+    public int checkUpdateFfcSfToken(ConnectDatabase.ConnectSQLite connection, String tableName) throws SQLException {
+        String lastUpdate = this.getLastUpdate();
+        return ffcSfTokenHandler.checkUpdateCount(connection, lastUpdate);
+    }
+
+    public void updateFfcSfToken(ConnectDatabase.ConnectSQLite connection, String visitInsert, int visitMaxNew) throws SQLException {
+        if (ffcSfTokenHandler.updateForNewVisit(connection, visitInsert, visitMaxNew)) {
+            Service.Service.updateCount.ffcSfTokenCount++;
+        }
+    }
+    public String getFfcSfTokenUpdateCount() {
+        return String.valueOf(ffcSfTokenHandler.getUpdateCount());
+    }
 }

@@ -36,8 +36,13 @@ public class FileSettingDataBaseFFCManager extends FileBehavior{
     }
 
     public DriverDataBase readDriverDataBase(){
-        String []temp= readData().split("/");
-        return new DriverDataBase(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7]);
+        String[] temp= readData().split("/");
+        if(temp.length>6){
+            return new DriverDataBase(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7]);
+        }
+        else {
+            return new DriverDataBase(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], null, null);
+        }
     }
 //    public static void main(String[]args){
 //        FileSettingDataBaseFFCManager a = new FileSettingDataBaseFFCManager();

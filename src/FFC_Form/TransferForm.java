@@ -3118,7 +3118,7 @@ public class TransferForm extends javax.swing.JFrame{
 
          AdbCommand adbCommand = new AdbCommand();
         try {
-            adbCommand.createDirectoryOnAndroid(Service.Service.serialDeviceConnect,"/sdcard/Android/data/th.in.ffc/pictures/person");
+            adbCommand.createDirectoryOnAndroid(Service.Service.serialDeviceConnect,"/sdcard/Android/data/th.in.ffc/files/pictures/person");
         } catch (IOException ex) {
             Logger.getLogger(TransferForm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Update Report Error : "+ ex.getMessage());
@@ -3130,7 +3130,7 @@ public class TransferForm extends javax.swing.JFrame{
          String visitdiagUpdateCount = listUpdate.get(4);
          String visitdrugUpdateCount = listUpdate.get(5);
          String persondeathUpdateCount = listUpdate.get(6);
-         String picUpdateCount = String.valueOf(adbCommand.getFileListAndroid("/sdcard/Android/data/th.in.ffc/pictures/person").size());
+         String picUpdateCount = String.valueOf(adbCommand.getFileListAndroid("/sdcard/Android/data/th.in.ffc/files/pictures/person").size());
          this.personCountLabel.setText(personUpdateCount);
          this.persondeathLabel.setText(persondeathUpdateCount);
          this.personbehaviorCountLabel.setText(personbehaviorUpdateCount);

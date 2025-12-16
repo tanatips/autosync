@@ -107,6 +107,8 @@ public class AndroidToJhcis implements Runnable{
             convert.updateFfcSfCounselingSignature(Service.Service.SQLiteConnection);
             
             convert.updateFfcSfNhsoClaimData(Service.Service.SQLiteConnection);
+            convert.updateFfcSfToken(Service.Service.SQLiteConnection);
+            
             convert.updateF43SpecialPP();
             
             
@@ -134,7 +136,7 @@ public class AndroidToJhcis implements Runnable{
             //คัดลอกรูปภาพ
             ArrayList<String> listFile = new ArrayList<String>();
             FileManager fileManager = new FileManager();
-            listFile = new AdbCommand().getFileListAndroid("/sdcard/Android/data/th.in.ffc/pictures/person");
+            listFile = new AdbCommand().getFileListAndroid("/sdcard/Android/data/th.in.ffc/files/pictures/person");
             if (!fileManager.isDirectory("./FFC/Photoes_tmp")) {
                 fileManager.createDirectory("./FFC/Photoes_tmp");
                 System.out.println("Folder ./FFC/Photoes_tmp not fount Create it");
@@ -142,7 +144,7 @@ public class AndroidToJhcis implements Runnable{
             AdbFileManager adbManager = new AdbFileManager();
             adbManager = new AdbFileManager();
             adbManager.setPathFileBat("./FFC/adb/adbPull.bat");
-            adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/sdcard/Android/data/th.in.ffc/pictures/person", "../Photoes_tmp");
+            adbManager.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/sdcard/Android/data/th.in.ffc/files/pictures/person", "../Photoes_tmp");
           
             RunAdb run2 = new RunAdb("./FFC/adb/adbPull.bat");
             if (!run2.runAdb()) {
@@ -150,7 +152,7 @@ public class AndroidToJhcis implements Runnable{
             }
             AdbFileManager adbManagerHouse = new AdbFileManager();
             adbManagerHouse.setPathFileBat("./FFC/adb/adbPull.bat");
-            adbManagerHouse.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/sdcard/Android/data/th.in.ffc/pictures/HOUSE", "../Photoes_tmp"); 
+            adbManagerHouse.writeAdbBatFileCopyPull(Service.Service.serialDeviceConnect, "/sdcard/Android/data/th.in.ffc/files/pictures/HOUSE", "../Photoes_tmp"); 
             RunAdb run3 = new RunAdb("./FFC/adb/adbPull.bat");
             if (!run3.runAdb()) {
                 return;

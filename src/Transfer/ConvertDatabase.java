@@ -464,6 +464,7 @@ public class ConvertDatabase {
                             || table[i].equals("ffc_sf_stress_depression_info")
                             || table[i].equals("ffc_sf_suicide_assessment_8q_info")
                             || table[i].equals("ffc_sf_card_reading_history")
+                            || table[i].equals("ffc_sf_token")
 
                             ){
                                 if (!table[i].equals("house") && !table[i].equals("person")

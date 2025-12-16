@@ -58,8 +58,8 @@ public class AdjustDatabaseSql {
             + "    id INT PRIMARY KEY AUTO_INCREMENT,\n"
             + "    token_auth VARCHAR(255) NOT NULL,\n"
             + "    token_claim VARCHAR(255) NOT NULL,\n"
-            + "    created_date datetime DATETIME DEFAULT NULL ,\n"
-            + "    updated_date datetime DATETIME DEFAULT NULL \n"
+            + "    created_date DATETIME ,\n"
+            + "    updated_date DATETIME \n"
             + ");";
 
     private String create_f43specialpp = "CREATE TABLE f43specialpp (\n"
@@ -263,10 +263,12 @@ public class AdjustDatabaseSql {
         Statement stm = this.sqlConnection.createStatement();
         String token_auth = driver.getTokenAuth();
         String token_claim = driver.getTokenClaim();
-        String insert = "INSERT INTO ffc_sf_token(token_auth,token_claim,created_date,updated_date) VALUES ('" + token_auth + "','" + token_claim + "',sysdate(),sysdate())";
-        System.out.println(insert);
-        stm.addBatch(insert);
-        stm.executeBatch();
+        if(token_auth!="null" && token_claim!="null" && token_auth !=null && token_claim!=null  ){
+            String insert = "INSERT INTO ffc_sf_token(token_auth,token_claim,created_date,updated_date) VALUES ('" + token_auth + "','" + token_claim + "',sysdate(),sysdate())";
+            System.out.println(insert);
+            stm.addBatch(insert);
+            stm.executeBatch();
+        }
         return true;
 
     }
@@ -559,7 +561,7 @@ public class AdjustDatabaseSql {
             + ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 
 // 9. ffc_sf_screening_result_code
-    private String create_ffc_sf_screening_result_code = "CREATE TABLE `ffc_sf_screening_result_code` ("
+   private String create_ffc_sf_screening_result_code = "CREATE TABLE `ffc_sf_screening_result_code` ("
             + "`id` int(11) NOT NULL auto_increment,"
             + "`person_id` int(11) NOT NULL,"
             + "`visitno` int(11) NOT NULL,"
@@ -570,7 +572,7 @@ public class AdjustDatabaseSql {
             + "`risk_level` varchar(20) DEFAULT 'NORMAL',"
             + "`is_abnormal` int(1) DEFAULT 0,"
             + "`recommendation` text DEFAULT NULL,"
-            + "`screening_date` date DEFAULT CURRENT_DATE,"
+            + "`screening_date` date ,"  // เพิ่ม parentheses
             + "`status` varchar(20) DEFAULT 'ACTIVE',"
             + "`createtime` datetime DEFAULT CURRENT_TIMESTAMP,"
             + "`updatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
